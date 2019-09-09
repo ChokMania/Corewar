@@ -1,0 +1,11 @@
+☑ |||| option -dump -n||||
+
+☑ A la place de stocké processus dans un tableau fixe mettre en liste chaiinée
+☐ checker si ca marche correctement pour les opcodes (la plupart marche)
+☐ afficher winner
+☑ checker numero de champion (partir de ffff)
+☐ affichage (a voir);
+☐ champion sans code ->segfault,
+☑ (	.name "zork_1"
+☑	.comment ""
+☐	live: zjmp %:live)-> segfault

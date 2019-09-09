@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 13:35:19 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/09 15:09:42 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ int		main(int ac, char **av)
 		exit(0);
 	}
 	ft_args(ac, av, &vm, tab);
-	vm.option_visu == 1 ? ft_init_visu(&vm) : 0;
 	ft_init_vm(&vm);
 	ft_parsing(&vm, tab);
+	vm.option_visu == 1 ? ft_init_visu(&vm) : 0;
 	ft_introduce(&vm);
 	ft_play(&vm);
 	return (ft_printf(BOLD GRE"Fin\n"DEF));

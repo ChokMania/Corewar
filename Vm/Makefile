@@ -136,14 +136,14 @@ $(NAME): $(LIBFT_PATH)$(LIBFT_NAME) $(OBJ)
 	@echo "\n$(_WHITE)====================================================$(_END)"
 	@echo "$(_YELLOW)		COMPILING $(NAME)$(_END)"
 	@echo "$(_WHITE)====================================================$(_END)"
-	@$(CC) -o $(NAME) $(OBJ) $(LIBFT_PATH)/$(LIBFT_NAME)
+	@$(CC) -o $(NAME) $(OBJ) $(LIBFT_PATH)/$(LIBFT_NAME) -lncurses
 	@echo "\n$(_WHITE)$(_BOLD)$@\t$(_END)$(_GREEN)[OK]\n$(_END)"
 	@echo $(GEN)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INCLUDE)
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)opcode/
-	@$(CC) -I $(INCLUDE_PATH) -I $(LIBFT_PATH)include/	-lncurses \
+	@$(CC) -I $(INCLUDE_PATH) -I $(LIBFT_PATH)include/ \
 		-I $(INCLUDE_PATH) -c $< -o $@
 	@echo "$(_END)$(_GREEN)[OK]\t$(_UNDER)$(_YELLOW)\t"	\
 		"COMPILE :$(_END)$(_BOLD)$(_WHITE)\t$<"

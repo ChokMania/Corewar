@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 13:55:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/09 14:48:29 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ typedef	struct		s_visu
 	WINDOW			*arena;
 	WINDOW			*hud;
 	int				cps;
-	int				live_bd[3];
 	char			*str;
 	unsigned char	color_arena[MEM_SIZE];
 }					t_visu;

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 12:41:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/09 13:55:32 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@
 
 # include <sys/types.h>
 # include <sys/stat.h>
-# include <fcntl.h>
 # include <unistd.h>
-# include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <ncurses.h>
 
 /*
 ** COLOR
@@ -132,12 +133,23 @@ typedef struct	s_proc
 ** STRUCTURE FOR MAP
 */
 
+typedef	struct		s_visu
+{
+	WINDOW			*arena;
+	WINDOW			*hud;
+	int				cps;
+	int				live_bd[3];
+	char			*str;
+	unsigned char	color_arena[MEM_SIZE];
+}					t_visu;
+
 typedef struct	s_vm
 {
 	int				nb_champ; 
 	int				fd[MAX_PLAYERS];
 	long			option_dump;
 	long			option_verbose;
+	long			option_visu;
 	t_proc			*proc;
 	t_proc			*beg;
 	unsigned int	cycle;
@@ -145,6 +157,7 @@ typedef struct	s_vm
 	unsigned int	total_to_die;
 	unsigned int	nb_check_cycle;
 	unsigned int	nb_live_champ[MAX_PLAYERS];
+	t_visu			*visu;
 	unsigned char	arena[MEM_SIZE][2];
 }				t_vm;
 
@@ -183,5 +196,7 @@ void			op_lld(t_vm *vm, int *pc);
 void			op_lldi(t_vm *vm, int *pc);
 void			op_lfork(t_vm *vm, int *pc);
 void			op_aff(t_vm *vm, int *pc);
+
+void			ft_init_visu(t_vm *vm);
 
 #endif

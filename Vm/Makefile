@@ -6,7 +6,7 @@ NAME				=	corewar
 # Compilation mode
 WALL				=	yes
 WEXTRA				=	yes
-WERROR				=	yes
+WERROR				=	no
 FSANITIZE			=	no
 DEBUG				=	no
 O2					=	yes
@@ -72,7 +72,10 @@ SRC_NAME			=	main.c							\
 						opcode/13_lld.c					\
 						opcode/14_lldi.c				\
 						opcode/15_lfork.c				\
-						opcode/16_aff.c
+						opcode/16_aff.c					\
+														\
+						init_visu.c
+
 
 INCLUDE_NAME		=	corewar.h						\
 						op.h
@@ -140,7 +143,7 @@ $(NAME): $(LIBFT_PATH)$(LIBFT_NAME) $(OBJ)
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INCLUDE)
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)opcode/
-	@$(CC) -I $(INCLUDE_PATH) -I $(LIBFT_PATH)include/	\
+	@$(CC) -I $(INCLUDE_PATH) -I $(LIBFT_PATH)include/	-lncurses \
 		-I $(INCLUDE_PATH) -c $< -o $@
 	@echo "$(_END)$(_GREEN)[OK]\t$(_UNDER)$(_YELLOW)\t"	\
 		"COMPILE :$(_END)$(_BOLD)$(_WHITE)\t$<"

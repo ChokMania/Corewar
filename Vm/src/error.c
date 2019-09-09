@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/07 13:47:05 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/09 16:25:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	ft_error(int err, int nb_line)
 	else
 		ft_dprintf(2, "error : %d || %s, line %d\n",
 		err, tab_err[err], nb_line);
+	endwin();
 	exit(0);
 }

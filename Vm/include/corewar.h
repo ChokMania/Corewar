@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 14:48:29 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:59:02 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef	struct		s_visu
 
 typedef struct	s_vm
 {
+	int				nb_proc;
 	int				nb_champ; 
 	int				fd[MAX_PLAYERS];
 	long			option_dump;
@@ -197,5 +198,9 @@ void			op_lfork(t_vm *vm, int *pc);
 void			op_aff(t_vm *vm, int *pc);
 
 void			ft_init_visu(t_vm *vm);
+void			get_key(t_vm *vm);
+void			visual_every_cycle(t_vm *vm);
+void			refresh_pc(t_vm *vm);
+void			refresh_process(t_vm *vm);
 
 #endif

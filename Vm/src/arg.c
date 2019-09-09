@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 17:34:47 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 15:08:53 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:53:53 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ static int		ft_option(int ac, char **av, t_vm *vm, char *tab[5])
 		vm->nb_champ++;
 		return (2);
 	}
-	/*else if (ft_strcmp(av[0], "--visual") == 0 || ft_strcmp(av[0], "-vi") == 0)
+	else if (ft_strcmp(av[0], "-visual") == 0 || ft_strcmp(av[0], "-vi") == 0)
 	{
 		vm->option_visu = 1;
-		return (1);
-	}*/
+		return (-1);
+	}
 	return (0);
 }
 
@@ -95,7 +95,6 @@ void			ft_args(int ac, char **av, t_vm *vm, char *tab[5])
 	i = 0;
 	j = 0;
 	bzero(ordre, sizeof(char*) * 5);
-	vm->option_visu = 1;
 	while (++i < ac)
 	{
 		temp = 0;
@@ -104,6 +103,7 @@ void			ft_args(int ac, char **av, t_vm *vm, char *tab[5])
 			temp = ft_option(ac - i, av + i, vm, tab);
 			if (temp == 0)
 				ordre[j++] = av[i];
+			temp == -1 ? temp = 0 : 0;
 			i += temp;
 		}
 		else

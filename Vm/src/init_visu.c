@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 13:25:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/09 15:53:54 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:59:46 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,76 @@ void	init_visual_hud(t_vm *vm)
 	wattron(vm->visu->hud, A_BOLD);
 	write_infos_hud(vm, i);
 	wrefresh(vm->visu->hud);
+}
+
+void	modif_cps(t_vm *vm, int to_add)
+{
+	vm->visu->cps += to_add;
+	if (vm->visu->cps > 1000)
+		vm->visu->cps = 1000;
+	else if (vm->visu->cps < 10)
+		vm->visu->cps = 10;
+	wattron(vm->visu->hud, A_BOLD);
+	vm->visu->str = ft_itoa(vm->visu->cps);
+	mvwprintw(vm->visu->hud, 11, 26, vm->visu->str);
+	mvwprintw(vm->visu->hud, 11, 26 + ft_strlen(vm->visu->str), "    ");
+	ft_strdel(&(vm->visu->str));
+	wrefresh(vm->visu->hud);
+}
+
+int	handle_pause(t_vm *vm, int *pause, int p_or_r)
+{
+	wattron(vm->visu->hud, A_BOLD);
+	if (p_or_r == 1)
+	{
+		mvwprintw(vm->visu->hud, 5, 45, "**   PAUSE   **");
+		(*pause) *= -1;
+		wrefresh(vm->visu->hud);
+	}
+	else if (p_or_r == 2)
+	{
+		mvwprintw(vm->visu->hud, 5, 45, "**   PAUSE   **");
+		(*pause) = 1;
+		wrefresh(vm->visu->hud);
+	}
+	else
+		mvwprintw(vm->visu->hud, 5, 45, "**  RUNNING  **");
+	wattroff(vm->visu->hud, A_BOLD);
+	return(1);
+}
+
+void	get_key(t_vm *vm)
+{
+	int			i;
+	static int	pause = 1;
+
+	while (1)
+	{
+		timeout(0);
+		if ((i = getch()) == ' ')
+			handle_pause(vm, &pause, 1);
+		else if (i == 'p' && handle_pause(vm, &pause, 2))
+			break;
+		else if (i == 'r' && vm->visu->cps < 1000)
+			modif_cps(vm, 10);
+		else if (i == 'e' && vm->visu->cps < 1000)
+			modif_cps(vm, 1);
+		else if (i == 'm' && vm->visu->cps < 1000)
+			modif_cps(vm, 100);
+		else if (i == 'w' && vm->visu->cps > 10)
+			modif_cps(vm, -1);
+		else if (i == 'q' && vm->visu->cps > 10)
+			modif_cps(vm, -10);
+		else if (i == 'n' && vm->visu->cps > 10)
+			modif_cps(vm, -100);
+		if (pause == -1)
+		{
+			handle_pause(vm, &pause, 0);
+			break ;
+		}
+	}
+	timeout(1);
+	usleep(1000000 / vm->visu->cps);
 
 }
 
@@ -166,7 +236,85 @@ void	ft_init_visu(t_vm *vm)
 	init_champ_in_visu(vm);
 	wrefresh(vm->visu->arena);
 	init_visual_hud(vm);
-	sleep(1000000);
-	endwin();
-	exit(0);
+	get_key(vm);
+}
+
+void	refresh_pc(t_vm *vm)
+{
+	t_proc	*pr;
+
+	pr = vm->proc;
+	while (pr)
+	{
+		mvwchgat(vm->visu->arena, 1 + ((pr->pc * 3) / 192)
+		, 2 + ((pr->pc * 3) % 192), 2, A_REVERSE
+		, vm->arena[pr->pc][1], 0);
+		pr = pr->next;
+
+	}
+	wrefresh(vm->visu->arena);
+	pr = vm->proc;
+	while (pr)
+	{
+		if (vm->arena[pr->pc][1] == 0)
+			mvwchgat(vm->visu->arena, 1 + ((pr->pc * 3) / 192)
+			, 2 + ((pr->pc * 3) % 192), 2, A_BOLD
+			, 10, 0);
+		else
+			mvwchgat(vm->visu->arena, 1 + ((pr->pc * 3) / 192)
+			, 2 + ((pr->pc * 3) % 192), 2, A_BOLD
+			, vm->arena[pr->pc][1], 0);
+		pr = pr->next;
+	}
+}
+
+void	visual_every_cycle(t_vm *vm)
+{
+	//int	i;
+
+	wattron(vm->visu->hud, A_BOLD);
+	vm->visu->str = ft_itoa(vm->cycle);
+	mvwprintw(vm->visu->hud, 13, 13, vm->visu->str);
+	ft_strdel(&(vm->visu->str));
+	wattroff(vm->visu->hud, A_BOLD);
+	wrefresh(vm->visu->hud);
+	// if ((vm->cycle % 100) == 0)
+	// {
+	// 	i = 0;
+	// 	while (i < MEM_SIZE)
+	// 	{
+	// 		if (vm->visu->color_arena[i] != 9)
+	// 			mvwchgat(vm->visu->arena, 1 + ((3 * i) / 192)
+	// 			, 2 + ((3 * i) % 192), 2, A_NORMAL, vm->visu->color_arena[i]
+	// 			, 0);
+	// 		i++;
+	// 	}
+	// }
+	get_key(vm);
+}
+
+int ft_list_count_vm(t_proc *begin_list)
+{
+	int i;
+	t_proc *current;
+
+	i = 0;
+	current = begin_list;
+	while (current)
+	{
+		current = current->next;
+		i++;
+	}
+	return (i);
+}
+
+void	refresh_process(t_vm *vm)
+{
+	wattron(vm->visu->hud, A_BOLD);
+	mvwprintw(vm->visu->hud, 15, 17, "      ");
+	vm->visu->str = ft_itoa(ft_list_count_vm(vm->proc));
+	mvwprintw(vm->visu->hud, 15, 17, vm->visu->str);
+	wattroff(vm->visu->hud, A_BOLD);
+	wrefresh(vm->visu->hud);
+	ft_strdel(&(vm->visu->str));
 }

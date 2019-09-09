@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 11:12:18 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/09 12:41:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,14 @@
 
 typedef struct	s_proc
 {
-	int				pc;
-	int				wait;
-	int				alive;
+	int				pc; // ou il se trouve
+	int				wait; // le temps d'attente
+	int				alive; // combien de vie le proc a decalrer
 	int				carry;
-	t_header		head;
-	unsigned int	n_champ;
-	unsigned int	r[REG_NUMBER];
-	unsigned int	during_fork;
+	t_header		head; 
+	unsigned int	n_champ; // numero de cchampion asssocier au proc
+	unsigned int	r[REG_NUMBER]; // tous les registres
+	unsigned int	during_fork; // ppour les forks
 	struct s_proc	*next;
 }				t_proc;
 
@@ -134,7 +134,7 @@ typedef struct	s_proc
 
 typedef struct	s_vm
 {
-	int				nb_champ;
+	int				nb_champ; 
 	int				fd[MAX_PLAYERS];
 	long			option_dump;
 	long			option_verbose;

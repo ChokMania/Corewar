@@ -1,0 +1,44 @@
++ = Fonctionnel
+- = Pas fait/ Non fonctionnel
+
+- dans le header, tant que le " n'as pas ete fermé, continuer de lire 
+exemple :
+.name "yolo
+
+
+
+g
+
+
+"
+est un name valide.
++ nb negatif-> calcul
+- checker si ya un retour a la ligne
+
+PB :
++ Champion sans nom
++ Champion sans comment
++ Champion avec un trop grand nom
++ Champion avec un trop long Comment
++ Champion sans code
+
+Pour regler ces pb on a le droit :
+-> Refuser compilation
+-> Corriger le champion
+-> Run le champion quand meme
+
+
++ Les opcodes correspondent a linstruction
++ Opc sont corrspondent et present si necessaire
++ Registre encodé sur 1 byte, la valeur correspond au numero
++ Indirect encodé sur 2 bytes, en big endian
++ Direct encodé sur 2 bytes, en big endian, avec le bon param
++ Direct encodé sur 4 bytes, en big endian, avec le bon param
++ Les labels
+
+Erreur :
++ Instruction inconnue
++ Mauvais nombre darguments
++ Mauvais type darguments
++ Mauvaise lettre pour un label
++ Reference a un label qui n'existe pas

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 17:59:02 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/10 11:15:00 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,5 +202,8 @@ void			get_key(t_vm *vm);
 void			visual_every_cycle(t_vm *vm);
 void			refresh_pc(t_vm *vm);
 void			refresh_process(t_vm *vm);
+void			visual_sti(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3]);
+void			visual_st(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3]);
+
 
 #endif

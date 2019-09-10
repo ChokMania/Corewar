@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   03_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/07 13:36:36 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:03:53 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,23 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3], unsigned int arg_size[3
 	int		pc;
 
 	pc = vm->proc->pc - 2;
-	if ((i = 4) && arg_size[1] == T_REG)
-		pc += vm->proc->r[arg_value[1]] < IDX_MOD
-			? vm->proc->r[arg_value[1]] - 1
-			: -(IDX_MOD - vm->proc->r[arg_value[1]] % IDX_MOD + 1);
+	if ((i = 4) && ((arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
+		|| (arg_size[1] == T_IND && pc + arg_value[1] >= MEM_SIZE)))
+	{
+		if (arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
+			pc -= IDX_MOD - vm->proc->r[arg_value[1]] % IDX_MOD + 1;
+		else
+			pc -= IDX_MOD - arg_value[1] % IDX_MOD + 2;
+		pc %= MEM_SIZE;
+	}
 	else
-		pc += arg_value[1] < IDX_MOD ? arg_value[1] - 2
-			: -(IDX_MOD - arg_value[1] % IDX_MOD + 2);
+	{
+		if ((i = 4) && arg_size[1] == T_REG)
+			pc += vm->proc->r[arg_value[1]] % IDX_MOD - 1;
+		else
+			pc += arg_value[1] % IDX_MOD - 2;
+	}
 	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
-	pc >= MEM_SIZE ? pc %= MEM_SIZE : 0;
 	tmp = vm->proc->r[arg_value[0]];
 	while (--i >= 0)
 	{
@@ -89,4 +97,5 @@ void		op_st(t_vm *vm, int *pc)
 		ft_error(ERROR_ST, vm->proc->n_champ);
 	ft_arg(vm, pc, arg_value, arg_size);
 	exec_st(vm, arg_value, arg_size);
+	vm->option_visu == 1 ? visual_st(vm, arg_value, arg_size) : 0;
 }

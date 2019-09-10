@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 13:25:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/09 17:59:46 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/10 12:03:56 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,69 @@ void	refresh_pc(t_vm *vm)
 		pr = pr->next;
 	}
 }
+
+void	visual_sti(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3])
+{
+	int	i;
+	int		pc;
+
+	pc = 0;
+	if ((i = 4) && arg_size[1] == T_REG)
+		pc = vm->proc->r[arg_value[1]] % IDX_MOD - T_REG;
+	else if (arg_size[1] == T_DIR)
+		pc = arg_value[1] % IDX_MOD - T_DIR;
+	else if (arg_size[1] == T_IND)
+		pc = (arg_value[1] % IDX_MOD) - T_DIR;
+	if (arg_size[2] == T_REG)
+		pc += vm->proc->r[arg_value[2]] % IDX_MOD - T_REG;
+	else if (arg_size[2] == T_DIR)
+		pc += arg_value[2] % IDX_MOD - T_DIR;
+	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
+	pc >= MEM_SIZE ? pc %= MEM_SIZE : 0;
+	pc += vm->proc->pc - 2;
+	while (--i >= 0)
+	{
+		vm->visu->str = get_hexa(vm->arena[pc + i][0]);
+		mvwprintw(vm->visu->arena, 1 + ((3 * (pc + i)) / 192) , 2 + ((3 * (pc + i)) % 192), vm->visu->str);
+		mvwchgat(vm->visu->arena, 1 + ((3 * (pc + i)) / 192) , 2 + ((3 * (pc + i)) % 192), 2, A_BOLD, vm->arena[pc + i][1], 0);
+		ft_strdel(&(vm->visu->str));
+	}
+	wrefresh(vm->visu->arena);
+}
+
+void	visual_st(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3])
+{
+	int	i;
+	int pc;
+
+	pc = vm->proc->pc - 2;
+	if ((i = 4) && ((arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
+		|| (arg_size[1] == T_IND && pc + arg_value[1] >= MEM_SIZE)))
+	{
+		if (arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
+			pc -= IDX_MOD - vm->proc->r[arg_value[1]] % IDX_MOD + 1;
+		else
+			pc -= IDX_MOD - arg_value[1] % IDX_MOD + 2;
+		pc %= MEM_SIZE;
+	}
+	else
+	{
+		if ((i = 4) && arg_size[1] == T_REG)
+			pc += vm->proc->r[arg_value[1]] % IDX_MOD - 1;
+		else
+			pc += arg_value[1] % IDX_MOD - 2;
+	}
+	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
+	while (--i >= 0)
+	{
+		vm->visu->str = get_hexa(vm->arena[pc + i][0]);
+		mvwprintw(vm->visu->arena, 1 + ((3 * (pc + i)) / 192) , 2 + ((3 * (pc + i)) % 192), vm->visu->str);
+		mvwchgat(vm->visu->arena, 1 + ((3 * (pc + i)) / 192) , 2 + ((3 * (pc + i)) % 192), 2, A_BOLD, vm->arena[pc + i][1], 0);
+		ft_strdel(&(vm->visu->str));
+	}
+	wrefresh(vm->visu->arena);
+}
+
 
 void	visual_every_cycle(t_vm *vm)
 {

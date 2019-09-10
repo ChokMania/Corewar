@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   11_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 10:45:32 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/10 12:15:00 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,17 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3], unsigned int arg_size[
 
 	index = 0;
 	if (arg_size[1] == T_REG)
-		index = vm->proc->r[arg_value[1]] % IDX_MOD - T_REG;
-	else if (arg_size[1] == T_DIR)
-		index = arg_value[1] % IDX_MOD - T_DIR;
-	else if (arg_size[1] == T_IND)
-		index = (arg_value[1] % IDX_MOD) - T_DIR;
+		index = vm->proc->r[arg_value[1]] - T_REG;
+	else if (arg_size[1] == T_DIR || arg_size[1] == T_IND)
+		index = arg_value[1] - T_DIR;
 	if (arg_size[2] == T_REG)
-		index += vm->proc->r[arg_value[2]] % IDX_MOD - T_REG;
+		index += vm->proc->r[arg_value[2]] - T_REG;
 	else if (arg_size[2] == T_DIR)
-		index += arg_value[2] % IDX_MOD - T_DIR;
-	// index < 0 ? index = MEM_SIZE + index % MEM_SIZE : 0;
-	// index >= MEM_SIZE ? index %= MEM_SIZE : 0;
-
-	index += vm->proc->pc - 2;
+		index += arg_value[2] - T_DIR;
+	if (vm->proc->pc + index > MEM_SIZE)
+		index = (IDX_MOD - index % IDX_MOD + vm->proc->pc - 2) % MEM_SIZE;
+	else
+		index %= IDX_MOD;
 	i = 4;
 	tmp = vm->proc->r[arg_value[0]];
 	while (--i >= 0)
@@ -96,4 +94,5 @@ void		op_sti(t_vm *vm, int *pc)
 		ft_error(ERROR_STI, vm->proc->n_champ);
 	ft_arg(vm, pc, arg_value, arg_size);
 	exec_sti(vm, arg_value, arg_size);
+	vm->option_visu == 1 ? visual_sti(vm, arg_value, arg_size) : 0;
 }

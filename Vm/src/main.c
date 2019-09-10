@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 17:59:19 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/10 10:43:55 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ void	ft_play(t_vm *vm)
 		// 	ft_print_vm(*vm);
 		// 	exit (0);
 		// }
-		//  if (vm->option_visu != 0)
-		// 	while (vm->proc)
-		// 	{
-		// 		if (vm->proc->wait == 0)
-		// 		{
-		// 			ft_print_vm(*vm);
-		// 			break ;
-		// 		}
-		// 		vm->proc = vm->proc->next;
-		// 	}
+		if (vm->option_visu == 0)
+			while (vm->proc)
+			{
+				if (vm->proc->wait == 0)
+				{
+					ft_print_vm(*vm);
+					break ;
+				}
+				vm->proc = vm->proc->next;
+			}
 		vm->proc = vm->beg;
 		/*************************  PRINT END  *************************/
 		while (vm->proc)

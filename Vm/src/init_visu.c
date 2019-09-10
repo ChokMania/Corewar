@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 13:25:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/10 16:21:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/10 16:52:15 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,9 +213,7 @@ void	get_key(t_vm *vm)
 		}
 	}
 	timeout(1);
-	if (!((vm->visu->cps == 10 && (i == 'w' || i == 'q'))
-		|| (vm->visu->cps == 1000 && (i == 'r' || i == 'e' || i == 'm'))))
-		usleep(1000000 / vm->visu->cps);
+	usleep(1000000 / vm->visu->cps);
 
 }
 
@@ -396,11 +394,24 @@ void	refresh_live_by_champ(t_vm *vm, int i)
 	wattroff(vm->visu->hud, A_BOLD);
 }
 
+int		ft_round_sup(double to_round)
+{
+	int round;
+	int x;
+	
+	round = (int)to_round;
+	to_round *= 10;
+	x = (int)to_round;
+	if (x > 0)
+		round++;
+	return (round);
+}
+
 void	refresh_live(t_vm *vm)
 {
 	int		i;
 	int		j;
-	int		tmp;
+	double	tmp;
 	int		total_live;
 
 	i = 0;
@@ -414,19 +425,25 @@ void	refresh_live(t_vm *vm)
 	}
 	i = -1;
 	tmp = 0;
-	// checker si on atteind pas 0 pour certains et checker quon qrrive bien a 100 traits
+	// checker si on atteind pass 0 pour certains et checker quon qrrive bien a 100 traits
 	if (total_live != 0)
 		while (j < 100)
 		{
+			//faire ft round
 			if (tmp == 0)
-				tmp = (vm->nb_live_champ[++i] * 100 / total_live);
+				tmp = ft_round_sup((vm->nb_live_champ[++i] * 100 / total_live));
 			else
 			{
-				wattron(vm->visu->hud, COLOR_PAIR(i + 1));
-				mvwprintw(vm->visu->hud, 20 + (vm->nb_champ * 4), 6 + j++, "-");
-				tmp--;
-				wattroff(vm->visu->hud, COLOR_PAIR(i + 1));
+				if (i < vm->nb_champ)
+					wattron(vm->visu->hud, COLOR_PAIR(i + 1));
+				else
+					wattron(vm->visu->hud, COLOR_PAIR(9));
+					mvwprintw(vm->visu->hud, 20 + (vm->nb_champ * 4), 6 + j++, "-");
+					tmp--;
+				if (i < vm->nb_champ)
+					wattroff(vm->visu->hud, COLOR_PAIR(i + 1));
+				else
+					wattroff(vm->visu->hud, COLOR_PAIR(9));
 			}
 		}
-	
 }

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 13:25:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/10 12:03:56 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/10 16:21:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,9 @@ void	get_key(t_vm *vm)
 		}
 	}
 	timeout(1);
-	usleep(1000000 / vm->visu->cps);
+	if (!((vm->visu->cps == 10 && (i == 'w' || i == 'q'))
+		|| (vm->visu->cps == 1000 && (i == 'r' || i == 'e' || i == 'm'))))
+		usleep(1000000 / vm->visu->cps);
 
 }
 
@@ -380,4 +382,51 @@ void	refresh_process(t_vm *vm)
 	wattroff(vm->visu->hud, A_BOLD);
 	wrefresh(vm->visu->hud);
 	ft_strdel(&(vm->visu->str));
+}
+
+void	refresh_live_by_champ(t_vm *vm, int i)
+{
+	wattron(vm->visu->hud, A_BOLD);
+	vm->visu->str = ft_itoa(vm->proc->last_live);
+	mvwprintw(vm->visu->hud, 19 + (i * 4), 40, vm->visu->str);
+	ft_strdel(&(vm->visu->str));	
+	vm->visu->str = ft_itoa(vm->nb_live_champ[i]);
+	mvwprintw(vm->visu->hud, 20 + (i * 4), 40, vm->visu->str);
+	ft_strdel(&(vm->visu->str));
+	wattroff(vm->visu->hud, A_BOLD);
+}
+
+void	refresh_live(t_vm *vm)
+{
+	int		i;
+	int		j;
+	int		tmp;
+	int		total_live;
+
+	i = 0;
+	j = 0;
+	total_live = 0;
+	while (i < vm->nb_champ)
+	{
+		refresh_live_by_champ(vm, i);
+		total_live += vm->nb_live_champ[i];
+		i++;
+	}
+	i = -1;
+	tmp = 0;
+	// checker si on atteind pas 0 pour certains et checker quon qrrive bien a 100 traits
+	if (total_live != 0)
+		while (j < 100)
+		{
+			if (tmp == 0)
+				tmp = (vm->nb_live_champ[++i] * 100 / total_live);
+			else
+			{
+				wattron(vm->visu->hud, COLOR_PAIR(i + 1));
+				mvwprintw(vm->visu->hud, 20 + (vm->nb_champ * 4), 6 + j++, "-");
+				tmp--;
+				wattroff(vm->visu->hud, COLOR_PAIR(i + 1));
+			}
+		}
+	
 }

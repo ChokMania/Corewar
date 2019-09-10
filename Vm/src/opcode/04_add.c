@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04_add.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:59 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/06 14:25:30 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/10 14:47:41 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	exec_add(t_vm *vm, unsigned int arg_value[3],
 	(void)arg_size;
 	vm->proc->r[arg_value[2]] = vm->proc->r[arg_value[0]]
 		+ vm->proc->r[arg_value[1]];
-	vm->proc->carry = 1;
+	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
 }
 
 void		op_add(t_vm *vm, int *pc)

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/10 10:43:55 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:03:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_play(t_vm *vm)
 		if (vm->option_visu == 1)
 		{
 			refresh_pc(vm);
+			refresh_live(vm);
 			refresh_process(vm);
 			visual_every_cycle(vm);
 		}

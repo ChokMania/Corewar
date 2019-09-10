@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   07_or.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/06 14:27:57 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/10 14:36:34 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	exec_or(t_vm *vm, unsigned int arg_value[3], unsigned int arg_size[3
 		vm->proc->r[arg_value[2]] = arg_size[1] == T_REG
 			? arg_value[0] | vm->proc->r[arg_value[1]]
 			: arg_value[0] | arg_value[1];
-	vm->proc->carry = 1;
+	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
 }
 
 void		op_or(t_vm *vm, int *pc)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   08_xor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:55 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/06 14:28:47 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/10 14:36:26 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	exec_xor(t_vm *vm, unsigned int arg_value[3],
 		vm->proc->r[arg_value[2]] = arg_size[1] == T_REG
 			? arg_value[0] ^ vm->proc->r[arg_value[1]]
 			: arg_value[0] ^ arg_value[1];
-	vm->proc->carry = 1;
+	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
 }
 
 void		op_xor(t_vm *vm, int *pc)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   01_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/07 13:52:48 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/10 15:20:36 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	exec_live(t_vm *vm, unsigned int arg_value[3],
 
 	vm->proc->alive++;
 	vm->nb_live_champ[vm->proc->n_champ - 1]++;
+	vm->proc->last_live = vm->cycle;
 }
 
 void		op_live(t_vm *vm, int *pc)

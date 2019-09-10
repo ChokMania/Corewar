@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   14_lldi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:07 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/06 14:31:40 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/10 14:39:59 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	exec_lldi(t_vm *vm, unsigned int arg_value[3],
 {
 	(void)arg_size;
 	vm->proc->r[arg_value[2]] = arg_value[0] + arg_value[1];
+	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
 }
 
 void		op_lldi(t_vm *vm, int *pc)

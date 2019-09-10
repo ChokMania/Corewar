@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/10 11:15:00 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:38:37 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct	s_proc
 	int				wait; // le temps d'attente
 	int				alive; // combien de vie le proc a decalrer
 	int				carry;
+	int				last_live;
 	t_header		head; 
 	unsigned int	n_champ; // numero de cchampion asssocier au proc
 	unsigned int	r[REG_NUMBER]; // tous les registres
@@ -139,7 +140,6 @@ typedef	struct		s_visu
 	WINDOW			*hud;
 	int				cps;
 	char			*str;
-	unsigned char	color_arena[MEM_SIZE];
 }					t_visu;
 
 typedef struct	s_vm
@@ -204,6 +204,6 @@ void			refresh_pc(t_vm *vm);
 void			refresh_process(t_vm *vm);
 void			visual_sti(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3]);
 void			visual_st(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3]);
-
+void	refresh_live(t_vm *vm);
 
 #endif

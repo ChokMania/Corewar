@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/12 16:05:59 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/12 16:47:57 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,6 @@ void	ft_cycle_to_die(t_vm *vm)
 
 void	ft_victory(t_vm *vm)
 {
-	vm->cycle++;
 	if (vm->option_visu == 1)
 		endwin();
 	ft_printf("Contestant %d, \"%s\", has won ! at cycle %d\n", vm->proc->n_champ, vm->proc->head.prog_name, vm->cycle);

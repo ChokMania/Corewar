@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/10 12:15:00 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/12 16:55:50 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3], unsigned int arg_size[
 
 	index = 0;
 	if (arg_size[1] == T_REG)
-		index = vm->proc->r[arg_value[1]] - T_REG;
+		index += vm->proc->r[arg_value[1]] - T_REG;
 	else if (arg_size[1] == T_DIR || arg_size[1] == T_IND)
-		index = arg_value[1] - T_DIR;
+		index += arg_value[1] - T_DIR;
 	if (arg_size[2] == T_REG)
 		index += vm->proc->r[arg_value[2]] - T_REG;
 	else if (arg_size[2] == T_DIR)
 		index += arg_value[2] - T_DIR;
-	if (vm->proc->pc + index > MEM_SIZE)
-		index = (IDX_MOD - index % IDX_MOD + vm->proc->pc - 2) % MEM_SIZE;
+	if (vm->proc->pc + index >= MEM_SIZE)
+		index -= (IDX_MOD - index % IDX_MOD + vm->proc->pc - 2) % MEM_SIZE;
 	else
 		index %= IDX_MOD;
 	i = 4;

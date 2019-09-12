@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:35:03 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/12 15:52:08 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/12 16:48:51 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,8 @@ void		ft_dead_proc(t_vm *vm)
 	while (tmp && tmp != vm->proc && ++num)
 		tmp = tmp->next;
 	max = ft_list_len(vm->beg);
-	if (num == 1)
-	{
-		max == 1 ? ft_victory(vm) : 0;
-		ft_del_sta(vm);
-	}
+	if (num <= 1)
+		max == 1 ? ft_victory(vm) : ft_del_sta(vm);
 	else if (num == max)
 		ft_del_end(vm, max);
 	else

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/10 15:03:47 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/12 15:24:13 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,18 @@ void	ft_play(t_vm *vm)
 	vm->beg = vm->proc;
 	while (!(i = 0))
 	{
+		if (vm->cycle > 0 && (vm->cycle - vm->total_to_die) % vm->cycle_to_die == 0)
+			ft_cycle_to_die(vm);
+		if (vm->option_visu == 1 && vm->cycle > 30000)
+		{
+			refresh_pc(vm);
+			refresh_live(vm);
+			refresh_process(vm);
+			visual_every_cycle(vm);
+		}
 		/************************* PRINT START *************************/
 		if (vm->option_dump > 0 && vm->option_dump == vm->cycle)
 			ft_print_dump(*vm);
-		// if (vm->cycle == 832)
-		// {
-		// 	ft_print_vm(*vm);
-		// 	exit (0);
-		// }
-		if (vm->option_visu == 0)
-			while (vm->proc)
-			{
-				if (vm->proc->wait == 0)
-				{
-					ft_print_vm(*vm);
-					break ;
-				}
-				vm->proc = vm->proc->next;
-			}
-		vm->proc = vm->beg;
 		/*************************  PRINT END  *************************/
 		while (vm->proc)
 		{
@@ -69,29 +62,9 @@ void	ft_play(t_vm *vm)
 			vm->proc = vm->proc->next;
 			i++;
 		}
-		//if (vm->cycle > 0 && (vm->cycle - vm->total_to_die) % vm->cycle_to_die == 0)
-		//	ft_cycle_to_die(vm);
 		vm->proc = vm->beg;
-		if (vm->option_visu == 1)
-		{
-			refresh_pc(vm);
-			refresh_live(vm);
-			refresh_process(vm);
-			visual_every_cycle(vm);
-		}
 		vm->cycle++;
 	}
-}
-
-/*
-** TMP FUNCTION FOR FREE CHAINE
-*/
-
-void	free_chaine(t_proc *proc)
-{
-	if (proc->next)
-		free_chaine(proc->next);
-	free(proc);
 }
 
 /*

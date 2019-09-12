@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:35:03 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 11:14:22 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/12 14:19:35 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ static void ft_del_end(t_vm *vm, int max)
 ** C'EST LA MORT
 */
 
+void	free_chaine(t_proc *proc)
+{
+	if (proc->next)
+		free_chaine(proc->next);
+	free(proc);
+}
+
 void		ft_dead_proc(t_vm *vm)
 {
 	int		num;
@@ -76,11 +83,14 @@ void		ft_dead_proc(t_vm *vm)
 
 	tmp = vm->beg;
 	num = 0;
-	while (tmp && ++num)
+	while (tmp && tmp != vm->proc && ++num)
 		tmp = tmp->next;
 	max = ft_list_len(vm->beg);
 	if (num == 1)
+	{
+		max == 1 ? ft_victory(vm) : 0;
 		ft_del_sta(vm);
+	}
 	else if (num == max)
 		ft_del_end(vm, max);
 	else

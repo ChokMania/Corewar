@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   02_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:08 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/06 14:22:50 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/12 14:33:38 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	exec_ld(t_vm *vm, unsigned int arg_value[3],
 {
 	if (arg_size[0] == T_DIR + 1 || arg_size[0] == T_IND)
 		vm->proc->r[arg_value[1]] = arg_value[0] < IDX_MOD ? arg_value[0] : arg_value[0];
-	vm->proc->carry = (vm->proc->carry + 1) % 2;
+	vm->proc->carry = arg_value[0] == 0 ? 1 : 0;
 }
 
 void		op_ld(t_vm *vm, int *pc)

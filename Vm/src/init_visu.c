@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 13:25:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/10 16:52:15 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/12 15:18:07 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,21 @@ void	create_player_hud(t_vm *vm, int *i)
 	wattroff(vm->visu->hud, A_BOLD);
 }
 
+void	refresh_cycle_to_die(t_vm *vm)
+{
+	wattron(vm->visu->hud, A_BOLD);
+	vm->visu->str = ft_itoa(vm->cycle_to_die);
+	mvwprintw(vm->visu->hud, 26 + (vm->nb_champ * 4), 0,
+	"                                                                 ");
+	mvwprintw(vm->visu->hud, 26 + (vm->nb_champ * 4), 5, "CYCLE TO DIE :");
+	mvwprintw(vm->visu->hud, 26 + (vm->nb_champ * 4), 20, vm->visu->str);
+	ft_strdel(&(vm->visu->str));
+	wattroff(vm->visu->hud, A_BOLD);
+}
+
 void	write_infos_hud(t_vm *vm, int i)
 {
-	vm->visu->str = ft_itoa(CYCLE_TO_DIE);
+	vm->visu->str = ft_itoa(vm->cycle_to_die);
 	mvwprintw(vm->visu->hud, 26 + (i * 4), 5, "CYCLE TO DIE :");
 	mvwprintw(vm->visu->hud, 26 + (i * 4), 20, vm->visu->str);
 	ft_strdel(&(vm->visu->str));
@@ -116,6 +128,10 @@ void	write_infos_hud(t_vm *vm, int i)
 	mvwprintw(vm->visu->hud, 32 + (i * 4), 5, "NBR_CHECKS :");
 	mvwprintw(vm->visu->hud, 32 + (i * 4), 20, vm->visu->str);
 	ft_strdel(&(vm->visu->str));
+	mvwprintw(vm->visu->hud, 46 + (i * 4), 5, "P : Cycle par Cycle                  Space : Play/Pause");
+	mvwprintw(vm->visu->hud, 48 + (i * 4), 5, "M : Monter le nb de cycle            N : Descend le nb de cycle (par 100)");
+	mvwprintw(vm->visu->hud, 50 + (i * 4), 5, "R : Monter le nb de cycle            Q : Descend le nb de cycle (par 10)");
+	mvwprintw(vm->visu->hud, 52 + (i * 4), 5, "E : Monter le nb de cycle            W : Descend le nb de cycle (par 1)");
 	wrefresh(vm->visu->hud);
 }
 
@@ -243,7 +259,7 @@ void	refresh_pc(t_vm *vm)
 {
 	t_proc	*pr;
 
-	pr = vm->proc;
+	pr = vm->beg;
 	while (pr)
 	{
 		mvwchgat(vm->visu->arena, 1 + ((pr->pc * 3) / 192)
@@ -253,7 +269,7 @@ void	refresh_pc(t_vm *vm)
 
 	}
 	wrefresh(vm->visu->arena);
-	pr = vm->proc;
+	pr = vm->beg;
 	while (pr)
 	{
 		if (vm->arena[pr->pc][1] == 0)
@@ -333,26 +349,12 @@ void	visual_st(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3])
 
 void	visual_every_cycle(t_vm *vm)
 {
-	//int	i;
-
 	wattron(vm->visu->hud, A_BOLD);
 	vm->visu->str = ft_itoa(vm->cycle);
 	mvwprintw(vm->visu->hud, 13, 13, vm->visu->str);
 	ft_strdel(&(vm->visu->str));
 	wattroff(vm->visu->hud, A_BOLD);
 	wrefresh(vm->visu->hud);
-	// if ((vm->cycle % 100) == 0)
-	// {
-	// 	i = 0;
-	// 	while (i < MEM_SIZE)
-	// 	{
-	// 		if (vm->visu->color_arena[i] != 9)
-	// 			mvwchgat(vm->visu->arena, 1 + ((3 * i) / 192)
-	// 			, 2 + ((3 * i) % 192), 2, A_NORMAL, vm->visu->color_arena[i]
-	// 			, 0);
-	// 		i++;
-	// 	}
-	// }
 	get_key(vm);
 }
 
@@ -388,10 +390,16 @@ void	refresh_live_by_champ(t_vm *vm, int i)
 	vm->visu->str = ft_itoa(vm->proc->last_live);
 	mvwprintw(vm->visu->hud, 19 + (i * 4), 40, vm->visu->str);
 	ft_strdel(&(vm->visu->str));	
-	vm->visu->str = ft_itoa(vm->nb_live_champ[i]);
-	mvwprintw(vm->visu->hud, 20 + (i * 4), 40, vm->visu->str);
-	ft_strdel(&(vm->visu->str));
+	if (vm->nb_live_champ[i] == 0)
+		mvwprintw(vm->visu->hud, 20 + (i * 4), 40, "0             ");
+	else
+	{
+		vm->visu->str = ft_itoa(vm->nb_live_champ[i]);
+		mvwprintw(vm->visu->hud, 20 + (i * 4), 40, vm->visu->str);
+		ft_strdel(&(vm->visu->str));
+	}
 	wattroff(vm->visu->hud, A_BOLD);
+	//refresh dans le cas de 0
 }
 
 int		ft_round_sup(double to_round)

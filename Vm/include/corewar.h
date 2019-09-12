@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/10 15:38:37 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/12 14:07:34 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,9 @@ void			ft_cycle_to_die(t_vm *vm);
 void			ft_dead_proc(t_vm *vm);
 void			ft_choise_opcode(t_vm *vm, int *pc, unsigned char opcode);
 void			ft_wait(t_vm *vm, unsigned char opcode);
+void			free_chaine(t_proc *proc);
+void			ft_victory(t_vm *vm);
+
 
 void			ft_parsing(t_vm *vm, char **av);
 void			ft_introduce(t_vm *vm);
@@ -204,6 +207,7 @@ void			refresh_pc(t_vm *vm);
 void			refresh_process(t_vm *vm);
 void			visual_sti(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3]);
 void			visual_st(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3]);
-void	refresh_live(t_vm *vm);
+void			refresh_live(t_vm *vm);
+void			refresh_cycle_to_die(t_vm *vm);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 12:08:22 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/12 15:35:13 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,35 +157,42 @@ void	ft_init_vm(t_vm *vm)
 void	ft_cycle_to_die(t_vm *vm)
 {
 	int		i;
+	t_proc	*current;
 
-	vm->total_to_die += vm->cycle_to_die;
-	vm->cycle_to_die -= CYCLE_DELTA;
+	i = 0;
 	vm->nb_check_cycle++;
-	while (vm->proc)
+	current = vm->beg;
+	while (current)
 	{
-		if (vm->proc->alive == 0)
-			ft_dead_proc(vm);
-		else if (vm->proc->alive < NBR_LIVE)
-			;
-		else if (vm->nb_live_champ[vm->proc->n_champ] < NBR_LIVE)
-			ft_error(ERROR_NB_LIVE, vm->proc->n_champ);
-		else
-			vm->proc->alive = 0;
-		vm->proc = vm->proc->next;
+		i += current->alive;
+		current = current->next;
 	}
-	vm->proc = vm->beg;
+	current = vm->beg;
+	vm->total_to_die += vm->cycle_to_die;
+	if (i > NBR_LIVE || (vm->nb_check_cycle % MAX_CHECKS == 0))
+		vm->cycle_to_die = CYCLE_DELTA > vm->cycle_to_die ? 0 : vm->cycle_to_die - CYCLE_DELTA;
+	//mise a mort
+	if (vm->option_visu == 1)
+		refresh_cycle_to_die(vm);
+	//if (vm->cycle_to_die == 0)
+	//	ft_winner(vm);
+	while (current)
+	{
+		current->alive == 0 ? ft_dead_proc(vm) : (current->alive = 0);
+		current = current->next;
+	}
 	i = -1;
 	while (++i < vm->nb_champ)
 	{
-		while (vm->proc && vm->proc->n_champ != (unsigned int)i)
-			vm->proc = vm->proc->next;
-		if (vm->proc)
-		{
-			ft_printf("Player %u (%s) is said to be alive (%u lives)\n",
-				i + 1, vm->proc->head.prog_name, vm->nb_live_champ[i]);
-			vm->nb_live_champ[i] = 0;
-		}
-		vm->proc = vm->beg;
+		vm->nb_live_champ[i] = 0;
 	}
-	ft_printf("\n");
+}
+
+void	ft_victory(t_vm *vm)
+{
+	if (vm->option_visu == 1)
+		endwin();
+	ft_printf("Contestant %d, \"%s\", has won ! at cycle %d\n", vm->proc->n_champ, vm->proc->head.prog_name, vm->cycle);
+	free_chaine(vm->proc);
+	exit(0);
 }

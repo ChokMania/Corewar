@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/12 15:35:13 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/12 16:05:59 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,26 @@ void	ft_init_vm(t_vm *vm)
 ** CETTE FONCTION PERMET EGALEMENT DE DETERMINER UN GAGNANT
 */
 
+static void	ft_winner(t_vm *vm)
+{
+	int		last;
+	t_proc	*winner;
+	t_proc	*current;
+
+	current = vm->beg;
+	winner = vm->beg;
+	last = vm->beg->last_live;
+	while (current)
+	{
+		if (last < current->last_live && (last = current->last_live))
+			winner = current;
+		current = current->next;
+	}
+	ft_printf("Contestant %d, \"%s\", has won ! at cycle %d\n", winner->n_champ, winner->head.prog_name, vm->cycle);
+	free_chaine(vm->beg);
+	exit(0);
+}
+
 void	ft_cycle_to_die(t_vm *vm)
 {
 	int		i;
@@ -169,13 +189,20 @@ void	ft_cycle_to_die(t_vm *vm)
 	}
 	current = vm->beg;
 	vm->total_to_die += vm->cycle_to_die;
-	if (i > NBR_LIVE || (vm->nb_check_cycle % MAX_CHECKS == 0))
+	if (i > NBR_LIVE || !(vm->nb_check_cycle % MAX_CHECKS))
+	{
 		vm->cycle_to_die = CYCLE_DELTA > vm->cycle_to_die ? 0 : vm->cycle_to_die - CYCLE_DELTA;
+		vm->nb_check_cycle = 0;
+	}
 	//mise a mort
 	if (vm->option_visu == 1)
 		refresh_cycle_to_die(vm);
-	//if (vm->cycle_to_die == 0)
-	//	ft_winner(vm);
+	if (vm->cycle_to_die == 0)
+	{
+		vm->cycle++;
+		endwin();
+		ft_winner(vm);
+	}
 	while (current)
 	{
 		current->alive == 0 ? ft_dead_proc(vm) : (current->alive = 0);
@@ -188,11 +215,14 @@ void	ft_cycle_to_die(t_vm *vm)
 	}
 }
 
+
+
 void	ft_victory(t_vm *vm)
 {
+	vm->cycle++;
 	if (vm->option_visu == 1)
 		endwin();
 	ft_printf("Contestant %d, \"%s\", has won ! at cycle %d\n", vm->proc->n_champ, vm->proc->head.prog_name, vm->cycle);
-	free_chaine(vm->proc);
+	free_chaine(vm->beg);
 	exit(0);
 }

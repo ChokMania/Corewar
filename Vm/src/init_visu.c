@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 13:25:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/12 15:18:07 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 10:53:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,27 +287,27 @@ void	refresh_pc(t_vm *vm)
 void	visual_sti(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3])
 {
 	int	i;
-	int		pc;
+	int		index;
 
-	pc = 0;
-	if ((i = 4) && arg_size[1] == T_REG)
-		pc = vm->proc->r[arg_value[1]] % IDX_MOD - T_REG;
-	else if (arg_size[1] == T_DIR)
-		pc = arg_value[1] % IDX_MOD - T_DIR;
-	else if (arg_size[1] == T_IND)
-		pc = (arg_value[1] % IDX_MOD) - T_DIR;
+	index = 0;
+	i = 4;
+	if (arg_size[1] == T_REG)
+		index += vm->proc->r[arg_value[1]] - T_REG;
+	else if (arg_size[1] == T_DIR || arg_size[1] == T_IND)
+		index += arg_value[1] - T_DIR;
 	if (arg_size[2] == T_REG)
-		pc += vm->proc->r[arg_value[2]] % IDX_MOD - T_REG;
+		index += vm->proc->r[arg_value[2]] - T_REG;
 	else if (arg_size[2] == T_DIR)
-		pc += arg_value[2] % IDX_MOD - T_DIR;
-	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
-	pc >= MEM_SIZE ? pc %= MEM_SIZE : 0;
-	pc += vm->proc->pc - 2;
+		index += arg_value[2] - T_DIR;
+	if (vm->proc->pc + index >= MEM_SIZE)
+		index -= (IDX_MOD - index % IDX_MOD + vm->proc->pc - 2) % MEM_SIZE;
+	else
+		index %= IDX_MOD;
 	while (--i >= 0)
 	{
-		vm->visu->str = get_hexa(vm->arena[pc + i][0]);
-		mvwprintw(vm->visu->arena, 1 + ((3 * (pc + i)) / 192) , 2 + ((3 * (pc + i)) % 192), vm->visu->str);
-		mvwchgat(vm->visu->arena, 1 + ((3 * (pc + i)) / 192) , 2 + ((3 * (pc + i)) % 192), 2, A_BOLD, vm->arena[pc + i][1], 0);
+		vm->visu->str = get_hexa(vm->arena[index + i][0]);
+		mvwprintw(vm->visu->arena, 1 + ((3 * (index + i)) / 192) , 2 + ((3 * (index + i)) % 192), vm->visu->str);
+		mvwchgat(vm->visu->arena, 1 + ((3 * (index + i)) / 192) , 2 + ((3 * (index + i)) % 192), 2, A_BOLD, vm->arena[index + i][1], 0);
 		ft_strdel(&(vm->visu->str));
 	}
 	wrefresh(vm->visu->arena);
@@ -386,6 +386,7 @@ void	refresh_process(t_vm *vm)
 
 void	refresh_live_by_champ(t_vm *vm, int i)
 {
+	//pas le bon last;
 	wattron(vm->visu->hud, A_BOLD);
 	vm->visu->str = ft_itoa(vm->proc->last_live);
 	mvwprintw(vm->visu->hud, 19 + (i * 4), 40, vm->visu->str);
@@ -415,7 +416,7 @@ int		ft_round_sup(double to_round)
 	return (round);
 }
 
-void	refresh_live(t_vm *vm)
+void	refresh_live(t_vm *vm, int barre)
 {
 	int		i;
 	int		j;
@@ -446,7 +447,7 @@ void	refresh_live(t_vm *vm)
 					wattron(vm->visu->hud, COLOR_PAIR(i + 1));
 				else
 					wattron(vm->visu->hud, COLOR_PAIR(9));
-					mvwprintw(vm->visu->hud, 20 + (vm->nb_champ * 4), 6 + j++, "-");
+					mvwprintw(vm->visu->hud, 20 + (vm->nb_champ * 4) + (barre * 3), 6 + j++, "-");
 					tmp--;
 				if (i < vm->nb_champ)
 					wattroff(vm->visu->hud, COLOR_PAIR(i + 1));

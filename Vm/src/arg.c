@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 17:34:47 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/09 17:53:53 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 10:35:21 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void		ft_fill_tab_with_unplaced_champs(char *tab[5],
 	{
 		while (j < 4 && tab[j] != NULL)
 			j++;
-		j == 4 ? ft_error(ERROR_OPTION, -1) : 0;
+		j == 4 ? ft_error(ERROR_OPTION, -1, vm) : 0;
 		tab[j] = ordre[i];
 		vm->nb_champ++;
 		i++;
@@ -51,29 +51,17 @@ static void		ft_fill_tab_with_unplaced_champs(char *tab[5],
 	}
 }
 
-static int		ft_option(int ac, char **av, t_vm *vm, char *tab[5])
+static int		ft_option_suite(int ac, char **av, t_vm *vm, char *tab[5])
 {
 	int i;
 
-	if (!(i = 0) && (!ft_strcmp(av[0], "-dump") || !ft_strcmp(av[0], "-d")))
-	{
-		if (ac < 2 || ft_strlen(av[1]) > 10
-			|| (vm->option_dump = ft_atol(av[1]) + 1) < 1)
-			ft_error(ERROR_OPTION, -1);
-		return (1);
-	}
-	else if (ft_strcmp(av[0], "-verbose") == 0 || ft_strcmp(av[0], "-v") == 0)
-	{
-		if (ac < 2 || ft_strlen(av[1]) > 1 || ((vm->option_verbose =
-			ft_atoi(av[1])) != 0 && vm->option_verbose != 1))
-			ft_error(ERROR_OPTION, -1);
-		return (1);
-	}
-	else if (ft_strcmp(av[0], "-number") == 0 || ft_strcmp(av[0], "-n") == 0)
+	i = 0;
+	if (ft_strcmp(av[0], "-number") == 0 || ft_strcmp(av[0], "-n") == 0)
 	{
 		if (ac < 3 || ft_strlen(av[1]) > 1 || (i = ft_atoi(av[1])) < 1 || i > 4)
-			ft_error(ERROR_OPTION, -1);
-		tab[i - 1] == NULL ? tab[i - 1] = av[2] : ft_error(ERROR_OPTION, -1);
+			ft_error(ERROR_OPTION, -1, vm);
+		tab[i - 1] == NULL ? tab[i - 1] = av[2]
+			: ft_error(ERROR_OPTION, -1, vm);
 		vm->nb_champ++;
 		return (2);
 	}
@@ -83,6 +71,26 @@ static int		ft_option(int ac, char **av, t_vm *vm, char *tab[5])
 		return (-1);
 	}
 	return (0);
+}
+
+static int		ft_option(int ac, char **av, t_vm *vm, char *tab[5])
+{
+	if ((!ft_strcmp(av[0], "-dump") || !ft_strcmp(av[0], "-d")))
+	{
+		if (ac < 2 || ft_strlen(av[1]) > 10
+			|| (vm->option_dump = ft_atol(av[1]) + 1) < 1)
+			ft_error(ERROR_OPTION, -1, vm);
+		return (1);
+	}
+	else if (ft_strcmp(av[0], "-verbose") == 0 || ft_strcmp(av[0], "-v") == 0)
+	{
+		if (ac < 2 || ft_strlen(av[1]) > 1 || ((vm->option_verbose =
+			ft_atoi(av[1])) != 0 && vm->option_verbose != 1))
+			ft_error(ERROR_OPTION, -1, vm);
+		return (1);
+	}
+	else
+		return (ft_option_suite(ac, av, vm, tab));
 }
 
 void			ft_args(int ac, char **av, t_vm *vm, char *tab[5])
@@ -109,7 +117,7 @@ void			ft_args(int ac, char **av, t_vm *vm, char *tab[5])
 		else
 			ordre[j++] = av[i];
 		if (j == 5)
-			ft_error(ERROR_OPTION, -1);
+			ft_error(ERROR_OPTION, -1, vm);
 	}
 	ft_fill_tab_with_unplaced_champs(tab, ordre, vm);
 }

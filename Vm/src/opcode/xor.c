@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   08_xor.c                                           :+:      :+:    :+:   */
+/*   xor.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:55 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/10 14:36:26 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 10:33:46 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
 			arg_value[i] = vm->arena[*pc - 3][0] << 24
 				| vm->arena[*pc - 2][0] << 16 | vm->arena[*pc - 1][0] << 8
 				| vm->arena[*pc][0];
-
 		}
 		else if (arg_size[i] == T_IND)
 		{
@@ -62,28 +61,10 @@ static void	exec_xor(t_vm *vm, unsigned int arg_value[3],
 	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
 }
 
-void		op_xor(t_vm *vm, int *pc)
+static void	op_xor_suite(t_vm *vm, int *pc, unsigned int arg_size[3])
 {
-	unsigned int	arg_value[3];
-	unsigned int	arg_size[3];
-
-	(*pc)++;
-	arg_size[2] = T_REG;
-	if ((vm->arena[*pc][0] == 84 || vm->arena[*pc][0] == 100 || vm->arena[*pc][0] == 116) && (arg_size[0] = T_REG))
-		if (vm->arena[*pc][0] == 84)
-			arg_size[1] = T_REG;
-		else if (vm->arena[*pc][0] == 100)
-			arg_size[1] = T_DIR;
-		else
-			arg_size[1] = T_IND;
-	else if ((vm->arena[*pc][0] == 148 || vm->arena[*pc][0] == 164 || vm->arena[*pc][0] == 180) && (arg_size[0] = T_DIR))
-		if (vm->arena[*pc][0] == 148)
-			arg_size[1] = T_REG;
-		else if (vm->arena[*pc][0] == 164)
-			arg_size[1] = T_DIR;
-		else
-			arg_size[1] = T_IND;
-	else if ((vm->arena[*pc][0] == 212 || vm->arena[*pc][0] == 228 || vm->arena[*pc][0] == 244) && (arg_size[0] = T_IND))
+	if ((vm->arena[*pc][0] == 212 || vm->arena[*pc][0] == 228
+		|| vm->arena[*pc][0] == 244) && (arg_size[0] = T_IND))
 		if (vm->arena[*pc][0] == 212)
 			arg_size[1] = T_REG;
 		else if (vm->arena[*pc][0] == 228)
@@ -91,7 +72,34 @@ void		op_xor(t_vm *vm, int *pc)
 		else
 			arg_size[1] = T_IND;
 	else
-		ft_error(ERROR_XOR, vm->proc->n_champ);
+		ft_error(ERROR_XOR, vm->proc->n_champ, vm);
+}
+
+void		op_xor(t_vm *vm, int *pc)
+{
+	unsigned int	arg_value[3];
+	unsigned int	arg_size[3];
+
+	(*pc)++;
+	arg_size[2] = T_REG;
+	if ((vm->arena[*pc][0] == 84 || vm->arena[*pc][0] == 100
+		|| vm->arena[*pc][0] == 116) && (arg_size[0] = T_REG))
+		if (vm->arena[*pc][0] == 84)
+			arg_size[1] = T_REG;
+		else if (vm->arena[*pc][0] == 100)
+			arg_size[1] = T_DIR;
+		else
+			arg_size[1] = T_IND;
+	else if ((vm->arena[*pc][0] == 148 || vm->arena[*pc][0] == 164
+		|| vm->arena[*pc][0] == 180) && (arg_size[0] = T_DIR))
+		if (vm->arena[*pc][0] == 148)
+			arg_size[1] = T_REG;
+		else if (vm->arena[*pc][0] == 164)
+			arg_size[1] = T_DIR;
+		else
+			arg_size[1] = T_IND;
+	else
+		op_xor_suite(vm, pc, arg_size);
 	ft_arg(vm, pc, arg_value, arg_size);
 	exec_xor(vm, arg_value, arg_size);
 }

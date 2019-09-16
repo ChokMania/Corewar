@@ -52,27 +52,28 @@ endif
 SRC_NAME			=	main.c							\
 						error.c							\
 						utiles.c						\
+						utiles2.c						\
 						parsing.c						\
 						arg.c							\
 						list.c							\
 						opcode.c						\
 														\
-						opcode/01_live.c				\
-						opcode/02_ld.c					\
-						opcode/03_st.c					\
-						opcode/04_add.c					\
-						opcode/05_sub.c					\
-						opcode/06_and.c					\
-						opcode/07_or.c					\
-						opcode/08_xor.c					\
-						opcode/09_zjmp.c				\
-						opcode/10_ldi.c					\
-						opcode/11_sti.c					\
-						opcode/12_fork.c				\
-						opcode/13_lld.c					\
-						opcode/14_lldi.c				\
-						opcode/15_lfork.c				\
-						opcode/16_aff.c					\
+						opcode/live.c					\
+						opcode/ld.c						\
+						opcode/st.c						\
+						opcode/add.c					\
+						opcode/sub.c					\
+						opcode/and.c					\
+						opcode/or.c						\
+						opcode/xor.c					\
+						opcode/zjmp.c					\
+						opcode/ldi.c					\
+						opcode/sti.c					\
+						opcode/fork.c					\
+						opcode/lld.c					\
+						opcode/lldi.c					\
+						opcode/lfork.c					\
+						opcode/aff.c					\
 														\
 						init_visu.c
 

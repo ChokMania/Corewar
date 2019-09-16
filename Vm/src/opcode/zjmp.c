@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   09_zjmp.c                                          :+:      :+:    :+:   */
+/*   zjmp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:25 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/12 14:51:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 10:17:12 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
 	}
 }
 
-static void	exec_zjmp(t_vm *vm, unsigned int arg_value[3], unsigned int arg_size[3])
+static void	exec_zjmp(t_vm *vm, unsigned int arg_value[3]
+	, unsigned int arg_size[3])
 {
 	(void)arg_size;
 	if (vm->proc->carry == 1 && arg_value[0] > IDX_MOD)

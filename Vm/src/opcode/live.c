@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/12 15:11:16 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 09:54:37 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
 static void	exec_live(t_vm *vm, unsigned int arg_value[3],
 	unsigned int arg_size[3])
 {
-
 	(void)arg_size;
 	(void)arg_value;
-
 	vm->proc->alive++;
 	vm->nb_live_champ[vm->proc->n_champ - 1]++;
 	vm->proc->last_live = vm->cycle;

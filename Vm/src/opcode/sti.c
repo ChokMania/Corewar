@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   11_sti.c                                           :+:      :+:    :+:   */
+/*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/12 16:55:50 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 10:31:26 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
 		}
 }
 
-static void	exec_sti(t_vm *vm, unsigned int arg_value[3], unsigned int arg_size[3])
+static void	exec_sti(t_vm *vm, unsigned int arg_value[3]
+	, unsigned int arg_size[3])
 {
 	int		i;
 	int		index;
@@ -91,7 +92,7 @@ void		op_sti(t_vm *vm, int *pc)
 		&& (arg_size[1] = T_IND))
 		arg_size[2] = vm->arena[*pc][0] == 116 ? T_REG : T_DIR;
 	else
-		ft_error(ERROR_STI, vm->proc->n_champ);
+		ft_error(ERROR_STI, vm->proc->n_champ, vm);
 	ft_arg(vm, pc, arg_value, arg_size);
 	exec_sti(vm, arg_value, arg_size);
 	vm->option_visu == 1 ? visual_sti(vm, arg_value, arg_size) : 0;

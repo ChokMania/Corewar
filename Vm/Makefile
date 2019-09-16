@@ -75,7 +75,11 @@ SRC_NAME			=	main.c							\
 						opcode/lfork.c					\
 						opcode/aff.c					\
 														\
-						init_visu.c
+						visu/init_visu_arena.c			\
+						visu/init_visu_hud.c			\
+						visu/input.c					\
+						visu/refresh_hud.c				\
+						visu/refresh_live.c				\
 
 
 INCLUDE_NAME		=	corewar.h						\
@@ -144,6 +148,7 @@ $(NAME): $(LIBFT_PATH)$(LIBFT_NAME) $(OBJ)
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INCLUDE)
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)opcode/
+	@mkdir -p $(OBJ_PATH)visu/
 	@$(CC) -I $(INCLUDE_PATH) -I $(LIBFT_PATH)include/ \
 		-I $(INCLUDE_PATH) -c $< -o $@
 	@echo "$(_END)$(_GREEN)[OK]\t$(_UNDER)$(_YELLOW)\t"	\

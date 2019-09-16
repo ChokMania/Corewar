@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 10:31:26 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 12:16:25 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,33 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3]
 		vm->arena[index + i][1] = vm->proc->n_champ;
 		tmp >>= 8;
 	}
+}
+
+void	visual_sti(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3])
+{
+	int	i;
+	int		index;
+
+	index = 0;
+	i = 4;
+	if (arg_size[1] == T_REG)
+		index += vm->proc->r[arg_value[1]] - T_REG;
+	else if (arg_size[1] == T_DIR || arg_size[1] == T_IND)
+		index += arg_value[1] - T_DIR;
+	if (arg_size[2] == T_REG)
+		index += vm->proc->r[arg_value[2]] - T_REG;
+	else if (arg_size[2] == T_DIR)
+		index += arg_value[2] - T_DIR;
+	if (vm->proc->pc + index >= MEM_SIZE)
+		index -= (IDX_MOD - index % IDX_MOD + vm->proc->pc - 2) % MEM_SIZE;
+	else
+		index %= IDX_MOD;
+	while (--i >= 0)
+	{
+		mvwprintw(vm->visu->arena, 1 + ((3 * (index + i)) / 192) , 2 + ((3 * (index + i)) % 192), get_hexa(vm->arena[index + i][0]));
+		mvwchgat(vm->visu->arena, 1 + ((3 * (index + i)) / 192) , 2 + ((3 * (index + i)) % 192), 2, A_BOLD, vm->arena[index + i][1], 0);
+	}
+	wrefresh(vm->visu->arena);
 }
 
 void		op_sti(t_vm *vm, int *pc)

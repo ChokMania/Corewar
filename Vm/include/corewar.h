@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 11:12:43 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 12:19:37 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ typedef	struct		s_visu
 	WINDOW			*arena;
 	WINDOW			*hud;
 	int				cps;
-	char			*str;
 }					t_visu;
 
 typedef struct	s_vm
@@ -196,6 +195,12 @@ void			op_lldi(t_vm *vm, int *pc);
 void			op_lfork(t_vm *vm, int *pc);
 void			op_aff(t_vm *vm, int *pc);
 
+void			free_chaine(t_proc *proc);
+void			ft_print_dump(t_vm vm);
+void			ft_introduce(t_vm *vm);
+void			ft_victory(t_vm *vm);
+void			ft_invert_byte(unsigned int *val);
+
 void			ft_init_visu(t_vm *vm);
 void			get_key(t_vm *vm);
 void			visual_every_cycle(t_vm *vm);
@@ -207,12 +212,7 @@ void			visual_st(t_vm *vm, unsigned int arg_value[3],
 					unsigned int	arg_size[3]);
 void			refresh_live(t_vm *vm, int barre);
 void			refresh_cycle_to_die(t_vm *vm);
-
-void			free_chaine(t_proc *proc);
-void			ft_print_dump(t_vm vm);
-void			ft_introduce(t_vm *vm);
-void			ft_victory(t_vm *vm);
-void			ft_invert_byte(unsigned int *val);
-
+char			*get_hexa(int nb);
+void			init_visual_hud(t_vm *vm);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 12:16:25 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 13:34:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,11 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3]
 	}
 }
 
-void	visual_sti(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3])
+static void	visual_sti(t_vm *vm, unsigned int arg_value[3],
+	unsigned int arg_size[3])
 {
 	int	i;
-	int		index;
+	int	index;
 
 	index = 0;
 	i = 4;
@@ -96,8 +97,10 @@ void	visual_sti(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3])
 		index %= IDX_MOD;
 	while (--i >= 0)
 	{
-		mvwprintw(vm->visu->arena, 1 + ((3 * (index + i)) / 192) , 2 + ((3 * (index + i)) % 192), get_hexa(vm->arena[index + i][0]));
-		mvwchgat(vm->visu->arena, 1 + ((3 * (index + i)) / 192) , 2 + ((3 * (index + i)) % 192), 2, A_BOLD, vm->arena[index + i][1], 0);
+		mvwprintw(vm->visu->arena, 1 + ((3 * (index + i)) / 192),
+			2 + ((3 * (index + i)) % 192), get_hexa(vm->arena[index + i][0]));
+		mvwchgat(vm->visu->arena, 1 + ((3 * (index + i)) / 192), 2 +
+			((3 * (index + i)) % 192), 2, A_BOLD, vm->arena[index + i][1], 0);
 	}
 	wrefresh(vm->visu->arena);
 }

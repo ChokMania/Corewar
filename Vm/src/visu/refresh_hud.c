@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/16 12:18:51 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 13:13:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	refresh_pc(t_vm *vm)
 		, 2 + ((pr->pc * 3) % 192), 2, A_REVERSE
 		, vm->arena[pr->pc][1], 0);
 		pr = pr->next;
-
 	}
 	wrefresh(vm->visu->arena);
 	pr = vm->beg;
@@ -50,10 +49,10 @@ void	visual_every_cycle(t_vm *vm)
 	get_key(vm);
 }
 
-int ft_list_count_vm(t_proc *begin_list)
+int		ft_list_count_vm(t_proc *begin_list)
 {
-	int i;
-	t_proc *current;
+	int		i;
+	t_proc	*current;
 
 	i = 0;
 	current = begin_list;

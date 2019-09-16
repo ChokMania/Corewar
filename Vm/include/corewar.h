@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 12:19:37 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 13:36:15 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,10 +206,6 @@ void			get_key(t_vm *vm);
 void			visual_every_cycle(t_vm *vm);
 void			refresh_pc(t_vm *vm);
 void			refresh_process(t_vm *vm);
-void			visual_sti(t_vm *vm, unsigned int arg_value[3],
-					unsigned int arg_size[3]);
-void			visual_st(t_vm *vm, unsigned int arg_value[3],
-					unsigned int	arg_size[3]);
 void			refresh_live(t_vm *vm, int barre);
 void			refresh_cycle_to_die(t_vm *vm);
 char			*get_hexa(int nb);

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:59:21 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/16 12:25:54 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 13:24:39 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		handle_pause(t_vm *vm, int *pause, int p_or_r)
 void	get_key(t_vm *vm)
 {
 	int			i;
+	int			j;
 	static int	pause = 1;
 
 	while (1)
@@ -59,18 +60,10 @@ void	get_key(t_vm *vm)
 			handle_pause(vm, &pause, 1);
 		else if (i == 'p' && handle_pause(vm, &pause, 2))
 			break ;
-		else if (i == 'e' && vm->visu->cps < 1000)
-			modif_cps(vm, 1);
-		else if (i == 'r' && vm->visu->cps < 1000)
-			modif_cps(vm, 10);
-		else if (i == 'm' && vm->visu->cps < 1000)
-			modif_cps(vm, 100);
-		else if (i == 'w' && vm->visu->cps > 10)
-			modif_cps(vm, -1);
-		else if (i == 'q' && vm->visu->cps > 10)
-			modif_cps(vm, -10);
-		else if (i == 'n' && vm->visu->cps > 10)
-			modif_cps(vm, -100);
+		else if ((j = ft_strfindc("erm", i)) >= 0 && vm->visu->cps < 1000)
+			modif_cps(vm, ft_pow(10, j));
+		else if ((j = ft_strfindc("wqn", i)) >= 0 && vm->visu->cps > 10)
+			modif_cps(vm, -ft_pow(10, j));
 		if (pause == -1 && handle_pause(vm, &pause, 0))
 			break ;
 	}

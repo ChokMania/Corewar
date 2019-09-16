@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 12:16:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 13:34:53 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,15 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3]
 	exec_st_suite(vm, tmp, pc);
 }
 
-void	visual_st(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3])
+static void	visual_st(t_vm *vm, unsigned int arg_value[3],
+	unsigned int arg_size[3])
 {
 	int	i;
 	int pc;
 
 	pc = vm->proc->pc - 2;
-	if ((i = 4) && ((arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
-		|| (arg_size[1] == T_IND && pc + arg_value[1] >= MEM_SIZE)))
+	if ((i = 4) && ((arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]]
+	>= MEM_SIZE) || (arg_size[1] == T_IND && pc + arg_value[1] >= MEM_SIZE)))
 	{
 		if (arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
 			pc -= IDX_MOD - vm->proc->r[arg_value[1]] % IDX_MOD + 1;
@@ -112,8 +113,10 @@ void	visual_st(t_vm *vm, unsigned int arg_value[3], unsigned int	arg_size[3])
 	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
 	while (--i >= 0)
 	{
-		mvwprintw(vm->visu->arena, 1 + ((3 * (pc + i)) / 192) , 2 + ((3 * (pc + i)) % 192), get_hexa(vm->arena[pc + i][0]));
-		mvwchgat(vm->visu->arena, 1 + ((3 * (pc + i)) / 192) , 2 + ((3 * (pc + i)) % 192), 2, A_BOLD, vm->arena[pc + i][1], 0);
+		mvwprintw(vm->visu->arena, 1 + ((3 * (pc + i)) / 192),
+			2 + ((3 * (pc + i)) % 192), get_hexa(vm->arena[pc + i][0]));
+		mvwchgat(vm->visu->arena, 1 + ((3 * (pc + i)) / 192),
+			2 + ((3 * (pc + i)) % 192), 2, A_BOLD, vm->arena[pc + i][1], 0);
 	}
 	wrefresh(vm->visu->arena);
 }

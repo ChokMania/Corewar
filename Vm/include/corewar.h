@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 13:36:15 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 15:36:31 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,9 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <ncurses.h>
-
-/*
-** COLOR
-*/
 
 # define DEF				"\033[0m"
 
@@ -45,10 +40,6 @@
 # define BACK_BLU			"\033[44m"
 # define BACK_MAG			"\033[45m"
 # define BACK_CYA			"\033[46m"
-
-/*
-** ERROR
-*/
 
 # define EXIT_DUMP			20
 # define ERROR_LD			1
@@ -72,79 +63,31 @@
 # define ERROR_COMM_LEN		18
 # define ERROR_PROG_SIZE	19
 
-/*
-** TMP op_tab
-**
-** t_op	op_tab[17] =
-** {
-** 	{"name",	nb_arg	{ARG1},							{ARG2},						{ARG3},					nb,	wait,	"comment",							ocp,	dir_2	},
-** 
-** 	{"live",	1,		{{T_DIR,	0,		0},			{0,		0,		0},			{0,		0,		0}},	1,	10,		"alive",							0,		0		},
-** 	{"ld",		2,		{{T_DIR,	T_IND,	0},			{T_REG,	0,		0},			{0,		0,		0}},	2,	5,		"load",								1,		0		},
-** 	{"st",		2,		{{T_REG,	0,		0},			{T_IND,	T_REG,	0},			{0,		0,		0}},	3,	5,		"store",							1,		0		},
-** 	{"add",		3,		{{T_REG,	0,		0},			{T_REG,	0,		0},			{T_REG,	0,		0}},	4,	10,		"addition",							1,		0		},
-** 	{"sub",		3,		{{T_REG,	0,		0},			{T_REG,	0,		0},			{T_REG,	0,		0}},	5,	10,		"soustraction",						1,		0		},
-** 	{"and",		3,		{{T_REG,	T_DIR,	T_IND},		{T_REG,	T_IND,	T_DIR},		{T_REG,	0,		0}},	6,	6,		"et (and r1, r2, r3  r1&r2 -> r3",	1,		0		},
-** 	{"or",		3,		{{T_REG,	T_IND,	T_DIR},		{T_REG,	T_IND,	T_DIR},		{T_REG,	0,		0}},	7,	6,		"ou (or r1, r2, r3  r1 | r2 -> r3",	1,		0		},
-** 	{"xor",		3,		{{T_REG,	T_IND,	T_DIR},		{T_REG,	T_IND,	T_DIR},		{T_REG,	0,		0}},	8,	6,		"ou (xor r1, r2, r3  r1^r2 -> r3",	1,		0		},
-** 	{"zjmp",	1,		{{T_DIR,	0,		0},			{0,		0,		0},			{0,		0,		0}},	9,	20,		"jump if zero",						0,		1		},
-** 	{"ldi",		3,		{{T_REG,	T_IND,	T_DIR},		{T_DIR,	T_REG,	0},			{T_REG,	0,		0}},	10,	25,		"load index",						1,		1		},
-** 	{"sti",		3,		{{T_REG,	0,		0},			{T_REG,	T_DIR,	T_IND},		{T_DIR,	T_REG,	0}},	11,	25,		"store index",						1,		1		},
-** 	{"fork",	1,		{{T_DIR,	0,		0},			{0,		0,		0}, 		{0,		0, 		0}},	12,	800,	"fork",								0,		1		},
-** 	{"lld",		2,		{{T_DIR,	T_IND,	0},			{T_REG, 0,		0},			{0,		0, 		0}},	13,	10,		"long load",						1,		0		},
-** 	{"lldi",	3,		{{T_REG,	T_DIR,	T_IND},		{T_DIR, T_REG,	0},			{T_REG,	0, 		0}},	14,	50,		"long load index",					1,		1		},
-** 	{"lfork",	1,		{{T_DIR,	0,		0},			{0,		0,		0},			{0,		0, 		0}},	15,	1000,	"long fork",						0,		1		},
-** 	{"aff",		1,		{{T_REG,	0,		0},			{0,		0,		0},			{0,		0, 		0}},	16,	2,		"aff",								1,		0		}
-** };
-**
-** STRUCTURE FOR INSTRUCTION
-**
-** typedef struct	s_op
-** {
-** 	int				hexa;
-** 	int				cycle;
-** 	int				carry;
-** 	int				nb_arg;
-** 	int				arg[3][3];
-** 	int				octet_param;
-** 	char			*comm;
-** 	char			*opcode;
-** }				t_op;
-*/
-
-/*
-** STRUCTURE FOR CHAMPION
-*/
-
 typedef struct	s_proc
 {
-	int				pc; // ou il se trouve
-	int				wait; // le temps d'attente
-	int				alive; // combien de vie le proc a decalrer
+	int				pc;
+	int				wait;
+	int				alive;
 	int				carry;
 	int				last_live;
-	t_header		head; 
-	unsigned int	n_champ; // numero de cchampion asssocier au proc
-	unsigned int	r[REG_NUMBER]; // tous les registres
-	unsigned int	during_fork; // ppour les forks
+	t_header		head;
+	unsigned int	n_champ;
+	unsigned int	r[REG_NUMBER];
+	unsigned int	during_fork;
 	struct s_proc	*next;
 }				t_proc;
 
-/*
-** STRUCTURE FOR MAP
-*/
-
-typedef	struct		s_visu
+typedef	struct	s_visu
 {
 	WINDOW			*arena;
 	WINDOW			*hud;
 	int				cps;
-}					t_visu;
+}				t_visu;
 
 typedef struct	s_vm
 {
 	int				nb_proc;
-	int				nb_champ; 
+	int				nb_champ;
 	int				fd[MAX_PLAYERS];
 	long			option_dump;
 	long			option_verbose;
@@ -159,10 +102,6 @@ typedef struct	s_vm
 	t_visu			*visu;
 	unsigned char	arena[MEM_SIZE][2];
 }				t_vm;
-
-/*
-** FONCTION
-*/
 
 void			ft_error(int err, int nb_line, t_vm *vm);
 void			ft_print_vm(t_vm vm);

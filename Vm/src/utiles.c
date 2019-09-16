@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 13:30:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:02:38 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	ft_winner(t_vm *vm)
 
 	current = vm->beg;
 	winner = vm->beg;
+	vm->option_visu == 1 ? endwin() : 0;
 	last = vm->beg->last_live;
 	while (current)
 	{
@@ -87,7 +88,6 @@ static void	ft_cdt_suite(t_vm *vm)
 	if (vm->cycle_to_die == 0)
 	{
 		vm->cycle++;
-		endwin();
 		ft_winner(vm);
 	}
 	while (current)
@@ -117,6 +117,6 @@ void		ft_cycle_to_die(t_vm *vm)
 		vm->nb_check_cycle = 0;
 	}
 	vm->option_visu == 1 ? refresh_cycle_to_die(vm) : 0;
-	refresh_live(vm, 1);
+	vm->option_visu == 1 ? refresh_live(vm, 1) : 0;
 	ft_cdt_suite(vm);
 }

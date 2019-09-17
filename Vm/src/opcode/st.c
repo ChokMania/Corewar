@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 11:49:01 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 12:52:44 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,12 @@ static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
 		}
 }
 
-static void	exec_st_suite(t_vm *vm, int tmp, int pc)
+static void	exec_st(t_vm *vm, unsigned int arg_value[3],
+	unsigned int arg_size[3])
 {
-	int i;
-
-	i = 4;
-	while (--i >= 0)
-	{
-		vm->arena[pc + i][0] = tmp % 256;
-		vm->arena[pc + i][1] = vm->proc->n_champ;
-		tmp >>= 8;
-	}
-}
-
-static void	exec_st(t_vm *vm, unsigned int arg_value[3]
-	, unsigned int arg_size[3])
-{
-	int		tmp;
+	int		i;
 	int		pc;
+	int		tmp;
 
 	pc = vm->proc->pc - 2;
 	if (((arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
@@ -73,16 +61,18 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3]
 			? IDX_MOD - vm->proc->r[arg_value[1]] % IDX_MOD + 1 :
 			IDX_MOD - arg_value[1] % IDX_MOD + 2;
 	else
-	{
-		if (arg_size[1] == T_REG)
-			pc += vm->proc->r[arg_value[1]] % IDX_MOD - 1;
-		else
-			pc += arg_value[1] % IDX_MOD - 2;
-	}
+		pc += arg_size[1] == T_REG ? vm->proc->r[arg_value[1]] % IDX_MOD - 1
+			: arg_value[1] % IDX_MOD - 2;
 	pc >= MEM_SIZE ? pc %= MEM_SIZE : 0;
 	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
+	i = 4;
 	tmp = vm->proc->r[arg_value[0]];
-	exec_st_suite(vm, tmp, pc);
+	while (--i >= 0)
+	{
+		vm->arena[pc + i][0] = tmp % 256;
+		vm->arena[pc + i][1] = vm->proc->n_champ;
+		tmp >>= 8;
+	}
 }
 
 static void	visual_st(t_vm *vm, unsigned int arg_value[3],

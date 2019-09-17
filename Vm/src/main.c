@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 09:56:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 10:39:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	ft_apply_proc(t_vm *vm, int *i)
 		else
 		{
 			vm->proc->wait--;
+			ft_visu_wait(vm);
 			if (vm->proc->during_fork == 1)
 				vm->proc->during_fork = 0;
 			else if (!vm->proc->wait)
@@ -69,7 +70,8 @@ static void	ft_usage(void)
 	"player number\n");
 	ft_printf("\t-v/-verbose   N : Give more infos during match\n");
 	ft_printf("\t-vi/-visual     : Give visual of the match\n");
-	ft_printf("\t-vid/-visuald   : Add description on the visual\n");
+	ft_printf("\t-vid/-visuald   : Add explication on the visual "
+	"(ONLY 1 PROCESS BY CHAMPION)\n");
 	exit(0);
 }
 

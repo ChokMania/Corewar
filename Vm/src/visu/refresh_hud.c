@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/17 09:45:13 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 10:03:43 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ void	refresh_pc(t_vm *vm)
 	pr = vm->beg;
 	while (pr)
 	{
-		mvwchgat(vm->visu->arena, 1 + ((pr->pc * 3) / 192)
+		mvwchgat(vm->visu.arena, 1 + ((pr->pc * 3) / 192)
 		, 2 + ((pr->pc * 3) % 192), 2, A_REVERSE
 		, vm->arena[pr->pc][1], 0);
 		pr = pr->next;
 	}
-	wrefresh(vm->visu->arena);
+	wrefresh(vm->visu.arena);
 	pr = vm->beg;
 	while (pr)
 	{
 		if (vm->arena[pr->pc][1] == 0)
-			mvwchgat(vm->visu->arena, 1 + ((pr->pc * 3) / 192)
+			mvwchgat(vm->visu.arena, 1 + ((pr->pc * 3) / 192)
 			, 2 + ((pr->pc * 3) % 192), 2, A_BOLD
 			, 10, 0);
 		else
-			mvwchgat(vm->visu->arena, 1 + ((pr->pc * 3) / 192)
+			mvwchgat(vm->visu.arena, 1 + ((pr->pc * 3) / 192)
 			, 2 + ((pr->pc * 3) % 192), 2, A_BOLD
 			, vm->arena[pr->pc][1], 0);
 		pr = pr->next;
@@ -42,10 +42,10 @@ void	refresh_pc(t_vm *vm)
 
 void	visual_every_cycle(t_vm *vm)
 {
-	wattron(vm->visu->hud, A_BOLD);
-	mvwprintw(vm->visu->hud, 13, 13, ft_itoa(vm->cycle));
-	wattroff(vm->visu->hud, A_BOLD);
-	wrefresh(vm->visu->hud);
+	wattron(vm->visu.hud, A_BOLD);
+	mvwprintw(vm->visu.hud, 13, 13, ft_itoa(vm->cycle));
+	wattroff(vm->visu.hud, A_BOLD);
+	wrefresh(vm->visu.hud);
 	get_key(vm);
 }
 
@@ -66,9 +66,9 @@ int		ft_list_count_vm(t_proc *begin_list)
 
 void	refresh_process(t_vm *vm)
 {
-	wattron(vm->visu->hud, A_BOLD);
-	mvwprintw(vm->visu->hud, 15, 17, "      ");
-	mvwprintw(vm->visu->hud, 15, 17, ft_itoa(ft_list_count_vm(vm->proc)));
-	wattroff(vm->visu->hud, A_BOLD);
-	wrefresh(vm->visu->hud);
+	wattron(vm->visu.hud, A_BOLD);
+	mvwprintw(vm->visu.hud, 15, 17, "      ");
+	mvwprintw(vm->visu.hud, 15, 17, ft_itoa(ft_list_count_vm(vm->proc)));
+	wattroff(vm->visu.hud, A_BOLD);
+	wrefresh(vm->visu.hud);
 }

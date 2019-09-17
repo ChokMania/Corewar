@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 11:11:05 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/10 11:03:29 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 11:09:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,22 @@ void		ft_wait(t_vm *vm, unsigned char opcode)
 		vm->proc->wait = 19;
 	else
 		ft_wait_suite(vm, opcode);
+	ft_visu_wait(vm);
+}
+
+void	ft_visu_wait(t_vm *vm)
+{
+	if (vm->option_visu_d == 1)
+	{
+		wattron(vm->visu.hud, A_BOLD);
+		mvwprintw(vm->visu.hud, 34 + ((vm->proc->n_champ - 1) * 2), 61,
+		"                                         ");
+		mvwprintw(vm->visu.hud, 34 + ((vm->proc->n_champ - 1) * 2), 61,
+			"Need to wait : ");
+		mvwprintw(vm->visu.hud, 34 + ((vm->proc->n_champ - 1) * 2), 77,
+			ft_itoa(vm->proc->wait));
+		mvwprintw(vm->visu.hud, 34 + ((vm->proc->n_champ - 1) * 2),
+			78 + ft_strlen(ft_itoa(vm->proc->wait)), "cycles.");
+		wrefresh(vm->visu.hud);
+	}
 }

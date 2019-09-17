@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:12 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 10:34:24 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 11:02:17 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	exec_lfork(t_vm *vm, unsigned int arg_value)
 	new->head = vm->proc->head;
 	new->n_champ = vm->proc->n_champ;
 	new->pc = vm->proc->pc - T_DIR + arg_value;
-	new->pc = new->pc > MEM_SIZE ? new->pc % MEM_SIZE : new->pc;
-	new->pc = new->pc < MEM_SIZE ? MEM_SIZE - new->pc % MEM_SIZE : new->pc;
+	new->pc = new->pc >= MEM_SIZE ? new->pc % MEM_SIZE : new->pc;
+	new->pc = new->pc < 0 ? MEM_SIZE - new->pc % MEM_SIZE : new->pc;
 	i = -1;
 	while (++i < 16)
 		new->r[i] = vm->proc->r[i];

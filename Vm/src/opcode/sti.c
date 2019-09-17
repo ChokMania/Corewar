@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 09:45:13 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 12:12:15 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
 		}
 }
 
-static void	exec_sti(t_vm *vm, unsigned int arg_value[3]
-	, unsigned int arg_size[3])
+static void	exec_sti(t_vm *vm, unsigned int arg_value[3],
+	unsigned int arg_size[3])
 {
 	int		i;
 	int		index;
 	int		tmp;
 
-	index = 0;
+	index = vm->proc->pc;
 	if (arg_size[1] == T_REG)
 		index += vm->proc->r[arg_value[1]] - T_REG;
 	else if (arg_size[1] == T_DIR || arg_size[1] == T_IND)
@@ -61,9 +61,9 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3]
 		index += vm->proc->r[arg_value[2]] - T_REG;
 	else if (arg_size[2] == T_DIR)
 		index += arg_value[2] - T_DIR;
-	if (vm->proc->pc + index >= MEM_SIZE)
-		index -= (IDX_MOD - index % IDX_MOD + vm->proc->pc - 2) % MEM_SIZE;
-	else
+	index >= MEM_SIZE ? index = index % MEM_SIZE : 0;
+	index < 0 ? index = MEM_SIZE - index % MEM_SIZE : 0;
+	if (index < (vm->proc->pc - IDX_MOD) % MEM_SIZE || index >= vm->proc->pc)
 		index %= IDX_MOD;
 	i = 4;
 	tmp = vm->proc->r[arg_value[0]];
@@ -97,12 +97,12 @@ static void	visual_sti(t_vm *vm, unsigned int arg_value[3],
 		index %= IDX_MOD;
 	while (--i >= 0)
 	{
-		mvwprintw(vm->visu->arena, 1 + ((3 * (index + i)) / 192),
+		mvwprintw(vm->visu.arena, 1 + ((3 * (index + i)) / 192),
 			2 + ((3 * (index + i)) % 192), get_hexa(vm->arena[index + i][0]));
-		mvwchgat(vm->visu->arena, 1 + ((3 * (index + i)) / 192), 2 +
+		mvwchgat(vm->visu.arena, 1 + ((3 * (index + i)) / 192), 2 +
 			((3 * (index + i)) % 192), 2, A_BOLD, vm->arena[index + i][1], 0);
 	}
-	wrefresh(vm->visu->arena);
+	wrefresh(vm->visu.arena);
 }
 
 void		op_sti(t_vm *vm, int *pc)

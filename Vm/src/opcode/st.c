@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 09:45:14 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 11:49:01 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,9 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3]
 	pc = vm->proc->pc - 2;
 	if (((arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
 		|| (arg_size[1] == T_IND && pc + arg_value[1] >= MEM_SIZE)))
-	{
 		pc -= arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE
 			? IDX_MOD - vm->proc->r[arg_value[1]] % IDX_MOD + 1 :
 			IDX_MOD - arg_value[1] % IDX_MOD + 2;
-		pc %= MEM_SIZE;
-	}
 	else
 	{
 		if (arg_size[1] == T_REG)
@@ -82,6 +79,7 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3]
 		else
 			pc += arg_value[1] % IDX_MOD - 2;
 	}
+	pc >= MEM_SIZE ? pc %= MEM_SIZE : 0;
 	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
 	tmp = vm->proc->r[arg_value[0]];
 	exec_st_suite(vm, tmp, pc);
@@ -113,12 +111,12 @@ static void	visual_st(t_vm *vm, unsigned int arg_value[3],
 	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
 	while (--i >= 0)
 	{
-		mvwprintw(vm->visu->arena, 1 + ((3 * (pc + i)) / 192),
+		mvwprintw(vm->visu.arena, 1 + ((3 * (pc + i)) / 192),
 			2 + ((3 * (pc + i)) % 192), get_hexa(vm->arena[pc + i][0]));
-		mvwchgat(vm->visu->arena, 1 + ((3 * (pc + i)) / 192),
+		mvwchgat(vm->visu.arena, 1 + ((3 * (pc + i)) / 192),
 			2 + ((3 * (pc + i)) % 192), 2, A_BOLD, vm->arena[pc + i][1], 0);
 	}
-	wrefresh(vm->visu->arena);
+	wrefresh(vm->visu.arena);
 }
 
 void		op_st(t_vm *vm, int *pc)

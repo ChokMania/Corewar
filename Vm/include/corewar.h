@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 09:35:19 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 10:29:27 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct	s_vm
 	unsigned int	total_to_die;
 	unsigned int	nb_check_cycle;
 	unsigned int	nb_live_champ[MAX_PLAYERS];
-	t_visu			*visu;
+	t_visu			visu;
 	unsigned char	arena[MEM_SIZE][2];
 }				t_vm;
 
@@ -151,5 +151,8 @@ void			refresh_live(t_vm *vm, int barre);
 void			refresh_cycle_to_die(t_vm *vm);
 char			*get_hexa(int nb);
 void			init_visual_hud(t_vm *vm);
+void			init_description(t_vm *vm);
+void			ft_visu_wait(t_vm *vm);
+
 
 #endif

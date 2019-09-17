@@ -80,6 +80,7 @@ SRC_NAME			=	main.c							\
 						visu/input.c					\
 						visu/refresh_hud.c				\
 						visu/refresh_live.c				\
+						visu/init_desc.c				\
 
 
 INCLUDE_NAME		=	corewar.h						\

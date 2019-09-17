@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:55:22 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/17 10:01:54 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 10:06:22 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,34 @@ void	init_champ_in_visu(t_vm *vm)
 	while (i < MEM_SIZE * 3)
 	{
 		color = 9;
-		mvwprintw(vm->visu->arena, 1 + (i / 192), 2 + (i % 192),
+		mvwprintw(vm->visu.arena, 1 + (i / 192), 2 + (i % 192),
 			get_hexa(vm->arena[i / 3][0]));
 		if (vm->arena[i / 3][1] != 0)
 			color = vm->arena[i / 3][1];
-		mvwchgat(vm->visu->arena, 1 + (i / 192), 2 + (i % 192), 2, A_BOLD,
+		mvwchgat(vm->visu.arena, 1 + (i / 192), 2 + (i % 192), 2, A_BOLD,
 			color, 0);
-		mvwprintw(vm->visu->arena, 1 + (i / 192), 4 + (i % 192), " ");
+		mvwprintw(vm->visu.arena, 1 + (i / 192), 4 + (i % 192), " ");
 		i += 3;
 	}
 }
 
 void	ft_init_visu(t_vm *vm)
 {
-	if (!(vm->visu = (t_visu*)malloc(sizeof(t_visu) * 1)))
-		return ;
-	bzero(vm->visu, sizeof(t_visu));
+	bzero(&vm->visu, sizeof(t_visu));
 	initscr();
 	noecho();
 	timeout(1);
 	curs_set(0);
 	init_color_vm();
-	vm->visu->hud = newwin(66, 111, 0, 195);
-	vm->visu->arena = newwin(66, 195, 0, 0);
-	vm->visu->cps = 50;
+	vm->visu.hud = newwin(66, 111, 0, 195);
+	vm->visu.arena = newwin(66, 195, 0, 0);
+	vm->visu.cps = 50;
 	refresh();
-	box(vm->visu->arena, 0, 0);
-	box(vm->visu->hud, 0, 0);
-	box(vm->visu->desc, 0, 0);
+	box(vm->visu.arena, 0, 0);
+	box(vm->visu.hud, 0, 0);
+	box(vm->visu.desc, 0, 0);
 	init_champ_in_visu(vm);
-	wrefresh(vm->visu->arena);
+	wrefresh(vm->visu.arena);
 	init_visual_hud(vm);
-	if (vm->option_visu_d == 1)
-		;//init_description();
 	get_key(vm);
 }

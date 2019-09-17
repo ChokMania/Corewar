@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 17:34:47 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 10:35:21 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 09:54:59 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ static int		ft_option_suite(int ac, char **av, t_vm *vm, char *tab[5])
 	else if (ft_strcmp(av[0], "-visual") == 0 || ft_strcmp(av[0], "-vi") == 0)
 	{
 		vm->option_visu = 1;
+		return (-1);
+	}
+	else if (ft_strcmp(av[0], "-visuald") == 0 || ft_strcmp(av[0], "-vid") == 0)
+	{
+		vm->option_visu = 1;
+		vm->option_visu_d = 1;
 		return (-1);
 	}
 	return (0);

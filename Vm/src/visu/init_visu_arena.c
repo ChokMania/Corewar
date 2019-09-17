@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:55:22 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/16 12:22:08 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 10:01:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,11 @@ void	ft_init_visu(t_vm *vm)
 	refresh();
 	box(vm->visu->arena, 0, 0);
 	box(vm->visu->hud, 0, 0);
+	box(vm->visu->desc, 0, 0);
 	init_champ_in_visu(vm);
 	wrefresh(vm->visu->arena);
 	init_visual_hud(vm);
+	if (vm->option_visu_d == 1)
+		;//init_description();
 	get_key(vm);
 }

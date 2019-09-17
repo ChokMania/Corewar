@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 10:45:23 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 09:56:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,13 @@ static void	ft_usage(void)
 {
 	ft_printf("Usage : ./corewar (-d/-dump N)"
 	"[[-n N] <champion1.cor>] <...>\n\n");
-	ft_printf("\t-d/-dump N    : Dumps memory after N(int >= 0) "
+	ft_printf("\t-d/-dump      N : Dumps memory after N(int >= 0) "
 	"cycles then exit the program\n");
-	ft_printf("\t-n/-number N  : Give to champion(s) N(int > 0) "
+	ft_printf("\t-n/-number    N : Give to champion(s) N(int > 0) "
 	"player number\n");
-	ft_printf("\t-v/-verbose N : Give more infos during match\n");
-	ft_printf("\t-vi/-visual   : Give visual of the match\n");
+	ft_printf("\t-v/-verbose   N : Give more infos during match\n");
+	ft_printf("\t-vi/-visual     : Give visual of the match\n");
+	ft_printf("\t-vid/-visuald   : Add description on the visual\n");
 	exit(0);
 }
 

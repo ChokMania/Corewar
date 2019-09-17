@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 15:36:31 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/17 09:35:19 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef	struct	s_visu
 {
 	WINDOW			*arena;
 	WINDOW			*hud;
+	WINDOW			*desc;
 	int				cps;
 }				t_visu;
 
@@ -92,6 +93,7 @@ typedef struct	s_vm
 	long			option_dump;
 	long			option_verbose;
 	long			option_visu;
+	long			option_visu_d;
 	t_proc			*proc;
 	t_proc			*beg;
 	unsigned int	cycle;

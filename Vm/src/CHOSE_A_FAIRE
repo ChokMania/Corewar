@@ -1,0 +1,15 @@
+CHECKER TOUS LES ERRORS VOIR SI LEAKS A CAUSE DE LA LISTE CHAINEES
+
+REGLER TOUS LES OPCODES QUI UTILISENT IDXMOD
+
+AJOUTER BONUS :
+- faire un -d (description) qui ajoute dans le visu (et seulement le visu donc
+checker si les deux sont actifs) une petite box qui decrit exactement ce quil
+se passe dans la vm pour tous le joueurs
+exemple : 
+joueur 1: fait un st
+joueur 2: fait un live 
+joueur 3: fait un ld
+joueur 4: wait encore 10 cycle
+
+et refresh a chaque cycle

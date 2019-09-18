@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 10:29:27 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 13:54:01 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct	s_vm
 	long			option_verbose;
 	long			option_visu;
 	long			option_visu_d;
+	long			option_i;
 	t_proc			*proc;
 	t_proc			*beg;
 	unsigned int	cycle;
@@ -137,10 +138,13 @@ void			op_lfork(t_vm *vm, int *pc);
 void			op_aff(t_vm *vm, int *pc);
 
 void			free_chaine(t_proc *proc);
+int				ft_list_lenght(t_proc *beg_real);
 void			ft_print_dump(t_vm vm);
 void			ft_introduce(t_vm *vm);
 void			ft_victory(t_vm *vm);
 void			ft_invert_byte(unsigned int *val);
+int				ft_list_count_vm(t_proc *begin_list);
+
 
 void			ft_init_visu(t_vm *vm);
 void			get_key(t_vm *vm);
@@ -153,6 +157,6 @@ char			*get_hexa(int nb);
 void			init_visual_hud(t_vm *vm);
 void			init_description(t_vm *vm);
 void			ft_visu_wait(t_vm *vm);
-
+void			ft_visu_d_message(t_vm *vm, char *str);
 
 #endif

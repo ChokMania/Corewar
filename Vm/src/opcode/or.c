@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 10:31:27 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 10:14:24 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,5 @@ void		op_or(t_vm *vm, int *pc)
 		op_or_suite(vm, pc, arg_size);
 	ft_arg(vm, pc, arg_value, arg_size);
 	exec_or(vm, arg_value, arg_size);
+	ft_visu_d_message(vm, "or");
 }

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 15:40:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 13:38:59 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		op_live(t_vm *vm, int *pc)
 
 	ft_arg(vm, pc, &arg_value);
 	exec_live(vm, arg_value);
-	if (vm->option_verbose >= 0)
+	if (vm->option_verbose >= 2 && !vm->option_visu && !vm->option_visu_d )
 		ft_printf("Player %u (%s) is said to be alive\n",
 			vm->proc->n_champ, vm->proc->head.prog_name);
+	ft_visu_d_message(vm, "live");
 }

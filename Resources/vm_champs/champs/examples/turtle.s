@@ -7,13 +7,13 @@ entry:
 	sti			r1, %:avdef, %1
 	sti			r1, %:entry_l1, %1
 	ld			%0, r16
-	fork		%:zork
+	lfork		%:zork
 
 entry_l1:
 	live		%42
 	ld			%439025904, r2
 	ld			%0, r16
-	fork		%:avdef
+	lfork		%:avdef
 
 ################################################################################
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 12:52:44 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/18 10:14:33 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,5 @@ void		op_st(t_vm *vm, int *pc)
 	ft_arg(vm, pc, arg_value, arg_size);
 	exec_st(vm, arg_value, arg_size);
 	vm->option_visu == 1 ? visual_st(vm, arg_value, arg_size) : 0;
+	ft_visu_d_message(vm, "st");
 }

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:59:21 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/17 10:03:43 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 09:38:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,8 @@ void	get_key(t_vm *vm)
 			break ;
 	}
 	timeout(1);
-	usleep(1000000 / vm->visu.cps);
+	if (vm->visu.cps < 500)
+		usleep(1000000 / vm->visu.cps);
+	else if (vm->visu.cps < 1000)
+		usleep(100000 / vm->visu.cps);
 }

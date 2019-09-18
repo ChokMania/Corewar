@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:08 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 11:51:23 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 10:13:35 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ void		op_ld(t_vm *vm, int *pc)
 		ft_error(ERROR_LD, vm->proc->n_champ, vm);
 	ft_arg(vm, pc, arg_value, arg_size);
 	exec_ld(vm, arg_value, arg_size);
+	ft_visu_d_message(vm, "ld");
 }

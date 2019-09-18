@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 10:39:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 13:56:24 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	ft_apply_proc(t_vm *vm, int *i)
 				vm->proc->pc++;
 			}
 		}
+
 		vm->proc = vm->proc->next;
 		(*i)++;
 	}
@@ -57,6 +58,10 @@ void		ft_play(t_vm *vm)
 		ft_apply_proc(vm, &i);
 		vm->proc = vm->beg;
 		vm->cycle++;
+		vm->option_verbose == 1 && !vm->option_visu
+		&& !vm->option_visu_d
+		? ft_printf("It is now cycle %d\n", vm->cycle) : 0;
+		
 	}
 }
 
@@ -88,6 +93,8 @@ int			main(int ac, char **av)
 	ft_args(ac, av, &vm, tab);
 	ft_init_vm(&vm);
 	ft_parsing(&vm, tab);
+	if (vm.nb_champ < 1 || vm.nb_champ > 4)
+		ft_error(ERROR_READ, -1, &vm);
 	vm.option_visu == 1 ? ft_init_visu(&vm) : ft_introduce(&vm);
 	ft_play(&vm);
 	vm.option_visu == 1 ? endwin() : 0;

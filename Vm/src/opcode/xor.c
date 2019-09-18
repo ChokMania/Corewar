@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:55 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 10:33:46 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 10:14:53 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	exec_xor(t_vm *vm, unsigned int arg_value[3],
 			? arg_value[0] ^ vm->proc->r[arg_value[1]]
 			: arg_value[0] ^ arg_value[1];
 	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
+	ft_visu_d_message(vm, "xor");
 }
 
 static void	op_xor_suite(t_vm *vm, int *pc, unsigned int arg_size[3])

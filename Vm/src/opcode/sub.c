@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:04 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 13:39:35 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/18 10:14:40 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@ void		op_sub(t_vm *vm, int *pc)
 	
 	ft_arg(vm, pc, arg_value);
 	exec_sub(vm, arg_value);
+	ft_visu_d_message(vm, "sub");
 }

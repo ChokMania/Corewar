@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 11:11:05 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 11:09:48 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 10:03:25 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,14 @@ void	ft_visu_wait(t_vm *vm)
 	if (vm->option_visu_d == 1)
 	{
 		wattron(vm->visu.hud, A_BOLD);
-		mvwprintw(vm->visu.hud, 34 + ((vm->proc->n_champ - 1) * 2), 61,
-		"                                         ");
-		mvwprintw(vm->visu.hud, 34 + ((vm->proc->n_champ - 1) * 2), 61,
-			"Need to wait : ");
-		mvwprintw(vm->visu.hud, 34 + ((vm->proc->n_champ - 1) * 2), 77,
-			ft_itoa(vm->proc->wait));
-		mvwprintw(vm->visu.hud, 34 + ((vm->proc->n_champ - 1) * 2),
-			78 + ft_strlen(ft_itoa(vm->proc->wait)), "cycles.");
+		mvwprintw(vm->visu.hud, 26 + (vm->proc->n_champ - 1) * 2 +
+			vm->nb_champ * 4, 61, "                                         ");
+		mvwprintw(vm->visu.hud, 26 + (vm->proc->n_champ - 1) * 2 +
+			vm->nb_champ * 4, 61, "Need to wait : ");
+		mvwprintw(vm->visu.hud, 26 + (vm->proc->n_champ - 1) * 2 +
+			vm->nb_champ * 4, 77, ft_itoa(vm->proc->wait));
+		mvwprintw(vm->visu.hud, 26 + (vm->proc->n_champ - 1) * 2 +
+			vm->nb_champ * 4, 78 + ft_strlen(ft_itoa(vm->proc->wait)), "cycles.");
 		wrefresh(vm->visu.hud);
 	}
 }

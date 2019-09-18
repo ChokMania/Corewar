@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:30 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 10:31:30 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 10:13:41 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ void		op_ldi(t_vm *vm, int *pc)
 		ft_error(ERROR_LDI, vm->proc->n_champ, vm);
 	ft_arg(vm, pc, arg_value, arg_size);
 	exec_ldi(vm, arg_value, arg_size);
+	ft_visu_d_message(vm, "ldi");
 }

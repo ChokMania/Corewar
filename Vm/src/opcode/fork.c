@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:20 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 10:59:36 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 10:13:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void		op_fork(t_vm *vm, int *pc)
 
 	ft_arg(vm, pc, &arg_value);
 	exec_fork(vm, arg_value);
+	ft_visu_d_message(vm, "fork");
 }

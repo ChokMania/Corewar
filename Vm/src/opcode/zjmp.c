@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zjmp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:25 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/17 13:41:34 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/18 10:15:11 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void		op_zjmp(t_vm *vm, int *pc)
 
 	ft_arg(vm, pc, &arg_value);
 	exec_zjmp(vm, arg_value);
+	ft_visu_d_message(vm, "zjmp");
 }

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 13:31:04 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 18:11:00 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** T_DIR SIZE 2
 */
 
-static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
+static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
 {
 	int		i;
@@ -64,35 +64,42 @@ static void	visual_sti(t_vm *vm, int index)
 static void	exec_sti(t_vm *vm, unsigned int arg_value[3],
 	unsigned int arg_size[3])
 {
-	int				i;
-	int				index;
+	unsigned int	i;
+	unsigned int	index;
 	unsigned int	tmp;
 
 	if (!(index = 0) && arg_size[1] == T_REG)
 		index += vm->proc->r[arg_value[1]] - T_REG;
 	else if (arg_size[1] == T_DIR || arg_size[1] == T_IND)
 		index += arg_value[1] - T_DIR;
-	if ((i = vm->proc->pc - IDX_MOD) && arg_size[2] == T_REG)
+	if (arg_size[2] == T_REG)
 		index += vm->proc->r[arg_value[2]] - T_REG;
 	else if (arg_size[2] == T_DIR)
 		index += arg_value[2] - T_DIR;
-	index >= MEM_SIZE ? index = index % MEM_SIZE : 0;
-	if ((i = 4) && (index < (i < 0 ? MEM_SIZE - i % MEM_SIZE : MEM_SIZE - i)
-		|| index >= vm->proc->pc))
-		index %= IDX_MOD;
+	i = (vm->proc->pc - IDX_MOD) % MEM_SIZE;
 	index += vm->proc->pc - 2;
+	index %= MEM_SIZE;
+	//ft_printf("IDX MOD : %d pc : %u\nindex : %d\narg_value[1] : %d\narg_value[2]: %d\n\n\n", IDX_MOD, vm->proc->pc, index, arg_value[1] % MEM_SIZE, arg_value[2]);
+	// if (index < vm->proc->pc && (vm->proc->pc) - index > IDX_MOD)
+	//{
+	//	index = (vm->proc->pc - 4 - arg_size[0] - arg_size[1] - arg_size[2]) - (index % IDX_MOD);
+	//}
+	if ((vm->proc->pc < IDX_MOD && index >= vm->proc->pc && index < i)
+	 	|| (index < i && vm->proc->pc >= IDX_MOD) || (index >= vm->proc->pc && vm->proc->pc >= IDX_MOD))
+	 	index %= IDX_MOD;
 	tmp = vm->proc->r[arg_value[0]];
-	while (--i >= 0)
+	i = 5;
+	while (--i >= 1)
 	{
-		vm->arena[index + i][0] = tmp % 256;
-		vm->arena[index + i][1] = vm->proc->n_champ;
+		vm->arena[index + i - 1][0] = tmp % 256;
+		vm->arena[index + i - 1][1] = vm->proc->n_champ;
 		tmp >>= 8;
 	}
 	vm->option_visu == 1 ? visual_sti(vm, index) : 0;
 }
 
 
-void		op_sti(t_vm *vm, int *pc)
+void		op_sti(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];

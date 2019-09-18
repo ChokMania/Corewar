@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:34 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 10:13:18 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** T_DIR SIZE 4
 */
 
-static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
+static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
 {
 	int		i;
@@ -69,7 +69,7 @@ static void	exec_and(t_vm *vm, unsigned int arg_value[3],
 ** PB SIZE OF DIR AND IND
 */
 
-static void	op_and_suite(t_vm *vm, int *pc, unsigned int arg_size[3])
+static void	op_and_suite(t_vm *vm, unsigned int *pc, unsigned int arg_size[3])
 {
 	if ((vm->arena[*pc][0] == 212 || vm->arena[*pc][0] == 228
 		|| vm->arena[*pc][0] == 244) && (arg_size[0] = T_IND))
@@ -83,7 +83,7 @@ static void	op_and_suite(t_vm *vm, int *pc, unsigned int arg_size[3])
 		ft_error(ERROR_AND, vm->proc->n_champ, vm);
 }
 
-void		op_and(t_vm *vm, int *pc)
+void		op_and(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];

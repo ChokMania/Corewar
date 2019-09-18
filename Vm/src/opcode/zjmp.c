@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:25 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 10:15:11 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:08:53 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** T_DIR SIZE 2
 */
 
-static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value)
+static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {
 	(*pc) += T_DIR;
 	*arg_value = vm->arena[*pc - 1][0] << 8 | vm->arena[*pc][0];
@@ -30,13 +30,10 @@ static void	exec_zjmp(t_vm *vm, unsigned int arg_value)
 		vm->proc->pc += (arg_value % IDX_MOD) - 3;
 	else
 		vm->proc->pc += T_DIR;
-	if (vm->proc->pc < 0)
-		vm->proc->pc = MEM_SIZE + vm->proc->pc;
-	else if (vm->proc->pc > MEM_SIZE)
-		vm->proc->pc %= MEM_SIZE;
+	vm->proc->pc %= MEM_SIZE;
 }
 
-void		op_zjmp(t_vm *vm, int *pc)
+void		op_zjmp(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value;
 

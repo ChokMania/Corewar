@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:55:22 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/18 10:54:24 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 18:28:02 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_init_visu(t_vm *vm)
 	init_color_vm();
 	vm->visu.hud = newwin(66, 111, 0, 195);
 	vm->visu.arena = newwin(66, 195, 0, 0);
+	vm->option_i == 1 ? vm->visu.desc = newwin(18, 195, 66, 0) : 0;
 	vm->visu.cps = 50;
 	refresh();
 	box(vm->visu.arena, 0, 0);
@@ -82,6 +83,7 @@ void	ft_init_visu(t_vm *vm)
 	box(vm->visu.desc, 0, 0);
 	init_champ_in_visu(vm);
 	wrefresh(vm->visu.arena);
+	vm->option_i == 1 ? add_description(vm) : 0;
 	init_visual_hud(vm);
 	get_key(vm);
 }

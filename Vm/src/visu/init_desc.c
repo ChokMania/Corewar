@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 10:04:56 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/18 10:12:08 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 18:26:25 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,27 @@ void	init_description(t_vm *vm)
 		wattroff(vm->visu.hud, COLOR_PAIR((j + 1)));
 		current = current->next;
 	}
+}
+
+void	add_description(t_vm *vm)
+{
+	wattron(vm->visu.desc, A_BOLD);
+	mvwprintw(vm->visu.desc, 1, 2, "add\t:");
+	mvwprintw(vm->visu.desc, 2, 2, "aff\t:");
+	mvwprintw(vm->visu.desc, 3, 2, "and\t:");
+	mvwprintw(vm->visu.desc, 4, 2, "fork\t:");
+	mvwprintw(vm->visu.desc, 5, 2, "ld\t:");
+	mvwprintw(vm->visu.desc, 6, 2, "ldi\t:");
+	mvwprintw(vm->visu.desc, 7, 2, "lfork\t:");
+	mvwprintw(vm->visu.desc, 8, 2, "live\t:");
+	mvwprintw(vm->visu.desc, 9, 2, "lld\t:");
+	mvwprintw(vm->visu.desc, 10, 2, "lldi\t:");
+	mvwprintw(vm->visu.desc, 11, 2, "or\t:");
+	mvwprintw(vm->visu.desc, 12, 2, "st\t:");
+	mvwprintw(vm->visu.desc, 13, 2, "sti\t:");
+	mvwprintw(vm->visu.desc, 14, 2, "sub\t:");
+	mvwprintw(vm->visu.desc, 15, 2, "xor\t:");
+	mvwprintw(vm->visu.desc, 16, 2, "zjmp\t:");
+	wattroff(vm->visu.desc, A_BOLD);
+	wrefresh(vm->visu.desc);
 }

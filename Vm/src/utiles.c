@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 14:09:22 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 15:24:50 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	ft_cdt_suite(t_vm *vm)
 	}
 	while (current)
 	{
-		current->alive == 0 ? ft_dead_proc(vm) : (current->alive = 0);
+		current->alive == 0 ? ft_dead_proc(vm, current) : (current->alive = 0);
 		current = current->next;
 	}
 	while (++i < vm->nb_champ)
@@ -111,9 +111,8 @@ void		ft_cycle_to_die(t_vm *vm)
 	while (current && ((i += current->alive) >= 0))
 		current = current->next;
 	vm->total_to_die += vm->cycle_to_die;
-	if (i <= NBR_LIVE)
-		vm->nb_check_cycle++;
-	if (i > NBR_LIVE || vm->nb_check_cycle == MAX_CHECKS)
+	vm->nb_check_cycle++;
+	if (i >= NBR_LIVE || vm->nb_check_cycle == MAX_CHECKS)
 	{
 		vm->cycle_to_die = CYCLE_DELTA > vm->cycle_to_die
 			? 0 : vm->cycle_to_die - CYCLE_DELTA;

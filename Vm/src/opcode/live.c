@@ -6,13 +6,13 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 13:38:59 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value)
+static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {
 	(*pc) += T_IND;
 	(*arg_value) = vm->arena[*pc - 3][0] << 24 | vm->arena[*pc - 2][0] << 16
@@ -39,7 +39,7 @@ static void	exec_live(t_vm *vm, unsigned int arg_value)
 	}
 }
 
-void		op_live(t_vm *vm, int *pc)
+void		op_live(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value;
 

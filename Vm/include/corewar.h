@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 13:54:01 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 18:17:13 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@
 
 typedef struct	s_proc
 {
-	int				pc;
 	int				wait;
 	int				alive;
 	int				carry;
 	int				last_live;
 	t_header		head;
+	unsigned int	pc;
 	unsigned int	n_champ;
 	unsigned int	r[REG_NUMBER];
 	unsigned int	during_fork;
@@ -112,30 +112,31 @@ void			ft_put_instruct(int pc, unsigned int arg_value[3],
 					unsigned int arg_size[3]);
 void			ft_init_vm(t_vm *vm);
 void			ft_cycle_to_die(t_vm *vm);
-void			ft_choise_opcode(t_vm *vm, int *pc, unsigned char opcode);
+void			ft_choise_opcode(t_vm *vm, unsigned int *pc,
+					unsigned char opcode);
 void			ft_wait(t_vm *vm, unsigned char opcode);
-void			ft_dead_proc(t_vm *vm);
+void			ft_dead_proc(t_vm *vm, t_proc *current);
 
 void			ft_parsing(t_vm *vm, char **av);
 
 void			ft_args(int ac, char **av, t_vm *vm, char *tab[5]);
 
-void			op_live(t_vm *vm, int *pc);
-void			op_ld(t_vm *vm, int *pc);
-void			op_st(t_vm *vm, int *pc);
-void			op_add(t_vm *vm, int *pc);
-void			op_sub(t_vm *vm, int *pc);
-void			op_and(t_vm *vm, int *pc);
-void			op_or(t_vm *vm, int *pc);
-void			op_xor(t_vm *vm, int *pc);
-void			op_zjmp(t_vm *vm, int *pc);
-void			op_ldi(t_vm *vm, int *pc);
-void			op_sti(t_vm *vm, int *pc);
-void			op_fork(t_vm *vm, int *pc);
-void			op_lld(t_vm *vm, int *pc);
-void			op_lldi(t_vm *vm, int *pc);
-void			op_lfork(t_vm *vm, int *pc);
-void			op_aff(t_vm *vm, int *pc);
+void			op_live(t_vm *vm, unsigned int *pc);
+void			op_ld(t_vm *vm, unsigned int *pc);
+void			op_st(t_vm *vm, unsigned int *pc);
+void			op_add(t_vm *vm, unsigned int *pc);
+void			op_sub(t_vm *vm, unsigned int *pc);
+void			op_and(t_vm *vm, unsigned int *pc);
+void			op_or(t_vm *vm, unsigned int *pc);
+void			op_xor(t_vm *vm, unsigned int *pc);
+void			op_zjmp(t_vm *vm, unsigned int *pc);
+void			op_ldi(t_vm *vm, unsigned int *pc);
+void			op_sti(t_vm *vm, unsigned int *pc);
+void			op_fork(t_vm *vm, unsigned int *pc);
+void			op_lld(t_vm *vm, unsigned int *pc);
+void			op_lldi(t_vm *vm, unsigned int *pc);
+void			op_lfork(t_vm *vm, unsigned int *pc);
+void			op_aff(t_vm *vm, unsigned int *pc);
 
 void			free_chaine(t_proc *proc);
 int				ft_list_lenght(t_proc *beg_real);
@@ -158,5 +159,7 @@ void			init_visual_hud(t_vm *vm);
 void			init_description(t_vm *vm);
 void			ft_visu_wait(t_vm *vm);
 void			ft_visu_d_message(t_vm *vm, char *str);
+void			add_description(t_vm *vm);
+
 
 #endif

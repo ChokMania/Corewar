@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:59 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/17 10:03:43 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 15:10:31 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	refresh_live_by_champ(t_vm *vm, int i)
 	while (j-- > 0 && current)
 		current = current->next;
 	wattron(vm->visu.hud, A_BOLD);
+	mvwprintw(vm->visu.hud, 19 + (i * 4), 7, "Last live :          "
+		"                                       ");
 	mvwprintw(vm->visu.hud, 19 + (i * 4), 40, ft_itoa(current->last_live));
 	if (vm->nb_live_champ[i] == 0)
 		mvwprintw(vm->visu.hud, 20 + (i * 4), 40, "0             ");

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 11:11:05 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 10:03:25 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:05:51 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** LA SUITE POUR L'ORIENTATION DE L'EXECUTION DE L'OPCODE APRES LE WAIT
 */
 
-static void	ft_choise_opcode_suite(t_vm *vm, int *pc, unsigned char opcode)
+static void	ft_choise_opcode_suite(t_vm *vm, unsigned int *pc, unsigned char opcode)
 {
 	if (opcode == 10)
 		op_ldi(vm, pc);
@@ -38,7 +38,7 @@ static void	ft_choise_opcode_suite(t_vm *vm, int *pc, unsigned char opcode)
 ** FONCTION POUR L'ORIENTATION DE L'EXECUTION DE L'OPCODE APRES LE WAIT
 */
 
-void		ft_choise_opcode(t_vm *vm, int *pc, unsigned char opcode)
+void		ft_choise_opcode(t_vm *vm, unsigned int *pc, unsigned char opcode)
 {
 	if (opcode == 1)
 		op_live(vm, pc);

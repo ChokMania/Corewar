@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 10:14:24 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** T_DIR SIZE 4
 */
 
-static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
+static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
 {
 	int		i;
@@ -61,7 +61,7 @@ static void	exec_or(t_vm *vm, unsigned int arg_value[3]
 	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
 }
 
-static void	op_or_suite(t_vm *vm, int *pc, unsigned int arg_size[3])
+static void	op_or_suite(t_vm *vm, unsigned int *pc, unsigned int arg_size[3])
 {
 	if ((vm->arena[*pc][0] == 212) && (arg_size[0] = T_IND))
 		arg_size[1] = T_REG;
@@ -73,7 +73,7 @@ static void	op_or_suite(t_vm *vm, int *pc, unsigned int arg_size[3])
 		ft_error(ERROR_AND, vm->proc->n_champ, vm);
 }
 
-void		op_or(t_vm *vm, int *pc)
+void		op_or(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];

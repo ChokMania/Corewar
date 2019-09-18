@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:04 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 10:14:40 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** T_REG SIZE 1
 */
 
-static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value)
+static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {
 	int		i;
 
@@ -35,7 +35,7 @@ static void	exec_sub(t_vm *vm, unsigned int arg_value[3])
 	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
 }
 
-void		op_sub(t_vm *vm, int *pc)
+void		op_sub(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	

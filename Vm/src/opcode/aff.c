@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:24:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 10:12:59 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** T_REG SIZE 1
 */
 
-static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value)
+static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {
 	(*pc) += T_REG;
 	arg_value[0] = vm->arena[*pc][0] - 0x01;
@@ -27,7 +27,7 @@ static void	exec_aff(t_vm *vm, unsigned int arg_value[3])
 	vm->option_visu == 0 ? ft_printf("%c", vm->proc->r[arg_value[0]] % 256) : 0;
 }
 
-void		op_aff(t_vm *vm, int *pc)
+void		op_aff(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 

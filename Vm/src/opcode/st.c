@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 10:14:33 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** T_DIR SIZE 4
 */
 
-static void	ft_arg(t_vm *vm, int *pc, unsigned int *arg_value,
+static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
 {
 	int		i;
@@ -109,7 +109,7 @@ static void	visual_st(t_vm *vm, unsigned int arg_value[3],
 	wrefresh(vm->visu.arena);
 }
 
-void		op_st(t_vm *vm, int *pc)
+void		op_st(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];
@@ -122,10 +122,11 @@ void		op_st(t_vm *vm, int *pc)
 		arg_size[1] = T_REG;
 	else if (vm->arena[*pc][0] == 112)
 		arg_size[1] = T_IND;
-	else
-		ft_error(ERROR_ST, vm->proc->n_champ, vm);
-	ft_arg(vm, pc, arg_value, arg_size);
-	exec_st(vm, arg_value, arg_size);
-	vm->option_visu == 1 ? visual_st(vm, arg_value, arg_size) : 0;
-	ft_visu_d_message(vm, "st");
+	if (vm->arena[*pc][0] == 80 || vm->arena[*pc][0] == 112)
+	{
+		ft_arg(vm, pc, arg_value, arg_size);
+		exec_st(vm, arg_value, arg_size);
+		vm->option_visu == 1 ? visual_st(vm, arg_value, arg_size) : 0;
+		ft_visu_d_message(vm, "st");
+	}
 }

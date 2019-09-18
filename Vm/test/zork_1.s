@@ -6,5 +6,5 @@ ld %4294967294, r1
 l2:		st r1, 130
 		ld %1, r16
 
-live:	live %4294967294
+live:	live %01
 		zjmp %:live

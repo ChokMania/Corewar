@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:42:27 by judumay           #+#    #+#             */
-/*   Updated: 2019/07/04 11:16:03 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/19 18:27:03 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-# include "libft.h"
+# include "../../Libft/includes/libft.h"
 # include "op.h"
 
 /*

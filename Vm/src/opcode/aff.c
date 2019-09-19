@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:24:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:36:29 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 18:11:59 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		op_aff(t_vm *vm, unsigned int *pc)
 	unsigned int	arg_value;
 
 	(*pc)++;
-	ft_arg(vm, pc, arg_value);
+	ft_arg(vm, pc, &arg_value);
 	exec_aff(vm, arg_value);
 	ft_visu_d_message(vm, "aff");
 }

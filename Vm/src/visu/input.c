@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:59:21 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/19 17:41:48 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 18:12:18 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void		ft_victory_visu(t_vm *vm, t_proc *winner)
 	"|__/     \\__/|______/|__/  \\__/|__/  \\__/|________/|__/  |__/");
 	mvwprintw(vm->visu.winner, 13, 25,
 	"                                                             ");
+	ft_victory_visu_two(vm, winner);
 }
 
 void		modif_cps(t_vm *vm, int to_add)

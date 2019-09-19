@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 18:11:00 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 12:31:05 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,10 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3],
 	i = (vm->proc->pc - IDX_MOD) % MEM_SIZE;
 	index += vm->proc->pc - 2;
 	index %= MEM_SIZE;
-	//ft_printf("IDX MOD : %d pc : %u\nindex : %d\narg_value[1] : %d\narg_value[2]: %d\n\n\n", IDX_MOD, vm->proc->pc, index, arg_value[1] % MEM_SIZE, arg_value[2]);
-	// if (index < vm->proc->pc && (vm->proc->pc) - index > IDX_MOD)
-	//{
-	//	index = (vm->proc->pc - 4 - arg_size[0] - arg_size[1] - arg_size[2]) - (index % IDX_MOD);
-	//}
-	if ((vm->proc->pc < IDX_MOD && index >= vm->proc->pc && index < i)
-	 	|| (index < i && vm->proc->pc >= IDX_MOD) || (index >= vm->proc->pc && vm->proc->pc >= IDX_MOD))
-	 	index %= IDX_MOD;
+	if (index < vm->proc->pc - 6 && vm->proc->pc - 6 - index > IDX_MOD)
+		index = vm->proc->pc - 6 - (vm->proc->pc - 6 - index) % IDX_MOD;
+	else if (index > vm->proc->pc - 6 && index - (vm->proc->pc - 6) >= IDX_MOD)
+		index = vm->proc->pc - 6 + (index % IDX_MOD);
 	tmp = vm->proc->r[arg_value[0]];
 	i = 5;
 	while (--i >= 1)

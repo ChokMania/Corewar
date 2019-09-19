@@ -6,11 +6,44 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/17 10:03:43 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:33:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void	ft_victory_visu(t_vm *vm, t_proc *winner)
+{
+	vm->visu.winner = newwin(18, 111, 66, 195);
+	box(vm->visu.winner, 0, 0);
+	//wattron(vm->visu.winner, COLOR_PAIR(winner->n_champ));
+	mvwprintw(vm->visu.winner, 2, 20,
+	" /$$      /$$ /$$$$$$ /$$   /$$ /$$   /$$ /$$$$$$$$ /$$$$$$$ ");
+	mvwprintw(vm->visu.winner, 3, 20,
+	"| $$  /$ | $$|_  $$_/| $$$ | $$| $$$ | $$| $$_____/| $$__  $$");
+	mvwprintw(vm->visu.winner, 4, 20,
+	"| $$ /$$$| $$  | $$  | $$$$| $$| $$$$| $$| $$      | $$  \\ $$");
+	mvwprintw(vm->visu.winner, 5, 20,
+	"| $$/$$ $$ $$  | $$  | $$ $$ $$| $$ $$ $$| $$$$$   | $$$$$$$/");
+	mvwprintw(vm->visu.winner, 6, 20,
+	"| $$$$_  $$$$  | $$  | $$  $$$$| $$  $$$$| $$__/   | $$__  $$");
+	mvwprintw(vm->visu.winner, 7, 20,
+	"| $$$/ \\  $$$  | $$  | $$\\  $$$| $$\\  $$$| $$      | $$  \\ $$");
+	mvwprintw(vm->visu.winner, 8, 20,
+	"| $$/   \\  $$ /$$$$$$| $$ \\  $$| $$ \\  $$| $$$$$$$$| $$  | $$");
+	mvwprintw(vm->visu.winner, 9, 20,
+	"|__/     \\__/|______/|__/  \\__/|__/  \\__/|________/|__/  |__/");
+	mvwprintw(vm->visu.winner, 10, 20,
+	"                                                             ");
+	mvwprintw(vm->visu.winner, 11, 20, winner->head.prog_name);
+	wrefresh(vm->visu.winner);
+	//wattroff(vm->visu.winner, COLOR_PAIR(winner->n_champ));
+	sleep(2);
+	endwin();
+	ft_printf("%s\n", winner->head.prog_name);
+	free_chaine(vm->beg);
+	exit (0);
+}
 
 void	refresh_pc(t_vm *vm)
 {

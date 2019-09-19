@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 15:24:50 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:52:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	ft_winner(t_vm *vm)
 
 	current = vm->beg;
 	winner = vm->beg;
-	vm->option_visu == 1 ? endwin() : 0;
 	last = vm->beg->last_live;
 	while (current)
 	{
@@ -72,6 +71,8 @@ static void	ft_winner(t_vm *vm)
 			winner = current;
 		current = current->next;
 	}
+	ft_printf("yolo");
+	vm->option_visu == 1 ? ft_victory_visu(vm, winner): 0;
 	ft_printf("Contestant %d, \"%s\", has won ! at cycle %d\n",
 		winner->n_champ, winner->head.prog_name, vm->cycle);
 	free_chaine(vm->beg);
@@ -84,12 +85,20 @@ static void	ft_cdt_suite(t_vm *vm)
 	t_proc	*current;
 
 	current = vm->beg;
-	i = -1;
+	i = 0;
 	if (vm->cycle_to_die == 0)
 	{
 		vm->cycle++;
 		ft_winner(vm);
 	}
+	while (current && !current->alive)
+	{
+		i++;
+		current = current->next;
+	}
+	i == ft_list_count_vm(vm->beg)? ft_winner(vm) : 0;
+	current = vm->beg;
+	i = -1;
 	while (current)
 	{
 		current->alive == 0 ? ft_dead_proc(vm, current) : (current->alive = 0);

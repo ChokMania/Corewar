@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 18:17:13 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:46:06 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef	struct	s_visu
 	WINDOW			*arena;
 	WINDOW			*hud;
 	WINDOW			*desc;
+	WINDOW			*winner;
 	int				cps;
 }				t_visu;
 
@@ -142,10 +143,9 @@ void			free_chaine(t_proc *proc);
 int				ft_list_lenght(t_proc *beg_real);
 void			ft_print_dump(t_vm vm);
 void			ft_introduce(t_vm *vm);
-void			ft_victory(t_vm *vm);
+void			ft_victory(t_vm *vm, t_proc *current);
 void			ft_invert_byte(unsigned int *val);
 int				ft_list_count_vm(t_proc *begin_list);
-
 
 void			ft_init_visu(t_vm *vm);
 void			get_key(t_vm *vm);
@@ -160,6 +160,7 @@ void			init_description(t_vm *vm);
 void			ft_visu_wait(t_vm *vm);
 void			ft_visu_d_message(t_vm *vm, char *str);
 void			add_description(t_vm *vm);
+void			ft_victory_visu(t_vm *vm, t_proc *winner);
 
 
 #endif

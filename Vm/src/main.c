@@ -6,11 +6,12 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 15:51:33 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:34:03 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
 
 static void	ft_apply_proc(t_vm *vm, int *i)
 {
@@ -30,7 +31,6 @@ static void	ft_apply_proc(t_vm *vm, int *i)
 				vm->proc->pc++;
 			}
 		}
-
 		vm->proc = vm->proc->next;
 		(*i)++;
 	}
@@ -46,7 +46,7 @@ void		ft_play(t_vm *vm)
 		if (vm->cycle > 0
 			&& (vm->cycle - vm->total_to_die) % vm->cycle_to_die == 0)
 			ft_cycle_to_die(vm);
-		if (vm->option_visu == 1)// && vm->cycle >= 42000)
+		if (vm->option_visu == 1)
 		{
 			refresh_pc(vm);
 			refresh_live(vm, 0);
@@ -61,7 +61,6 @@ void		ft_play(t_vm *vm)
 		vm->option_verbose == 1 && !vm->option_visu
 		&& !vm->option_visu_d
 		? ft_printf("It is now cycle %d\n", vm->cycle) : 0;
-		
 	}
 }
 

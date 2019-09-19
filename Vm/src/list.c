@@ -6,13 +6,13 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:35:03 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 15:34:31 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:42:01 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		ft_list_lenght(t_proc *beg_real)
+int			ft_list_lenght(t_proc *beg_real)
 {
 	int		i;
 	t_proc	*beg;
@@ -75,7 +75,7 @@ void		ft_dead_proc(t_vm *vm, t_proc *current)
 		tmp = tmp->next;
 	max = ft_list_count_vm(vm->beg);
 	if (num < 1)
-		max == 1 ? ft_victory(vm) : ft_del_sta(vm);
+		max == 1 ? ft_victory(vm, current) : ft_del_sta(vm);
 	else if (num == max)
 		ft_del_end(vm, max);
 	else

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 11:11:05 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 16:05:51 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:02:14 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 ** LA SUITE POUR L'ORIENTATION DE L'EXECUTION DE L'OPCODE APRES LE WAIT
 */
 
-static void	ft_choise_opcode_suite(t_vm *vm, unsigned int *pc, unsigned char opcode)
+static void	ft_choise_opcode_suite(t_vm *vm, unsigned int *pc,
+	unsigned char opcode)
 {
 	if (opcode == 10)
 		op_ldi(vm, pc);
@@ -33,10 +34,6 @@ static void	ft_choise_opcode_suite(t_vm *vm, unsigned int *pc, unsigned char opc
 	else if (opcode == 16)
 		op_aff(vm, pc);
 }
-
-/*
-** FONCTION POUR L'ORIENTATION DE L'EXECUTION DE L'OPCODE APRES LE WAIT
-*/
 
 void		ft_choise_opcode(t_vm *vm, unsigned int *pc, unsigned char opcode)
 {
@@ -61,10 +58,6 @@ void		ft_choise_opcode(t_vm *vm, unsigned int *pc, unsigned char opcode)
 	else
 		ft_choise_opcode_suite(vm, pc, opcode);
 }
-
-/*
-** SUITE POUR WAIT AVANT L'EXECUTION DE L'OPCODE
-*/
 
 static void	ft_wait_suite(t_vm *vm, unsigned char opcode)
 {
@@ -118,7 +111,7 @@ void		ft_wait(t_vm *vm, unsigned char opcode)
 	ft_visu_wait(vm);
 }
 
-void	ft_visu_wait(t_vm *vm)
+void		ft_visu_wait(t_vm *vm)
 {
 	if (vm->option_visu_d == 1)
 	{
@@ -130,7 +123,8 @@ void	ft_visu_wait(t_vm *vm)
 		mvwprintw(vm->visu.hud, 26 + (vm->proc->n_champ - 1) * 2 +
 			vm->nb_champ * 4, 77, ft_itoa(vm->proc->wait));
 		mvwprintw(vm->visu.hud, 26 + (vm->proc->n_champ - 1) * 2 +
-			vm->nb_champ * 4, 78 + ft_strlen(ft_itoa(vm->proc->wait)), "cycles.");
+			vm->nb_champ * 4, 78 + ft_strlen(ft_itoa(vm->proc->wait)),
+			"cycles.");
 		wrefresh(vm->visu.hud);
 	}
 }

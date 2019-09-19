@@ -6,17 +6,11 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:34 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:39:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
-** T_REG SIZE 1
-** T_IND SIZE 2
-** T_DIR SIZE 4
-*/
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
@@ -62,33 +56,36 @@ static void	exec_and(t_vm *vm, unsigned int arg_value[3],
 	ft_visu_d_message(vm, "and");
 }
 
-/*
-** ERROR IN FUNCTION AND :
-** ./corewar ../Resources/champs/examples/zork.cor
-** ../Resources/champs/examples/test.cor
-** PB SIZE OF DIR AND IND
-*/
-
 static void	op_and_suite(t_vm *vm, unsigned int *pc, unsigned int arg_size[3])
 {
-	if ((vm->arena[*pc][0] == 212 || vm->arena[*pc][0] == 228
+	if ((vm->arena[*pc][0] == 148 || vm->arena[*pc][0] == 164
+		|| vm->arena[*pc][0] == 180) && (arg_size[0] = T_DIR))
+		if (vm->arena[*pc][0] == 148)
+			arg_size[1] = T_REG;
+		else if (vm->arena[*pc][0] == 164)
+			arg_size[1] = T_DIR;
+		else
+			arg_size[1] = T_IND;
+	else if ((vm->arena[*pc][0] == 212 || vm->arena[*pc][0] == 228
 		|| vm->arena[*pc][0] == 244) && (arg_size[0] = T_IND))
+	{
 		if (vm->arena[*pc][0] == 212)
 			arg_size[1] = T_REG;
 		else if (vm->arena[*pc][0] == 228)
 			arg_size[1] = T_DIR;
 		else
 			arg_size[1] = T_IND;
-	else
-		ft_error(ERROR_AND, vm->proc->n_champ, vm);
+	}
 }
 
 void		op_and(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];
+	int				save;
 
 	(*pc)++;
+	save = (*pc);
 	arg_size[2] = T_REG;
 	if ((vm->arena[*pc][0] == 84 || vm->arena[*pc][0] == 100
 		|| vm->arena[*pc][0] == 116) && (arg_size[0] = T_REG))
@@ -98,16 +95,13 @@ void		op_and(t_vm *vm, unsigned int *pc)
 			arg_size[1] = T_DIR;
 		else
 			arg_size[1] = T_IND;
-	else if ((vm->arena[*pc][0] == 148 || vm->arena[*pc][0] == 164
-		|| vm->arena[*pc][0] == 180) && (arg_size[0] = T_DIR))
-		if (vm->arena[*pc][0] == 148)
-			arg_size[1] = T_REG;
-		else if (vm->arena[*pc][0] == 164)
-			arg_size[1] = T_DIR;
-		else
-			arg_size[1] = T_IND;
 	else
 		op_and_suite(vm, pc, arg_size);
 	ft_arg(vm, pc, arg_value, arg_size);
-	exec_and(vm, arg_value, arg_size);
+	if (vm->arena[save][0] == 84 || vm->arena[save][0] == 100
+		|| vm->arena[save][0] == 116 || vm->arena[save][0] == 148
+		|| vm->arena[save][0] == 164 || vm->arena[save][0] == 180
+		|| vm->arena[save][0] == 212 || vm->arena[save][0] == 228
+		|| vm->arena[save][0] == 244)
+		exec_and(vm, arg_value, arg_size);
 }

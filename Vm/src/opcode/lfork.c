@@ -6,25 +6,17 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:12 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 16:09:43 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:36:56 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
-** T_DIR SIZE 2
-*/
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {
 	(*pc) += T_DIR;
 	*arg_value = vm->arena[*pc - 1][0] << 8 | vm->arena[*pc][0];
 }
-
-/*
-** creation d'un nouveau process dans la liste des process
-*/
 
 static void	new_process(t_proc **new, t_vm *vm)
 {
@@ -35,10 +27,6 @@ static void	new_process(t_proc **new, t_vm *vm)
 	(*new) = (*new)->next;
 	(*new)->next = NULL;
 }
-
-/*
-** PAS ENCORE FAIT MAIS JUSTE RAJOUTER UN CHAMP DANS LA STRUCT DE LA VM
-*/
 
 static void	exec_lfork(t_vm *vm, unsigned int arg_value)
 {

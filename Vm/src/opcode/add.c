@@ -6,15 +6,11 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:59 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:36:33 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
-** T_REG SIZE 1
-*/
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {

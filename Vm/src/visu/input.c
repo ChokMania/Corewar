@@ -6,13 +6,58 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:59:21 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/18 09:38:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:41:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	modif_cps(t_vm *vm, int to_add)
+static void	ft_victory_visu_two(t_vm *vm, t_proc *winner)
+{
+	int i;
+
+	wrefresh(vm->visu.winner);
+	wattroff(vm->visu.winner, COLOR_PAIR(winner->n_champ));
+	while (1)
+	{
+		timeout(0);
+		if ((i = getch()) == ' ')
+			break ;
+	}
+	timeout(1);
+	endwin();
+	ft_printf("Contestant %d, \"%s\", has won !\n",
+		winner->n_champ, winner->head.prog_name, vm->cycle);
+	free_chaine(vm->beg);
+	exit(0);
+}
+
+void		ft_victory_visu(t_vm *vm, t_proc *winner)
+{
+	vm->visu.winner = newwin(18, 111, 66, 195);
+	box(vm->visu.winner, 0, 0);
+	wattron(vm->visu.winner, COLOR_PAIR(winner->n_champ));
+	mvwprintw(vm->visu.winner, 5, 25,
+	" /$$      /$$ /$$$$$$ /$$   /$$ /$$   /$$ /$$$$$$$$ /$$$$$$$ ");
+	mvwprintw(vm->visu.winner, 6, 25,
+	"| $$  /$ | $$|_  $$_/| $$$ | $$| $$$ | $$| $$_____/| $$__  $$");
+	mvwprintw(vm->visu.winner, 7, 25,
+	"| $$ /$$$| $$  | $$  | $$$$| $$| $$$$| $$| $$      | $$  \\ $$");
+	mvwprintw(vm->visu.winner, 8, 25,
+	"| $$/$$ $$ $$  | $$  | $$ $$ $$| $$ $$ $$| $$$$$   | $$$$$$$/");
+	mvwprintw(vm->visu.winner, 9, 25,
+	"| $$$$_  $$$$  | $$  | $$  $$$$| $$  $$$$| $$__/   | $$__  $$");
+	mvwprintw(vm->visu.winner, 10, 25,
+	"| $$$/ \\  $$$  | $$  | $$\\  $$$| $$\\  $$$| $$      | $$  \\ $$");
+	mvwprintw(vm->visu.winner, 11, 25,
+	"| $$/   \\  $$ /$$$$$$| $$ \\  $$| $$ \\  $$| $$$$$$$$| $$  | $$");
+	mvwprintw(vm->visu.winner, 12, 25,
+	"|__/     \\__/|______/|__/  \\__/|__/  \\__/|________/|__/  |__/");
+	mvwprintw(vm->visu.winner, 13, 25,
+	"                                                             ");
+}
+
+void		modif_cps(t_vm *vm, int to_add)
 {
 	vm->visu.cps += to_add;
 	if (vm->visu.cps > 1000)
@@ -26,7 +71,7 @@ void	modif_cps(t_vm *vm, int to_add)
 	wrefresh(vm->visu.hud);
 }
 
-int		handle_pause(t_vm *vm, int *pause, int p_or_r)
+int			handle_pause(t_vm *vm, int *pause, int p_or_r)
 {
 	wattron(vm->visu.hud, A_BOLD);
 	if (p_or_r == 1)
@@ -47,7 +92,7 @@ int		handle_pause(t_vm *vm, int *pause, int p_or_r)
 	return (1);
 }
 
-void	get_key(t_vm *vm)
+void		get_key(t_vm *vm)
 {
 	int			i;
 	int			j;

@@ -6,12 +6,11 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 14:34:03 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:34:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
 
 static void	ft_apply_proc(t_vm *vm, int *i)
 {
@@ -58,7 +57,7 @@ void		ft_play(t_vm *vm)
 		ft_apply_proc(vm, &i);
 		vm->proc = vm->beg;
 		vm->cycle++;
-		vm->option_verbose == 1 && !vm->option_visu
+		vm->option_verbose == 2 && !vm->option_visu
 		&& !vm->option_visu_d
 		? ft_printf("It is now cycle %d\n", vm->cycle) : 0;
 	}
@@ -73,6 +72,10 @@ static void	ft_usage(void)
 	ft_printf("\t-n/-number    N : Give to champion(s) N(int > 0) "
 	"player number\n");
 	ft_printf("\t-v/-verbose   N : Give more infos during match\n");
+	ft_printf("\t\t\t\t- 0 : Show only essentials\n");
+	ft_printf("\t\t\t\t- 1 : Show lives\n");
+	ft_printf("\t\t\t\t- 2 : Show cycles\n");
+	ft_printf("\t\t\t\t- 3 : Show death\n");
 	ft_printf("\t-vi/-visual     : Give visual of the match\n");
 	ft_printf("\t-vid/-visuald   : Add explication on the visual "
 	"(ONLY 1 PROCESS BY CHAMPION)\n");

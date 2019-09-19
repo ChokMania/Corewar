@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 13:57:29 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:35:14 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,13 @@ static void	exec_live(t_vm *vm, unsigned int arg_value)
 		while (current && (int)current->n_champ != i)
 			current = current->next;
 		if (current && i == (int)current->n_champ)
+		{
 			current->last_live = vm->cycle;
+			if (vm->option_verbose >= 1 && vm->option_verbose <= 2
+				&& !vm->option_visu && !vm->option_visu_d)
+				ft_printf("Player %u (%s) is said to be alive\n",
+			current->n_champ, current->head.prog_name);
+		}
 	}
 }
 
@@ -45,8 +51,5 @@ void		op_live(t_vm *vm, unsigned int *pc)
 
 	ft_arg(vm, pc, &arg_value);
 	exec_live(vm, arg_value);
-	if (vm->option_verbose >= 2 && !vm->option_visu && !vm->option_visu_d)
-		ft_printf("Player %u (%s) is said to be alive\n",
-			vm->proc->n_champ, vm->proc->head.prog_name);
 	ft_visu_d_message(vm, "live");
 }

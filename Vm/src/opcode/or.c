@@ -6,17 +6,11 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:37:10 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
-** T_REG SIZE 1
-** T_IND SIZE 2
-** T_DIR SIZE 4
-*/
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
@@ -63,28 +57,7 @@ static void	exec_or(t_vm *vm, unsigned int arg_value[3]
 
 static void	op_or_suite(t_vm *vm, unsigned int *pc, unsigned int arg_size[3])
 {
-	if ((vm->arena[*pc][0] == 212) && (arg_size[0] = T_IND))
-		arg_size[1] = T_REG;
-	else if ((vm->arena[*pc][0] == 228) && (arg_size[0] = T_IND))
-		arg_size[1] = T_DIR;
-	else if ((vm->arena[*pc][0] == 244) && (arg_size[0] = T_IND))
-		arg_size[1] = T_IND;
-	else
-		ft_error(ERROR_AND, vm->proc->n_champ, vm);
-}
-
-void		op_or(t_vm *vm, unsigned int *pc)
-{
-	unsigned int	arg_value[3];
-	unsigned int	arg_size[3];
-
-	(*pc)++;
-	arg_size[2] = T_REG;
-	if ((vm->arena[*pc][0] == 84) && (arg_size[0] = T_REG))
-		arg_size[1] = T_REG;
-	else if ((vm->arena[*pc][0] == 100) && (arg_size[0] = T_REG))
-		arg_size[1] = T_DIR;
-	else if ((vm->arena[*pc][0] == 116) && (arg_size[0] = T_REG))
+	if ((vm->arena[*pc][0] == 116) && (arg_size[0] = T_REG))
 		arg_size[1] = T_IND;
 	else if ((vm->arena[*pc][0] == 148) && (arg_size[0] = T_DIR))
 		arg_size[1] = T_REG;
@@ -92,9 +65,37 @@ void		op_or(t_vm *vm, unsigned int *pc)
 		arg_size[1] = T_DIR;
 	else if ((vm->arena[*pc][0] == 180) && (arg_size[0] = T_DIR))
 		arg_size[1] = T_IND;
+	else if ((vm->arena[*pc][0] == 212) && (arg_size[0] = T_IND))
+		arg_size[1] = T_REG;
+	else if ((vm->arena[*pc][0] == 228) && (arg_size[0] = T_IND))
+		arg_size[1] = T_DIR;
+	else if ((vm->arena[*pc][0] == 244) && (arg_size[0] = T_IND))
+		arg_size[1] = T_IND;
+}
+
+void		op_or(t_vm *vm, unsigned int *pc)
+{
+	unsigned int	arg_value[3];
+	unsigned int	arg_size[3];
+	int				save;
+
+	(*pc)++;
+	save = (*pc);
+	arg_size[2] = T_REG;
+	if ((vm->arena[*pc][0] == 84) && (arg_size[0] = T_REG))
+		arg_size[1] = T_REG;
+	else if ((vm->arena[*pc][0] == 100) && (arg_size[0] = T_REG))
+		arg_size[1] = T_DIR;
 	else
 		op_or_suite(vm, pc, arg_size);
 	ft_arg(vm, pc, arg_value, arg_size);
-	exec_or(vm, arg_value, arg_size);
-	ft_visu_d_message(vm, "or");
+	if (vm->arena[save][0] == 84 || vm->arena[save][0] == 100
+		|| vm->arena[save][0] == 116 || vm->arena[save][0] == 148
+		|| vm->arena[save][0] == 164 || vm->arena[save][0] == 180
+		|| vm->arena[save][0] == 212 || vm->arena[save][0] == 228
+		|| vm->arena[save][0] == 244)
+	{
+		exec_or(vm, arg_value, arg_size);
+		ft_visu_d_message(vm, "or");
+	}
 }

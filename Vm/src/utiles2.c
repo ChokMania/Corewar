@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 10:56:33 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/19 14:46:07 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:35:33 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	ft_invert_byte(unsigned int *val)
 
 void	ft_victory(t_vm *vm, t_proc *current)
 {
-	vm->option_visu == 1 ? ft_victory_visu(vm, current): 0;
-	ft_printf("Contestant %d, \"%s\", has won ! at cycle %d\n",
+	vm->option_visu == 1 ? ft_victory_visu(vm, current) : 0;
+	ft_printf("Contestant %d, \"%s\", has won !\n",
 		current->n_champ, current->head.prog_name, vm->cycle);
 	free_chaine(vm->beg);
 	exit(0);
@@ -66,14 +66,17 @@ void	ft_print_dump(t_vm vm)
 {
 	int		i;
 
-	ft_printf("0x0000 : ");
-	i = -1;
-	while (++i < MEM_SIZE)
+	if (vm.option_visu == 0 && vm.option_visu_d == 0)
 	{
-		if (i != 0 && i % 64 == 0)
-			ft_printf("\n%#.4x : ", i);
-		ft_printf("%.2hhx ", vm.arena[i][0]);
+		ft_printf("0x0000 : ");
+		i = -1;
+		while (++i < MEM_SIZE)
+		{
+			if (i != 0 && i % 64 == 0)
+				ft_printf("\n%#.4x : ", i);
+			ft_printf("%.2hhx ", vm.arena[i][0]);
+		}
+		ft_printf("\n");
+		exit(0);
 	}
-	ft_printf("\n");
-	exit(0);
 }

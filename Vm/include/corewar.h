@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 14:46:06 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:07:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,5 @@ void			ft_visu_wait(t_vm *vm);
 void			ft_visu_d_message(t_vm *vm, char *str);
 void			add_description(t_vm *vm);
 void			ft_victory_visu(t_vm *vm, t_proc *winner);
-
 
 #endif

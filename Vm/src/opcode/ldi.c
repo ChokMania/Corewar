@@ -6,17 +6,11 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:30 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:36:49 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
-** T_REG SIZE 1
-** T_IND SIZE 2
-** T_DIR SIZE 2
-*/
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
@@ -56,8 +50,10 @@ void		op_ldi(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];
+	int				save;
 
 	(*pc)++;
+	save = (*pc);
 	arg_size[2] = T_REG;
 	if ((vm->arena[*pc][0] == 54 || vm->arena[*pc][0] == 100)
 		&& (arg_size[0] = T_REG))
@@ -68,9 +64,12 @@ void		op_ldi(t_vm *vm, unsigned int *pc)
 	else if ((vm->arena[*pc][0] == 212 || vm->arena[*pc][0] == 228)
 		&& (arg_size[0] = T_IND))
 		arg_size[1] = vm->arena[*pc][0] == 212 ? T_REG : T_DIR;
-	else
-		ft_error(ERROR_LDI, vm->proc->n_champ, vm);
 	ft_arg(vm, pc, arg_value, arg_size);
-	exec_ldi(vm, arg_value, arg_size);
-	ft_visu_d_message(vm, "ldi");
+	if (vm->arena[save][0] == 54 || vm->arena[save][0] == 100
+	|| vm->arena[save][0] == 148 || vm->arena[save][0] == 164
+	|| vm->arena[save][0] == 212 || vm->arena[save][0] == 228)
+	{
+		exec_ldi(vm, arg_value, arg_size);
+		ft_visu_d_message(vm, "ldi");
+	}
 }

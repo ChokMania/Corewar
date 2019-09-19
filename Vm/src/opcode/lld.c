@@ -6,17 +6,11 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:24:59 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/18 16:06:57 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:37:02 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
-** T_REG SIZE 1
-** T_IND SIZE 2
-** T_DIR SIZE 4
-*/
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
@@ -60,8 +54,10 @@ void		op_lld(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];
+	int				save;
 
 	(*pc)++;
+	save = (*pc);
 	arg_size[2] = 0;
 	arg_value[2] = 0;
 	arg_size[1] = T_REG;
@@ -69,9 +65,10 @@ void		op_lld(t_vm *vm, unsigned int *pc)
 		arg_size[0] = T_DIR;
 	else if (vm->arena[*pc][0] == 208)
 		arg_size[0] = T_IND;
-	else
-		ft_error(ERROR_LDI, vm->proc->n_champ, vm);
 	ft_arg(vm, pc, arg_value, arg_size);
-	exec_lld(vm, arg_value, arg_size);
-	ft_visu_d_message(vm, "lld");
+	if (vm->arena[save][0] == 144 || vm->arena[save][0] == 208)
+	{
+		exec_lld(vm, arg_value, arg_size);
+		ft_visu_d_message(vm, "lld");
+	}
 }

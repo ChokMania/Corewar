@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 12:31:05 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/19 17:40:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
-** T_REG SIZE 1
-** T_IND SIZE 2
-** T_DIR SIZE 2
-*/
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
@@ -93,7 +87,6 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3],
 	}
 	vm->option_visu == 1 ? visual_sti(vm, index) : 0;
 }
-
 
 void		op_sti(t_vm *vm, unsigned int *pc)
 {

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 14:52:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/19 15:06:43 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	ft_winner(t_vm *vm)
 			winner = current;
 		current = current->next;
 	}
-	ft_printf("yolo");
 	vm->option_visu == 1 ? ft_victory_visu(vm, winner): 0;
 	ft_printf("Contestant %d, \"%s\", has won ! at cycle %d\n",
 		winner->n_champ, winner->head.prog_name, vm->cycle);

@@ -46,11 +46,9 @@ void	init_color_vm(void)
 void	init_champ_in_visu(t_vm *vm)
 {
 	int i;
-	int j;
 	int color;
 
 	i = 0;
-	j = 0;
 	while (i < MEM_SIZE * 3)
 	{
 		color = 9;

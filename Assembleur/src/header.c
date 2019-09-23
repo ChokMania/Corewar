@@ -57,10 +57,8 @@ int				ft_find_occu(char *str)
 void			ft_check_header(t_struct *s, t_header *header)
 {
 	int		len_name;
-	int		len_comment;
 
 	len_name = ft_strlen(NAME_CMD_STRING);
-	len_comment = ft_strlen(COMMENT_CMD_STRING);
 	if (s->namefirstopen == 1)
 		ft_get_others_line_name(s, header);
 	else if (s->commentfirstopen == 1)

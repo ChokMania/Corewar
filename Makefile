@@ -13,7 +13,7 @@ DEBUG				=	no
 O2					=	yes
 
 CC					:=	gcc
-GEN					:=	"Corewar : Generation in mode"
+GEN					:=	"Generation in mode"
 
 ifeq ($(WALL), yes)
 	CC				:=	$(CC) -Wall
@@ -45,7 +45,7 @@ ifeq ($(O2),yes)
 	GEN				:=	$(GEN) O2
 endif
 
-ifeq ($(GEN), "Corewar : Generation in mode")
+ifeq ($(GEN), "Generation in mode")
 	GEN				:=	$(GEN) no flags
 endif
 
@@ -176,12 +176,12 @@ $(LIBFT_PATH)$(LIBFT_NAME):
 	@echo ""
 
 $(NAME_VM): $(LIBFT_PATH)$(LIBFT_NAME) $(OBJ_VM)
+	@echo "\nVm : $(GEN)"
 	@echo "\n$(_WHITE)====================================================$(_END)"
 	@echo "$(_YELLOW)		COMPILING $(NAME_VM)$(_END)"
 	@echo "$(_WHITE)====================================================$(_END)"
 	@$(CC) -o $(NAME_VM) $(OBJ_VM) $(LIBFT_PATH)/$(LIBFT_NAME) -lncurses
 	@echo "\n$(_WHITE)$(_BOLD)$@\t$(_END)$(_GREEN)[OK]\n$(_END)"
-	@echo $(GEN)
 
 $(OBJ_PATH_VM)%.o: $(SRC_PATH_VM)%.c $(INCLUDE_VM)
 	@mkdir -p $(OBJ_PATH_VM)
@@ -193,12 +193,12 @@ $(OBJ_PATH_VM)%.o: $(SRC_PATH_VM)%.c $(INCLUDE_VM)
 		"COMPILE :$(_END)$(_BOLD)$(_WHITE)\t$<"
 
 $(NAME_ASM): $(LIBFT_PATH)$(LIBFT_NAME) $(OBJ_ASM)
+	@echo "\nAsm : $(GEN)"
 	@echo "\n$(_WHITE)====================================================$(_END)"
 	@echo "$(_YELLOW)		COMPILING $(NAME_ASM)$(_END)"
 	@echo "$(_WHITE)====================================================$(_END)"
 	@$(CC) -o $(NAME_ASM) $(OBJ_ASM) $(LIBFT_PATH)/$(LIBFT_NAME)
 	@echo "\n$(_WHITE)$(_BOLD)$@\t$(_END)$(_GREEN)[OK]\n$(_END)"
-	@echo $(GEN)
 
 $(OBJ_PATH_ASM)%.o: $(SRC_PATH_ASM)%.c $(INCLUDE_ASM)
 	@mkdir -p $(OBJ_PATH_ASM)
@@ -209,17 +209,17 @@ $(OBJ_PATH_ASM)%.o: $(SRC_PATH_ASM)%.c $(INCLUDE_ASM)
 
 clean:
 	@rm -rf $(OBJ_PATH_VM) 2> /dev/null || true
-	@rm -rf $(OBJ_PATH_ASM) 2> /dev/null || true
 	@echo "$(_YELLOW)Remove :\t$(_RED)" $(LDFLAGS)$(OBJ_PATH_VM)"$(_END)"
+	@rm -rf $(OBJ_PATH_ASM) 2> /dev/null || true
 	@echo "$(_YELLOW)Remove :\t$(_RED)" $(LDFLAGS)$(OBJ_PATH_ASM)"$(_END)"
 	@make -C $(LIBFT_PATH) clean
 
 fclean: clean
 	@rm -f $(NAME_VM)
-	@rm -f $(NAME_ASM)
-	@rm -f $(LIBFT_PATH)$(LIBFT_NAME)
 	@echo "$(_YELLOW)Remove :\t$(_RED)" $(LDFLAGS)$(NAME_VM)
+	@rm -f $(NAME_ASM)
 	@echo "$(_YELLOW)Remove :\t$(_RED)" $(LDFLAGS)$(NAME_ASM)
+	@rm -f $(LIBFT_PATH)$(LIBFT_NAME)
 	@echo "$(_YELLOW)Remove :\t$(_RED)" $(LIBFT_PATH)$(LIBFT_NAME)"$(_END)"
 
 re: fclean all

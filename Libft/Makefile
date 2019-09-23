@@ -1,4 +1,4 @@
-SHELL = sh
+SHELL = /bin/zsh
 
 # Executable name, can be change
 NAME = libft.a

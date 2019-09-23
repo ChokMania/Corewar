@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 07:16:25 by judumay           #+#    #+#             */
-/*   Updated: 2019/06/26 14:32:58 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/23 13:31:05 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void			ft_check_header(t_struct *s, t_header *header)
 	int		len_name;
 
 	len_name = ft_strlen(NAME_CMD_STRING);
-	if (s->namefirstopen == 1)
+	if (s->nfo == 1)
 		ft_get_others_line_name(s, header);
-	else if (s->commentfirstopen == 1)
+	else if (s->cfo == 1)
 		ft_get_others_line_comment(s, header);
-	else if (s->namefirstopen == 0 || s->commentfirstopen == 0)
+	else if (s->nfo == 0 || s->cfo == 0)
 		ft_check_header_not_open(s, header, 0, len_name);
 }

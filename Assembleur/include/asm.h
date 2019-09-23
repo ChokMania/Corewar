@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 11:42:27 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/19 18:27:03 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/23 13:31:05 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ typedef struct		s_struct
 	int				nameok;
 	int				commentok;
 	int				index;
-	int				namefirstopen;
-	int				commentfirstopen;
+	int				nfo;
+	int				cfo;
 
 	int				tabsize;
 	int				i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_gnl_parsing.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 07:19:05 by judumay           #+#    #+#             */
-/*   Updated: 2019/08/20 15:31:48 by fwerner          ###   ########.fr       */
+/*   Updated: 2019/09/23 13:31:13 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ void			ft_parcing(t_header *header, t_struct *s)
 		ft_error(ERROR_OPEN, s, NULL);
 	while ((s->ret = get_next_line(s->fd, &s->line)) > 0)
 	{
-		tmp = ft_strtrimstart(s->line);
+		tmp = !s->cfo && !s->nfo
+			? ft_strtrimstart(s->line) : ft_strdup(s->line);
 		free(s->line);
 		s->line = tmp;
-		if (*s->line == '#' || (!(*s->line) && s->commentfirstopen == 0
-			&& s->namefirstopen == 0))
+		if (*s->line == '#' || (!(*s->line) && s->cfo == 0 && s->nfo == 0))
 			;
 		else if (s->nameok == 0 || s->commentok == 0)
 			ft_check_header(s, header);
@@ -82,7 +82,7 @@ void			ft_parcing(t_header *header, t_struct *s)
 		{
 			tmp = ft_strtrim(s->line);
 			free(s->line);
-			s->line = ft_strdupd(tmp);
+			s->line = tmp;
 			*s->line ? ft_check_file(s) : 0;
 		}
 		s->nb_line++;

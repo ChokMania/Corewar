@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 18:29:17 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/16 11:01:03 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/23 15:14:19 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ static void				ft_check_header(t_header head, unsigned char proc
 		ft_error(ERROR_COMM_LEN, proc, vm);
 }
 
-static unsigned char	ft_read(int fd, int proc, t_vm *vm)
+static unsigned char	ft_read(int fd, int proc, t_vm *vm, unsigned int j)
 {
 	int		ret;
 	char	buf;
 
 	if ((ret = read(fd, &buf, sizeof(char))) == -1)
 		ft_error(ERROR_READ, proc, vm);
+	ret == 0 && j != vm->proc->head.prog_size
+		? ft_error(ERROR_PROG_SIZE, -1, vm) : 0;
 	return (buf);
 }
 
@@ -51,19 +53,23 @@ static void				ft_pars_header(int *fd, t_header *head, char *av
 
 static void				ft_parsing_suite(t_vm *vm)
 {
+	int				index;
 	int				nb_player;
 	unsigned int	j;
-	int				index;
+	char			*buf;
 
 	nb_player = -1;
 	index = 0;
+	buf = NULL;
 	while (++nb_player < vm->nb_champ)
 	{
 		j = 0;
 		while (j++ < vm->proc->head.prog_size
 			&& (vm->arena[index][1] = nb_player + 1))
 			vm->arena[index++][0] = ft_read(vm->fd[nb_player]
-				, nb_player + 1, vm);
+				, nb_player + 1, vm, j);
+		if (read(vm->fd[nb_player], buf, sizeof(char)) != 0)
+			ft_error(ERROR_PROG_SIZE, -1, vm);
 		while (index < (nb_player + 1) * MEM_SIZE / vm->nb_champ
 			&& !(vm->arena[index][1] = 0))
 			vm->arena[index++][0] = 0;

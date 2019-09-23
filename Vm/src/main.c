@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/23 13:59:40 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/23 19:31:53 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void		ft_play(t_vm *vm)
 {
 	int		i;
 
-	vm->beg = vm->proc;
 	while (!(i = 0))
 	{
 		if (vm->cycle > 0
@@ -82,6 +81,22 @@ static void	ft_usage(void)
 	exit(0);
 }
 
+static void	ft_reverse(t_proc **beg)
+{
+	t_proc	*prev = NULL;
+	t_proc	*current = (*beg);
+	t_proc	*next = NULL;
+
+	while (current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	(*beg) = prev;
+}
+
 int			main(int ac, char **av)
 {
 	t_vm	vm;
@@ -95,9 +110,13 @@ int			main(int ac, char **av)
 	ft_args(ac, av, &vm, tab);
 	ft_init_vm(&vm);
 	ft_parsing(&vm, tab);
+	ft_reverse(&vm.beg);
+	ft_printf("hello");
+	vm.proc = vm.beg;
 	if (vm.nb_champ < 1 || vm.nb_champ > 4)
 		ft_error(ERROR_READ, -1, &vm);
 	vm.option_visu == 1 ? ft_init_visu(&vm) : ft_introduce(&vm);
+	vm.proc = vm.beg;
 	ft_play(&vm);
 	vm.option_visu == 1 ? endwin() : 0;
 	return (0);

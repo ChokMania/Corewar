@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/23 15:21:44 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/23 16:39:11 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,67 +41,52 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		}
 }
 
+static void	visual_st(t_vm *vm, int index)
+{
+	int	i;
+
+	i = 4;
+	while (--i >= 0)
+	{
+		mvwprintw(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192),
+			2 + ((3 * ((index + i) % MEM_SIZE)) % 192), get_hexa(vm->arena[(index + i) % MEM_SIZE][0]));
+		mvwchgat(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192), 2 +
+			((3 * ((index + i) % MEM_SIZE)) % 192), 2, A_BOLD, vm->arena[(index + i) % MEM_SIZE][1], 0);
+	}
+	wrefresh(vm->visu.arena);
+	ft_visu_d_message(vm, "st");
+}
+
 static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 	unsigned int arg_size[3])
 {
-	int		i;
-	int		pc;
-	int		tmp;
+	unsigned int	i;
+	unsigned int	index;
+	unsigned int	tmp;
+	unsigned int	size;
 
-	pc = vm->proc->pc - 2;
-	if (((arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
-		|| (arg_size[1] == T_IND && pc + arg_value[1] >= MEM_SIZE)))
-		pc -= arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE
-			? IDX_MOD - vm->proc->r[arg_value[1]] % IDX_MOD + 1 :
-			IDX_MOD - arg_value[1] % IDX_MOD + 2;
-	else
-		pc += arg_size[1] == T_REG ? vm->proc->r[arg_value[1]] % IDX_MOD - 1
-			: arg_value[1] % IDX_MOD - 2;
-	pc >= MEM_SIZE ? pc %= MEM_SIZE : 0;
-	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
-	i = 4;
+	if (!(index = 0) && arg_size[1] == T_REG)
+		index += vm->proc->r[arg_value[0]] - T_REG;
+	else if (arg_size[1] == T_IND)
+		index += arg_value[1] - T_DIR;
+	index += vm->proc->pc - 2;
+	index %= MEM_SIZE;
+	size = 2 + arg_size[1];
+
+	//
+	//
+	
 	tmp = vm->proc->r[arg_value[0]];
-	while (--i >= 0)
+	i = 5;
+	while (--i >= 1)
 	{
-		vm->arena[pc + i][0] = tmp % 256;
-		vm->arena[pc + i][1] = vm->proc->n_champ;
+		vm->arena[(index + i - 1) % MEM_SIZE][0] = tmp % 256;
+		vm->arena[(index + i - 1) % MEM_SIZE][1] = vm->proc->n_champ;
 		tmp >>= 8;
 	}
+	vm->option_visu == 1 ? visual_st(vm, index) : 0;
 }
 
-static void	visual_st(t_vm *vm, unsigned int arg_value[3],
-	unsigned int arg_size[3])
-{
-	int	i;
-	int pc;
-
-	pc = vm->proc->pc - 2;
-	if ((i = 4) && ((arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]]
-	>= MEM_SIZE) || (arg_size[1] == T_IND && pc + arg_value[1] >= MEM_SIZE)))
-	{
-		if (arg_size[1] == T_REG && pc + vm->proc->r[arg_value[1]] >= MEM_SIZE)
-			pc -= IDX_MOD - vm->proc->r[arg_value[1]] % IDX_MOD + 1;
-		else
-			pc -= IDX_MOD - arg_value[1] % IDX_MOD + 2;
-		pc %= MEM_SIZE;
-	}
-	else
-	{
-		if ((i = 4) && arg_size[1] == T_REG)
-			pc += vm->proc->r[arg_value[1]] % IDX_MOD - 1;
-		else
-			pc += arg_value[1] % IDX_MOD - 2;
-	}
-	pc < 0 ? pc = MEM_SIZE + pc % MEM_SIZE : 0;
-	while (--i >= 0)
-	{
-		mvwprintw(vm->visu.arena, 1 + ((3 * (pc + i)) / 192),
-			2 + ((3 * (pc + i)) % 192), get_hexa(vm->arena[pc + i][0]));
-		mvwchgat(vm->visu.arena, 1 + ((3 * (pc + i)) / 192),
-			2 + ((3 * (pc + i)) % 192), 2, A_BOLD, vm->arena[pc + i][1], 0);
-	}
-	wrefresh(vm->visu.arena);
-}
 
 void		op_st(t_vm *vm, unsigned int *pc)
 {
@@ -110,7 +95,7 @@ void		op_st(t_vm *vm, unsigned int *pc)
 	int				save;
 
 	(*pc)++;
-	save = pc;
+	save = *pc;
 	arg_size[0] = T_REG;
 	arg_size[2] = 0;
 	arg_value[2] = 0;
@@ -120,9 +105,5 @@ void		op_st(t_vm *vm, unsigned int *pc)
 		arg_size[1] = T_IND;
 	ft_arg(vm, pc, arg_value, arg_size);
 	if (vm->arena[save][0] == 80 || vm->arena[save][0] == 112)
-	{
 		exec_st(vm, arg_value, arg_size);
-		vm->option_visu == 1 ? visual_st(vm, arg_value, arg_size) : 0;
-		ft_visu_d_message(vm, "st");
-	}
 }

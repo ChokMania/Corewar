@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 13:27:44 by judumay           #+#    #+#             */
-/*   Updated: 2019/07/04 11:18:22 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/23 09:43:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void		ft_check_arg(t_struct *s)
 	int		len;
 
 	len = ft_strlen(s->av[s->ac - 1]);
-	if (len < 2 || s->av[s->ac - 1][len - 2] != '.' || s->av[s->ac - 1][len - 1] != 's')
+	if (len < 2 || s->av[s->ac - 1][len - 2] != '.'
+		|| s->av[s->ac - 1][len - 1] != 's')
 		ft_error(ERROR_WRONG_FILE, s, NULL);
 }
 

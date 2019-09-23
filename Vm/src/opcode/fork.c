@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:20 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/23 21:07:42 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/23 21:09:32 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	exec_fork(t_vm *vm, unsigned int arg_value)
 	int		i;
 	t_proc	*new;
 
+	new = vm->proc;
 	new_process(&new, vm);
 	new->alive = vm->proc->alive;
 	new->carry = vm->proc->carry;

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 10:56:33 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/19 17:35:33 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/23 21:11:07 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	ft_invert_byte(unsigned int *val)
 void	ft_victory(t_vm *vm, t_proc *current)
 {
 	vm->option_visu == 1 ? ft_victory_visu(vm, current) : 0;
-	ft_printf("Contestant %d, \"%s\", has won !\n",
-		current->n_champ, current->head.prog_name, vm->cycle);
+	//ft_printf("Contestant %d, \"%s\", has won !\n",
+	//	current->n_champ, current->head.prog_name, vm->cycle);
 	free_chaine(vm->beg);
 	exit(0);
 }

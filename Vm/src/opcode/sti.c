@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:40:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/23 15:22:10 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,10 @@ void		op_sti(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];
+	int				save;
 
 	(*pc)++;
+	save = pc;
 	arg_size[0] = T_REG;
 	if ((vm->arena[*pc][0] == 84 || vm->arena[*pc][0] == 88)
 		&& (arg_size[1] = T_REG))
@@ -104,8 +106,9 @@ void		op_sti(t_vm *vm, unsigned int *pc)
 	else if ((vm->arena[*pc][0] == 116 || vm->arena[*pc][0] == 120)
 		&& (arg_size[1] = T_IND))
 		arg_size[2] = vm->arena[*pc][0] == 116 ? T_REG : T_DIR;
-	else
-		ft_error(ERROR_STI, vm->proc->n_champ, vm);
 	ft_arg(vm, pc, arg_value, arg_size);
-	exec_sti(vm, arg_value, arg_size);
+	if (vm->arena[save][0] == 84 || vm->arena[save][0] == 88
+	|| vm->arena[save][0] == 100 || vm->arena[save][0] == 104
+	|| vm->arena[save][0] == 116 || vm->arena[save][0] == 120)
+		exec_sti(vm, arg_value, arg_size);
 }

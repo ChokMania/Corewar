@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:37:13 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/23 15:21:44 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,10 @@ void		op_st(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];
+	int				save;
 
 	(*pc)++;
+	save = pc;
 	arg_size[0] = T_REG;
 	arg_size[2] = 0;
 	arg_value[2] = 0;
@@ -116,9 +118,9 @@ void		op_st(t_vm *vm, unsigned int *pc)
 		arg_size[1] = T_REG;
 	else if (vm->arena[*pc][0] == 112)
 		arg_size[1] = T_IND;
-	if (vm->arena[*pc][0] == 80 || vm->arena[*pc][0] == 112)
+	ft_arg(vm, pc, arg_value, arg_size);
+	if (vm->arena[save][0] == 80 || vm->arena[save][0] == 112)
 	{
-		ft_arg(vm, pc, arg_value, arg_size);
 		exec_st(vm, arg_value, arg_size);
 		vm->option_visu == 1 ? visual_st(vm, arg_value, arg_size) : 0;
 		ft_visu_d_message(vm, "st");

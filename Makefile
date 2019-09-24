@@ -7,12 +7,12 @@ NAME_ASM			=	asm
 # Compilation mode
 WALL				=	yes
 WEXTRA				=	yes
-WERROR				=	yes
+WERROR				=	no
 FSANITIZE			=	no
 DEBUG				=	no
 O2					=	yes
 
-CC					:=	gcc
+CC					:=	gcc -g3
 GEN					:=	"Generation in mode"
 
 ifeq ($(WALL), yes)

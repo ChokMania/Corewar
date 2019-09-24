@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/23 21:08:20 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/24 13:17:57 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,10 @@ int			main(int ac, char **av)
 	ft_parsing(&vm, tab);
 	if (vm.nb_champ < 1 || vm.nb_champ > 4)
 		ft_error(ERROR_READ, -1, &vm);
-	vm.option_visu == 1 ? ft_init_visu(&vm) : ft_introduce(&vm);
+	if (vm.option_visu == 1)
+		ft_init_visu(&vm);
+	else if (ft_printf("Introducing contestants...\n"))
+		ft_introduce(vm.beg);
 	vm.proc = vm.beg;
 	ft_play(&vm);
 	vm.option_visu == 1 ? endwin() : 0;

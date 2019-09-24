@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_visu_hud.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:29 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/18 15:09:37 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/24 14:02:03 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	create_player_hud(t_vm *vm, int *i)
 {
+	t_proc *old;
+	while (vm->proc->next)
+		vm->proc = vm->proc->next;
 	while ((*i) < vm->nb_champ)
 	{
 		mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 5, "Player   :");
@@ -30,9 +33,11 @@ void	create_player_hud(t_vm *vm, int *i)
 		mvwprintw(vm->visu.hud, 20 + ((*i) * 4), 7
 		, "live in current period :\t\t0");
 		(*i)++;
-		vm->proc = vm->proc->next;
+		old = vm->proc;
+		vm->proc = vm->beg;
+		while (vm->beg != old && vm->proc->next != old)
+			vm->proc = vm->proc->next;
 	}
-	vm->proc = vm->beg;
 	mvwprintw(vm->visu.hud, 19 + ((*i) * 4), 35
 		, "Live breakdown for current period :");
 	mvwprintw(vm->visu.hud, 22 + ((*i) * 4), 37

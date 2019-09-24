@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:07:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/24 13:17:42 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void			op_aff(t_vm *vm, unsigned int *pc);
 void			free_chaine(t_proc *proc);
 int				ft_list_lenght(t_proc *beg_real);
 void			ft_print_dump(t_vm vm);
-void			ft_introduce(t_vm *vm);
+void			ft_introduce(t_proc *proc);
 void			ft_victory(t_vm *vm, t_proc *current);
 void			ft_invert_byte(unsigned int *val);
 int				ft_list_count_vm(t_proc *begin_list);

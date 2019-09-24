@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 18:29:17 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/23 15:14:19 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/24 13:40:24 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ static void				ft_parsing_suite(t_vm *vm)
 	buf = NULL;
 	while (++nb_player < vm->nb_champ)
 	{
+		vm->proc = vm->beg;
+		while (vm->proc->n_champ != (unsigned int)nb_player + 1)
+			vm->proc = vm->proc->next;
 		j = 0;
 		while (j++ < vm->proc->head.prog_size
 			&& (vm->arena[index][1] = nb_player + 1))
@@ -73,24 +76,28 @@ static void				ft_parsing_suite(t_vm *vm)
 		while (index < (nb_player + 1) * MEM_SIZE / vm->nb_champ
 			&& !(vm->arena[index][1] = 0))
 			vm->arena[index++][0] = 0;
-		vm->proc = vm->proc->next;
 	}
 }
 
 void					ft_parsing(t_vm *vm, char **av)
 {
+	t_proc			*old;
 	int				index;
 	int				nb_player;
 
 	index = -1;
-	vm->beg = vm->proc;
+	while (vm->proc->next)
+		vm->proc = vm->proc->next;
 	while (++index < vm->nb_champ)
 	{
 		ft_pars_header(&vm->fd[index], &vm->proc->head, av[index], vm);
 		ft_check_header(vm->proc->head, index + 1, vm);
 		vm->proc->pc = index * (MEM_SIZE / vm->nb_champ);
 		vm->proc->n_champ = index + 1;
-		vm->proc = vm->proc->next;
+		old = vm->proc;
+		vm->proc = vm->beg;
+		while (vm->beg != old && vm->proc->next != old)
+			vm->proc = vm->proc->next;
 	}
 	vm->proc = vm->beg;
 	ft_parsing_suite(vm);

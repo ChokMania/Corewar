@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   refresh_hud.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/19 17:41:23 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/24 14:20:48 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void		refresh_pc(t_vm *vm)
 	pr = vm->beg;
 	while (pr)
 	{
-		mvwchgat(vm->visu.arena, 1 + ((pr->pc * 3) / 192)
-		, 2 + ((pr->pc * 3) % 192), 2, A_REVERSE
-		, vm->arena[pr->pc][1], 0);
+		mvwchgat(vm->visu.arena, 1 + ((pr->pc * 3) / 192),
+			2 + ((pr->pc * 3) % 192), 2, A_REVERSE, vm->arena[pr->pc][1], 0);
 		pr = pr->next;
 	}
 	wrefresh(vm->visu.arena);
@@ -29,13 +28,11 @@ void		refresh_pc(t_vm *vm)
 	while (pr)
 	{
 		if (vm->arena[pr->pc][1] == 0)
-			mvwchgat(vm->visu.arena, 1 + ((pr->pc * 3) / 192)
-			, 2 + ((pr->pc * 3) % 192), 2, A_BOLD
-			, 10, 0);
+			mvwchgat(vm->visu.arena, 1 + ((pr->pc * 3) / 192),
+				2 + ((pr->pc * 3) % 192), 2, A_BOLD, 10, 0);
 		else
-			mvwchgat(vm->visu.arena, 1 + ((pr->pc * 3) / 192)
-			, 2 + ((pr->pc * 3) % 192), 2, A_BOLD
-			, vm->arena[pr->pc][1], 0);
+			mvwchgat(vm->visu.arena, 1 + ((pr->pc * 3) / 192),
+				2 + ((pr->pc * 3) % 192), 2, A_BOLD, vm->arena[pr->pc][1], 0);
 		pr = pr->next;
 	}
 }

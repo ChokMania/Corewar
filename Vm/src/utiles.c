@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 12:49:23 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/24 13:43:00 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_init_vm_suite(t_vm *vm)
 		vm->proc->during_fork = 0;
 		j = -1;
 		while (++j < REG_NUMBER)
-			vm->proc->r[j] = j == 0 ? 0xFFFFFFFF - i : 0;
+			vm->proc->r[j] = j == 0 ? 0xFFFFFFFF - vm->nb_champ + i + 1 : 0;
 		vm->nb_live_champ[i] = 0;
 		vm->proc->wait = 0;
 		if (i + 1 < vm->nb_champ)
@@ -70,8 +70,8 @@ static void	ft_winner(t_vm *vm)
 		current = current->next;
 	}
 	vm->option_visu == 1 ? ft_victory_visu(vm, winner) : 0;
-	//ft_printf("Contestant %d, \"%s\", has won !\n",
-	//	winner->n_champ, winner->head.prog_name, vm->cycle);
+	ft_printf("Contestant %d, \"%s\", has won !\n",
+		winner->n_champ, winner->head.prog_name, vm->cycle);
 	free_chaine(vm->beg);
 	exit(0);
 }

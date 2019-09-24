@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/23 21:10:44 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/24 12:49:23 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,14 @@ void		ft_init_vm(t_vm *vm)
 
 static void	ft_winner(t_vm *vm)
 {
-	int		last;
 	t_proc	*winner;
 	t_proc	*current;
 
 	current = vm->beg;
 	winner = vm->beg;
-	last = vm->beg->last_live;
 	while (current)
 	{
-		if (last < current->last_live && (last = current->last_live))
+		if (winner->last_live <= current->last_live)
 			winner = current;
 		current = current->next;
 	}

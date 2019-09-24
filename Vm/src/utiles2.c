@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 10:56:33 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/24 13:18:16 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/24 15:57:49 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,27 @@ void	ft_invert_byte(unsigned int *val)
 void	ft_victory(t_vm *vm, t_proc *current)
 {
 	vm->option_visu == 1 ? ft_victory_visu(vm, current) : 0;
-	//ft_printf("Contestant %d, \"%s\", has won !\n",
-	//	current->n_champ, current->head.prog_name, vm->cycle);
+	ft_printf("Contestant %d, \"%s\", has won !\n",
+		current->n_champ, current->head.prog_name, vm->cycle);
 	free_chaine(vm->beg);
 	exit(0);
 }
 
-void	ft_introduce(t_proc *proc)
+void	ft_introduce(t_vm *vm)
 {
-	if (proc->next)
-		ft_introduce(proc->next);
-	ft_printf("* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
-		proc->n_champ, proc->head.prog_size,
-		proc->head.prog_name, proc->head.comment);
+	int		i;
+
+	vm->beg = vm->proc;
+	i = -1;
+	ft_printf("Introducing contestants...\n");
+	while (++i < vm->nb_champ)
+	{
+		ft_printf("* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
+			i + 1, vm->proc->head.prog_size, vm->proc->head.prog_name,
+			vm->proc->head.comment);
+		vm->proc = vm->proc->next;
+	}
+	vm->proc = vm->beg;
 }
 
 void	free_chaine(t_proc *proc)

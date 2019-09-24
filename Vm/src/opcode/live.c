@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:35:14 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/24 17:46:00 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 static void	exec_live(t_vm *vm, unsigned int arg_value)
 {
 	int		i;
+	int		j;
 	t_proc	*current;
 
+	j = 0;
 	current = vm->beg;
 	vm->proc->alive++;
 	i = 1;
@@ -32,16 +34,16 @@ static void	exec_live(t_vm *vm, unsigned int arg_value)
 	if (i < 5)
 	{
 		vm->nb_live_champ[i - 1]++;
-		while (current && (int)current->n_champ != i)
-			current = current->next;
-		if (current && i == (int)current->n_champ)
+		while (current)
 		{
-			current->last_live = vm->cycle;
-			if (vm->option_verbose >= 1 && vm->option_verbose <= 2
-				&& !vm->option_visu && !vm->option_visu_d)
-				ft_printf("Player %u (%s) is said to be alive\n",
-			current->n_champ, current->head.prog_name);
+			if (current && i == (int)current->n_champ && ++j)
+				current->last_live = vm->cycle;
+			current = current->next;
 		}
+		if (j == 1 &&vm->option_verbose >= 1 && vm->option_verbose <= 2
+			&& !vm->option_visu && !vm->option_visu_d)
+			ft_printf("Player %u (%s) is said to be alive\n",
+				current->n_champ, current->head.prog_name);
 	}
 }
 

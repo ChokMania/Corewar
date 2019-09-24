@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 13:43:00 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/24 18:42:19 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ static void	ft_init_vm_suite(t_vm *vm)
 	i = -1;
 	while (++i < vm->nb_champ)
 	{
+		vm->proc->last_live = 0;
 		vm->proc->alive = 0;
 		vm->proc->carry = 0;
 		vm->proc->during_fork = 0;
+		vm->proc->creation = 0;
 		j = -1;
 		while (++j < REG_NUMBER)
-			vm->proc->r[j] = j == 0 ? 0xFFFFFFFF - vm->nb_champ + i + 1 : 0;
+			vm->proc->r[j] = j == 0 ? 0xFFFFFFFF - i : 0;
 		vm->nb_live_champ[i] = 0;
 		vm->proc->wait = 0;
 		if (i + 1 < vm->nb_champ)
@@ -61,8 +63,8 @@ static void	ft_winner(t_vm *vm)
 	t_proc	*winner;
 	t_proc	*current;
 
-	current = vm->beg;
 	winner = vm->beg;
+	current = vm->beg->next;
 	while (current)
 	{
 		if (winner->last_live <= current->last_live)
@@ -71,7 +73,7 @@ static void	ft_winner(t_vm *vm)
 	}
 	vm->option_visu == 1 ? ft_victory_visu(vm, winner) : 0;
 	ft_printf("Contestant %d, \"%s\", has won !\n",
-		winner->n_champ, winner->head.prog_name, vm->cycle);
+		winner->n_champ, winner->head.prog_name);
 	free_chaine(vm->beg);
 	exit(0);
 }
@@ -98,8 +100,13 @@ static void	ft_cdt_suite(t_vm *vm)
 	i = -1;
 	while (current)
 	{
-		current->alive == 0 ? ft_dead_proc(vm, current) : (current->alive = 0);
-		current = current->next;
+		if (current->alive == 0) 
+			current = ft_dead_proc(vm, current);
+		else
+		{
+			current->alive = 0;
+			current = current->next;
+		}
 	}
 	while (++i < vm->nb_champ)
 		vm->nb_live_champ[i] = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 18:29:17 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 13:40:24 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/24 15:56:21 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,41 +63,34 @@ static void				ft_parsing_suite(t_vm *vm)
 	buf = NULL;
 	while (++nb_player < vm->nb_champ)
 	{
-		vm->proc = vm->beg;
-		while (vm->proc->n_champ != (unsigned int)nb_player + 1)
-			vm->proc = vm->proc->next;
 		j = 0;
 		while (j++ < vm->proc->head.prog_size
 			&& (vm->arena[index][1] = nb_player + 1))
 			vm->arena[index++][0] = ft_read(vm->fd[nb_player]
 				, nb_player + 1, vm, j);
-		if (read(vm->fd[nb_player], buf, sizeof(char)) != 0)
-			ft_error(ERROR_PROG_SIZE, -1, vm);
+		//if (read(vm->fd[nb_player], buf, sizeof(char)) != 0)
+		//	ft_error(ERROR_PROG_SIZE, -1, vm);
 		while (index < (nb_player + 1) * MEM_SIZE / vm->nb_champ
 			&& !(vm->arena[index][1] = 0))
 			vm->arena[index++][0] = 0;
+		vm->proc = vm->proc->next;
 	}
 }
 
 void					ft_parsing(t_vm *vm, char **av)
 {
-	t_proc			*old;
 	int				index;
 	int				nb_player;
 
 	index = -1;
-	while (vm->proc->next)
-		vm->proc = vm->proc->next;
+	vm->beg = vm->proc;
 	while (++index < vm->nb_champ)
 	{
 		ft_pars_header(&vm->fd[index], &vm->proc->head, av[index], vm);
 		ft_check_header(vm->proc->head, index + 1, vm);
 		vm->proc->pc = index * (MEM_SIZE / vm->nb_champ);
 		vm->proc->n_champ = index + 1;
-		old = vm->proc;
-		vm->proc = vm->beg;
-		while (vm->beg != old && vm->proc->next != old)
-			vm->proc = vm->proc->next;
+		vm->proc = vm->proc->next;
 	}
 	vm->proc = vm->beg;
 	ft_parsing_suite(vm);

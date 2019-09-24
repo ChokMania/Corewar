@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lfork.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:12 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 13:12:45 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/24 18:46:26 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	exec_lfork(t_vm *vm, unsigned int arg_value)
 
 	if (!(new = malloc(sizeof(t_proc))))
 		ft_error(ERROR_MALLOC, -1, vm);
+	new->creation = vm->cycle;
+	new->last_live = vm->proc->last_live;
 	new->alive = vm->proc->alive;
 	new->carry = vm->proc->carry;
 	new->head = vm->proc->head;
@@ -34,8 +36,8 @@ static void	exec_lfork(t_vm *vm, unsigned int arg_value)
 	i = -1;
 	while (++i < 16)
 		new->r[i] = vm->proc->r[i];
-	new->wait = vm->proc->wait + 1;
-	new->during_fork = 0;
+	new->wait = vm->proc->wait;
+	new->during_fork = 1;
 	new->next = vm->beg;
 	vm->beg = new;
 }

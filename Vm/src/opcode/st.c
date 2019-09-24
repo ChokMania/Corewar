@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/23 21:13:04 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/24 18:26:32 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,19 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 	index += vm->proc->pc - 2;
 	index %= MEM_SIZE;
 	size = 2 + arg_size[1];
-
-	//
-	//
-	
-	tmp = vm->proc->r[arg_value[0]];
-	i = 5;
-	while (--i >= 1)
+	/* registre qui n'est pas BON */
+	if (arg_value[0] <= 15)
 	{
-		vm->arena[(index + i - 1) % MEM_SIZE][0] = tmp % 256;
-		vm->arena[(index + i - 1) % MEM_SIZE][1] = vm->proc->n_champ;
-		tmp >>= 8;
+		tmp = vm->proc->r[arg_value[0]];
+		i = 5;
+		while (--i >= 1)
+		{
+			vm->arena[(index + i - 1) % MEM_SIZE][0] = tmp % 256;
+			vm->arena[(index + i - 1) % MEM_SIZE][1] = vm->proc->n_champ;
+			tmp >>= 8;
+		}
+		vm->option_visu == 1 ? visual_st(vm, index) : 0;
 	}
-	vm->option_visu == 1 ? visual_st(vm, index) : 0;
 }
 
 
@@ -97,8 +97,8 @@ void		op_st(t_vm *vm, unsigned int *pc)
 	(*pc)++;
 	save = *pc;
 	arg_size[0] = T_REG;
-	arg_size[2] = 0;
 	arg_value[2] = 0;
+	arg_size[2] = 0;
 	if (vm->arena[*pc][0] == 80)
 		arg_size[1] = T_REG;
 	else if (vm->arena[*pc][0] == 112)

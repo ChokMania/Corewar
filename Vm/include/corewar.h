@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 13:17:42 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/24 17:07:53 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@
 typedef struct	s_proc
 {
 	int				wait;
+	int				creation;
 	int				alive;
 	int				carry;
 	int				last_live;
@@ -116,7 +117,8 @@ void			ft_cycle_to_die(t_vm *vm);
 void			ft_choise_opcode(t_vm *vm, unsigned int *pc,
 					unsigned char opcode);
 void			ft_wait(t_vm *vm, unsigned char opcode);
-void			ft_dead_proc(t_vm *vm, t_proc *current);
+t_proc			*ft_dead_proc(t_vm *vm, t_proc *current);
+
 
 void			ft_parsing(t_vm *vm, char **av);
 
@@ -142,7 +144,7 @@ void			op_aff(t_vm *vm, unsigned int *pc);
 void			free_chaine(t_proc *proc);
 int				ft_list_lenght(t_proc *beg_real);
 void			ft_print_dump(t_vm vm);
-void			ft_introduce(t_proc *proc);
+void			ft_introduce(t_vm *vm);
 void			ft_victory(t_vm *vm, t_proc *current);
 void			ft_invert_byte(unsigned int *val);
 int				ft_list_count_vm(t_proc *begin_list);

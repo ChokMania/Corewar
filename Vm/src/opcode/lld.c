@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lld.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:24:59 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:37:02 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:29:57 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 static void	exec_lld(t_vm *vm, unsigned int arg_value[3]
 	, unsigned int arg_size[3])
 {
-	if (arg_size[0] == T_DIR + 1 || arg_size[0] == T_IND)
-		vm->proc->r[arg_value[1]] = arg_value[0] < IDX_MOD
-			? arg_value[0] : arg_value[0];
-	vm->proc->carry = arg_value[0] == 0 ? 1 : 0;
+	if (arg_value[1] <= 15)
+	{
+		if (arg_size[0] == T_DIR + 1 || arg_size[0] == T_IND)
+			vm->proc->r[arg_value[1]] = arg_value[0] < IDX_MOD
+				? arg_value[0] : arg_value[0];
+		vm->proc->carry = arg_value[0] == 0 ? 1 : 0;
+	}
 }
 
 void		op_lld(t_vm *vm, unsigned int *pc)

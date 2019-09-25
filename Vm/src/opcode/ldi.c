@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ldi.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:30 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:36:49 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:35:45 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		}
 }
 
-static void	exec_ldi(t_vm *vm, unsigned int arg_value[3]
-	, unsigned int arg_size[3])
+static void	exec_ldi(t_vm *vm, unsigned int arg_value[3])
 {
-	(void)arg_size;
-	vm->proc->r[arg_value[2]] = (arg_value[0] + arg_value[1]) % IDX_MOD;
+	if (arg_value[2] <= 15)
+		vm->proc->r[arg_value[2]] = (arg_value[0] + arg_value[1]) % IDX_MOD;
 }
 
 void		op_ldi(t_vm *vm, unsigned int *pc)
@@ -69,7 +68,7 @@ void		op_ldi(t_vm *vm, unsigned int *pc)
 	|| vm->arena[save][0] == 148 || vm->arena[save][0] == 164
 	|| vm->arena[save][0] == 212 || vm->arena[save][0] == 228)
 	{
-		exec_ldi(vm, arg_value, arg_size);
+		exec_ldi(vm, arg_value);
 		ft_visu_d_message(vm, "ldi");
 	}
 }

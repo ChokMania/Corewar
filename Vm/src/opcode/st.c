@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 18:26:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:28:37 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 	index += vm->proc->pc - 2;
 	index %= MEM_SIZE;
 	size = 2 + arg_size[1];
+	/* NO IDX MOD*/
 	/* registre qui n'est pas BON */
 	if (arg_value[0] <= 15)
 	{

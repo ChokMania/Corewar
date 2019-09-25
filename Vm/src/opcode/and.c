@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   and.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:34 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:39:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:32:08 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,17 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 static void	exec_and(t_vm *vm, unsigned int arg_value[3],
 	unsigned int arg_size[3])
 {
-	if (arg_size[0] == T_REG)
-		vm->proc->r[arg_value[2]] = arg_size[1] == T_REG
-			? vm->proc->r[arg_value[0]] & vm->proc->r[arg_value[1]]
-			: vm->proc->r[arg_value[0]] & arg_value[1];
-	else
-		vm->proc->r[arg_value[2]] = arg_size[1] == T_REG
-			? arg_value[0] & vm->proc->r[arg_value[1]]
-			: arg_value[0] & arg_value[1];
-	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
-	ft_visu_d_message(vm, "and");
+	/* CHECKER ARG VALUE */
+		if (arg_size[0] == T_REG)
+			vm->proc->r[arg_value[2]] = arg_size[1] == T_REG
+				? vm->proc->r[arg_value[0]] & vm->proc->r[arg_value[1]]
+				: vm->proc->r[arg_value[0]] & arg_value[1];
+		else
+			vm->proc->r[arg_value[2]] = arg_size[1] == T_REG
+				? arg_value[0] & vm->proc->r[arg_value[1]]
+				: arg_value[0] & arg_value[1];
+		vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
+		ft_visu_d_message(vm, "and");
 }
 
 static void	op_and_suite(t_vm *vm, unsigned int *pc, unsigned int arg_size[3])

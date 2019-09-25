@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   or.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:37:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:33:38 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 static void	exec_or(t_vm *vm, unsigned int arg_value[3]
 	, unsigned int arg_size[3])
 {
+	/* CHECKER ARG VALUE */
 	if (arg_size[0] == T_REG)
 		vm->proc->r[arg_value[2]] = arg_size[1] == T_REG
 			? vm->proc->r[arg_value[0]] | vm->proc->r[arg_value[1]]

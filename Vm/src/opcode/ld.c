@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ld.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:08 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 17:36:24 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:30:38 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,21 @@ static void	exec_ld(t_vm *vm, unsigned int arg_value[2],
 	int i;
 
 	i = -arg_value[0] + (arg_size[0] + arg_size[1]) - 1;
-	if (arg_size[0] == T_DIR + 1)
-		vm->proc->r[arg_value[1]] = arg_value[0] < IDX_MOD
-			? arg_value[0] : arg_value[0];
-	else if (arg_size[0] == T_IND)
+	if (arg_value[1] <= 15)
 	{
-		i = vm->proc->pc - i;
-		vm->proc->r[arg_value[1]] = vm->arena[i][0] << 24
-		| vm->arena[i + 1][0] << 16
-		| vm->arena[i + 2][0] << 8
-		| vm->arena[i + 3][0];
+		if (arg_size[0] == T_DIR + 1)
+			vm->proc->r[arg_value[1]] = arg_value[0] < IDX_MOD
+				? arg_value[0] : arg_value[0];
+		else if (arg_size[0] == T_IND)
+		{
+			i = vm->proc->pc - i;
+			vm->proc->r[arg_value[1]] = vm->arena[i][0] << 24
+			| vm->arena[i + 1][0] << 16
+			| vm->arena[i + 2][0] << 8
+			| vm->arena[i + 3][0];
+		}
+		vm->proc->carry = arg_value[0] == 0 ? 1 : 0;
 	}
-	vm->proc->carry = arg_value[0] == 0 ? 1 : 0;
 }
 
 void		op_ld(t_vm *vm, unsigned int *pc)

@@ -6,7 +6,7 @@
 /*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/23 19:10:12 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:33:20 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3],
 	unsigned int	tmp;
 	unsigned int	size;
 
+/* CHECKER ARG VALUE*/
 	if (!(index = 0) && arg_size[1] == T_REG)
 		index += vm->proc->r[arg_value[1]] - T_REG;
 	else if (arg_size[1] == T_DIR || arg_size[1] == T_IND)

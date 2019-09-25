@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 17:46:00 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 12:31:21 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 static void	exec_live(t_vm *vm, unsigned int arg_value)
 {
 	int		i;
-	int		j;
 	t_proc	*current;
+	t_proc	*save;
+	int		j;
 
 	j = 0;
 	current = vm->beg;
@@ -37,13 +38,18 @@ static void	exec_live(t_vm *vm, unsigned int arg_value)
 		while (current)
 		{
 			if (current && i == (int)current->n_champ && ++j)
+			{
 				current->last_live = vm->cycle;
+				save = current;
+			}
 			current = current->next;
 		}
-		if (j == 1 &&vm->option_verbose >= 1 && vm->option_verbose <= 2
+		if (j >= 1 && vm->option_verbose >= 1 && vm->option_verbose <= 2
 			&& !vm->option_visu && !vm->option_visu_d)
+		{
 			ft_printf("Player %u (%s) is said to be alive\n",
-				current->n_champ, current->head.prog_name);
+				save->n_champ, save->head.prog_name);
+		}
 	}
 }
 

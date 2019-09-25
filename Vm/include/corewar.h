@@ -6,7 +6,7 @@
 /*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 10:11:45 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/25 13:36:39 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,15 @@ typedef struct	s_proc
 	int				alive;
 	int				carry;
 	int				last_live;
+	int				number;
+
 	t_header		head;
+
 	unsigned int	pc;
 	unsigned int	n_champ;
 	unsigned int	r[REG_NUMBER];
 	unsigned int	during_fork;
+
 	struct s_proc	*next;
 }				t_proc;
 
@@ -117,8 +121,8 @@ void			ft_cycle_to_die(t_vm *vm);
 void			ft_choise_opcode(t_vm *vm, unsigned int *pc,
 					unsigned char opcode);
 void			ft_wait(t_vm *vm, unsigned char opcode);
-void			ft_dead_proc(t_vm *vm, t_proc *current);
-
+void			ft_dead_proc(t_vm *vm, t_proc **current);
+void			ft_reverse_list(t_proc **beg);
 
 void			ft_parsing(t_vm *vm, char **av);
 

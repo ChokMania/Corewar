@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:20 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 18:34:31 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 12:17:04 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	exec_fork(t_vm *vm, unsigned int arg_value)
 	new->carry = vm->proc->carry;
 	new->head = vm->proc->head;
 	new->n_champ = vm->proc->n_champ;
+	new->number = ++vm->nb_proc;
 	new->pc = arg_value % MEM_SIZE < IDX_MOD
 		|| MEM_SIZE - arg_value % MEM_SIZE < IDX_MOD
 		? vm->proc->pc - T_DIR + arg_value

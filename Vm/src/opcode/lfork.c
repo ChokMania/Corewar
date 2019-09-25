@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lfork.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:12 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 18:46:26 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 12:16:51 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	exec_lfork(t_vm *vm, unsigned int arg_value)
 	new->n_champ = vm->proc->n_champ;
 	new->pc = vm->proc->pc - T_DIR + arg_value;
 	new->pc %= MEM_SIZE;
+	new->number = ++vm->nb_proc;
 	i = -1;
 	while (++i < 16)
 		new->r[i] = vm->proc->r[i];

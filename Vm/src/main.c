@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 18:30:19 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 13:38:07 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ void		ft_play(t_vm *vm)
 
 	while (!(i = 0))
 	{
+		if (vm->cycle == 25568)
+			exit (0);
 		if (vm->cycle > 0
 			&& (vm->cycle - vm->total_to_die) % vm->cycle_to_die == 0)
 			ft_cycle_to_die(vm);
+		vm->proc = vm->beg;
 		if (vm->option_visu == 1)
 		{
 			refresh_pc(vm);
@@ -54,7 +57,6 @@ void		ft_play(t_vm *vm)
 		if (vm->option_dump > 0 && vm->option_dump == vm->cycle)
 			ft_print_dump(*vm);
 		ft_apply_proc(vm, &i);
-		vm->proc = vm->beg;
 		vm->cycle++;
 		vm->option_verbose == 2 && !vm->option_visu
 		&& !vm->option_visu_d
@@ -97,6 +99,7 @@ int			main(int ac, char **av)
 	if (vm.nb_champ < 1 || vm.nb_champ > 4)
 		ft_error(ERROR_READ, -1, &vm);
 	vm.option_visu == 1 ? ft_init_visu(&vm) : ft_introduce(&vm);
+	ft_reverse_list(&vm.beg);
 	vm.proc = vm.beg;
 	ft_play(&vm);
 	vm.option_visu == 1 ? endwin() : 0;

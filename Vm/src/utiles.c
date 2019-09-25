@@ -6,7 +6,7 @@
 /*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 10:03:35 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/25 12:38:20 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	ft_init_vm_suite(t_vm *vm)
 		vm->proc->carry = 0;
 		vm->proc->during_fork = 0;
 		vm->proc->creation = 0;
+		vm->proc->number = ++vm->nb_proc;
 		j = -1;
 		while (++j < REG_NUMBER)
 			vm->proc->r[j] = j == 0 ? 0xFFFFFFFF - i : 0;
@@ -44,6 +45,7 @@ void		ft_init_vm(t_vm *vm)
 	int		i;
 
 	vm->total_to_die = 0;
+	vm->nb_proc = 0;
 	vm->nb_check_cycle = 0;
 	i = -1;
 	while (++i < MEM_SIZE && !(vm->arena[i][0] = 0))
@@ -101,7 +103,7 @@ static void	ft_cdt_suite(t_vm *vm)
 	while (current)
 	{
 		if (current->alive == 0) 
-			ft_dead_proc(vm, current);
+			ft_dead_proc(vm, &current);
 		else
 		{
 			current->alive = 0;

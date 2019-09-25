@@ -6,15 +6,11 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 11:11:05 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/19 14:02:14 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 16:00:39 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
-** LA SUITE POUR L'ORIENTATION DE L'EXECUTION DE L'OPCODE APRES LE WAIT
-*/
 
 static void	ft_choise_opcode_suite(t_vm *vm, unsigned int *pc,
 	unsigned char opcode)
@@ -81,10 +77,6 @@ static void	ft_wait_suite(t_vm *vm, unsigned char opcode)
 		vm->proc->pc == MEM_SIZE ? vm->proc->pc = 0 : 0;
 	}
 }
-
-/*
-** FONCTION POUR WAIT AVANT L'EXECUTION DE L'OPCODE
-*/
 
 void		ft_wait(t_vm *vm, unsigned char opcode)
 {

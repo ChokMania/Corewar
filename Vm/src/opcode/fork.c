@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:20 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 12:17:04 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:57:00 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	exec_fork(t_vm *vm, unsigned int arg_value)
 	while (++i < 16)
 		new->r[i] = vm->proc->r[i];
 	new->wait = vm->proc->wait;
-	new->during_fork = 1;
 	new->next = vm->beg;
 	vm->beg = new;
 }

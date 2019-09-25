@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 15:26:37 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/25 15:52:42 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ static void	ft_apply_proc(t_vm *vm, int *i)
 		{
 			vm->proc->wait--;
 			ft_visu_wait(vm);
-			if (vm->proc->during_fork == 1)
-				vm->proc->during_fork = 0;
-			else if (!vm->proc->wait)
+			if (!vm->proc->wait)
 			{
 				ft_choise_opcode(vm, &vm->proc->pc, vm->arena[vm->proc->pc][0]);
 				vm->proc->pc++;

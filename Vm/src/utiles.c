@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 12:38:20 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/25 16:24:26 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	ft_init_vm_suite(t_vm *vm)
 		vm->proc->last_live = 0;
 		vm->proc->alive = 0;
 		vm->proc->carry = 0;
-		vm->proc->during_fork = 0;
 		vm->proc->creation = 0;
 		vm->proc->number = ++vm->nb_proc;
 		j = -1;
@@ -99,16 +98,16 @@ static void	ft_cdt_suite(t_vm *vm)
 	}
 	i == ft_list_count_vm(vm->beg) ? ft_winner(vm) : 0;
 	current = vm->beg;
-	i = -1;
 	while (current)
 	{
-		if (current->alive == 0) 
+		if (current->alive == 0)
 			ft_dead_proc(vm, &current);
 		else
 		{
 			current->alive = 0;
 			current = current->next;
 		}
+	i = -1;
 	}
 	while (++i < vm->nb_champ)
 		vm->nb_live_champ[i] = 0;

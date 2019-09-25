@@ -6,7 +6,7 @@
 /*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 12:31:21 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/25 14:29:49 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	exec_live(t_vm *vm, unsigned int arg_value)
 		{
 			if (current && i == (int)current->n_champ && ++j)
 			{
-				current->last_live = vm->cycle;
+				current->last_live = vm->cycle + 1;
 				save = current;
 			}
 			current = current->next;

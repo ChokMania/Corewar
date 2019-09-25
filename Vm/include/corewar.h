@@ -6,7 +6,7 @@
 /*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 13:36:39 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/25 14:21:19 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ typedef struct	s_proc
 	int				last_live;
 	int				number;
 
-	t_header		head;
-
 	unsigned int	pc;
 	unsigned int	n_champ;
 	unsigned int	r[REG_NUMBER];
 	unsigned int	during_fork;
+
+	t_header		head;
 
 	struct s_proc	*next;
 }				t_proc;

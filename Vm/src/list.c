@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:35:03 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 18:44:48 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 10:15:33 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,71 +24,32 @@ int				ft_list_lenght(t_proc *beg_real)
 	return (i);
 }
 
-static t_proc	*ft_del_sta(t_vm *vm)
+void	ft_dead_proc(t_vm *vm, t_proc *current)
 {
 	t_proc	*del;
+	int		is_first;
 
-	del = NULL;
-	if (vm->beg)
-	{
-		del = vm->beg;
-		vm->beg = vm->beg->next;
-		free(del);
-		return (vm->beg);
-	}
-	return (NULL);
-}
-
-static t_proc	*ft_del_mid(t_vm *vm, int num)
-{
-	int		i;
-	t_proc	*del;
-	t_proc	*prev;
-
-	prev = vm->beg;
+	is_first = 1;
 	del = vm->beg;
-	i = 0;
-	while (del && del->next && i++ < num)
+	while (del != current && !(is_first = 0))
 		del = del->next;
-	while (prev->next != del)
-		prev = prev->next;
-	prev->next = del->next ? del->next : NULL;
-	free(del);
-	return(prev->next);
-}
-
-static t_proc	*ft_del_end(t_vm *vm, int max)
-{
-	int		i;
-	t_proc	*elem;
-
-	elem = vm->beg;
-	i = 0;
-	while (i++ < max - 1)
-		elem = elem->next;
-	free(elem->next);
-	elem->next = NULL;
-	return (NULL);
-}
-
-t_proc		*ft_dead_proc(t_vm *vm, t_proc *current)
-{
-	int		num;
-	int		max;
-	t_proc	*tmp;
-	t_proc	*prev;
-
-	tmp = vm->beg;
-	prev = NULL;
-	num = 0;
-	while (tmp && tmp != current && ++num)
-		tmp = tmp->next;
-	max = ft_list_count_vm(vm->beg);
-	if (num < 1)
-		max == 1 ? ft_victory(vm, current) : (prev = ft_del_sta(vm));
-	else if (num == max)
-		prev = ft_del_end(vm, max);
+	if (is_first)
+	{
+		current = current->next;
+		vm->beg = current;
+		free(del);
+	}
+	else if (del->next)
+	{
+		current = vm->beg;
+		while (current->next != del)
+			current = current->next;
+		current->next = del->next;
+		free(del);
+	}
 	else
-		prev = ft_del_mid(vm, num);
-	return (prev);
+	{
+		current = NULL;
+		free(del);
+	}
 }

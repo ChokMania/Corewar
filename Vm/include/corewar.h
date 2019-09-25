@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 17:07:53 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 10:11:45 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void			ft_cycle_to_die(t_vm *vm);
 void			ft_choise_opcode(t_vm *vm, unsigned int *pc,
 					unsigned char opcode);
 void			ft_wait(t_vm *vm, unsigned char opcode);
-t_proc			*ft_dead_proc(t_vm *vm, t_proc *current);
+void			ft_dead_proc(t_vm *vm, t_proc *current);
 
 
 void			ft_parsing(t_vm *vm, char **av);

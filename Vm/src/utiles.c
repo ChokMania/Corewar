@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/24 18:42:19 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/25 10:03:35 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void	ft_cdt_suite(t_vm *vm)
 	while (current)
 	{
 		if (current->alive == 0) 
-			current = ft_dead_proc(vm, current);
+			ft_dead_proc(vm, current);
 		else
 		{
 			current->alive = 0;

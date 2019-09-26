@@ -6,24 +6,28 @@
 /*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 12:27:50 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/26 12:36:44 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
+static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
 {
 	int		i;
+	int		r;
 
 	i = -1;
+	r = 0;
 	while (++i < 2)
 		if (arg_size[i] == T_REG)
 		{
 			(*pc) = ((*pc) + T_REG) % MEM_SIZE;
 			arg_size[i] = T_REG;
 			arg_value[i] = vm->arena[*pc][0] - 0x01;
+			if (arg_value[i] > 15)
+				r = 0;
 		}
 		else if (arg_size[i] == T_DIR)
 		{
@@ -39,6 +43,7 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 			arg_size[i] = T_IND;
 			arg_value[i] = vm->arena[((*pc) - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
 		}
+		return (r);
 }
 
 static void	visual_st(t_vm *vm, int index)
@@ -104,7 +109,7 @@ void		op_st(t_vm *vm, unsigned int *pc)
 		arg_size[1] = T_REG;
 	else if (vm->arena[*pc][0] == 112)
 		arg_size[1] = T_IND;
-	ft_arg(vm, pc, arg_value, arg_size);
-	if (vm->arena[save][0] == 80 || vm->arena[save][0] == 112)
-		exec_st(vm, arg_value, arg_size);
+	if (ft_arg(vm, pc, arg_value, arg_size))
+		if (vm->arena[save][0] == 80 || vm->arena[save][0] == 112)
+			exec_st(vm, arg_value, arg_size);
 }

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:04 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 14:09:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 14:32:30 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 	ret = 1;
 	while (i < 3)
 	{
-		(*pc) += T_REG;
+		*pc = (*pc + T_REG) % MEM_SIZE;
 		arg_value[i++] = vm->arena[*pc][0] - 0x01;
 		if (arg_value[i] > 15)
 				ret = 0;

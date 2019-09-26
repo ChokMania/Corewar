@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 11:55:47 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 14:13:19 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ void		ft_play(t_vm *vm)
 			&& (vm->cycle - vm->total_to_die) % vm->cycle_to_die == 0)
 			ft_cycle_to_die(vm);
 		vm->cycle++;
-		vm->option_verbose == 2 && !vm->option_visu && !vm->option_visu_d
-			? ft_printf("It is now cycle %d\n", vm->cycle) : 0;
+		vm->option_verbose == 2 && !vm->option_visu
+		&& !vm->option_visu_d
+		? ft_printf("It is now cycle %d\n", vm->cycle) : 0;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   refresh_live.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:59 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/25 14:21:35 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/26 16:52:10 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	refresh_live_by_champ(t_vm *vm, unsigned int i)
 {
 	t_proc	*current;
+	char	*str;
 
 	current = vm->beg;
 	while (current && i + 1 != current->n_champ)
@@ -24,12 +25,16 @@ void	refresh_live_by_champ(t_vm *vm, unsigned int i)
 		wattron(vm->visu.hud, A_BOLD);
 		mvwprintw(vm->visu.hud, 19 + (i * 4), 7, "Last live :          "
 			"                                       ");
-		mvwprintw(vm->visu.hud, 19 + (i * 4), 40, ft_itoa(current->last_live));
+		mvwprintw(vm->visu.hud, 19 + (i * 4), 40, (str = ft_itoa(current->last_live)));
+		ft_strdel(&str);
 		if (vm->nb_live_champ[i] == 0)
 			mvwprintw(vm->visu.hud, 20 + (i * 4), 40, "0             ");
 		else
+		{
 			mvwprintw(vm->visu.hud, 20 + (i * 4), 40,
-				ft_itoa(vm->nb_live_champ[i]));
+				(str = ft_itoa(vm->nb_live_champ[i])));
+			ft_strdel(&str);
+		}
 		wattroff(vm->visu.hud, A_BOLD);
 	}
 }

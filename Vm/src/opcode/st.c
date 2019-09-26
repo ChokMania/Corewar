@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 14:47:44 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/26 16:51:50 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,15 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 
 static void	visual_st(t_vm *vm, int index)
 {
-	int	i;
+	int		i;
+	char	*str;
 
 	i = 4;
 	while (--i >= 0)
 	{
 		mvwprintw(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192),
-			2 + ((3 * ((index + i) % MEM_SIZE)) % 192), get_hexa(vm->arena[(index + i) % MEM_SIZE][0]));
+			2 + ((3 * ((index + i) % MEM_SIZE)) % 192), (str = get_hexa(vm->arena[(index + i) % MEM_SIZE][0])));
+		ft_strdel(&str);
 		mvwchgat(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192), 2 +
 			((3 * ((index + i) % MEM_SIZE)) % 192), 2, A_BOLD, vm->arena[(index + i) % MEM_SIZE][1], 0);
 	}
@@ -62,8 +64,8 @@ static void	visual_st(t_vm *vm, int index)
 	ft_visu_d_message(vm, "st");
 }
 
-static void	exec_st(t_vm *vm, unsigned int arg_value[2]
-	, unsigned int arg_size[2])
+static void	exec_st(t_vm *vm, unsigned int arg_value[3],
+	unsigned int arg_size[3])
 {
 	unsigned int	i;
 	unsigned int	index;
@@ -78,7 +80,6 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[2]
 	index %= MEM_SIZE;
 	size = 2 + arg_size[1];
 	/* NO IDX MOD*/
-	/* registre qui n'est pas BON */
 	if (arg_value[0] <= 15)
 	{
 		tmp = vm->proc->r[arg_value[0]];
@@ -96,14 +97,15 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[2]
 
 void		op_st(t_vm *vm, unsigned int *pc)
 {
-	unsigned int	arg_value[2];
-	unsigned int	arg_size[2];
+	unsigned int	arg_value[3];
+	unsigned int	arg_size[3];
 	int				save;
 
-	//(*pc)++;
 	*pc = (*pc + 1) % MEM_SIZE;
 	save = *pc;
 	arg_size[0] = T_REG;
+	arg_value[2] = 0;
+	arg_size[2] = 0;
 	if (vm->arena[*pc][0] == 80)
 		arg_size[1] = T_REG;
 	else if (vm->arena[*pc][0] == 112)

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:55:22 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/19 14:09:42 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 16:52:42 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ void	init_color_vm(void)
 
 void	init_champ_in_visu(t_vm *vm)
 {
-	int i;
-	int color;
+	int		i;
+	int		color;
+	char	*str;
 
 	i = 0;
 	while (i < MEM_SIZE * 3)
 	{
 		color = 9;
 		mvwprintw(vm->visu.arena, 1 + (i / 192), 2 + (i % 192),
-			get_hexa(vm->arena[i / 3][0]));
+			(str = get_hexa(vm->arena[i / 3][0])));
+		ft_strdel(&str);
 		if (vm->arena[i / 3][1] != 0)
 			color = vm->arena[i / 3][1];
 		mvwchgat(vm->visu.arena, 1 + (i / 192), 2 + (i % 192), 2, A_BOLD,
@@ -65,7 +67,6 @@ void	init_champ_in_visu(t_vm *vm)
 
 void	ft_init_visu(t_vm *vm)
 {
-	bzero(&vm->visu, sizeof(t_visu));
 	initscr();
 	noecho();
 	timeout(1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 16:52:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 19:35:10 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,13 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 
 static void	visual_sti(t_vm *vm, int index)
 {
-	int		i;
-	char	*str;
+	int	i;
 
 	i = 4;
 	while (--i >= 0)
 	{
 		mvwprintw(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192),
-			2 + ((3 * ((index + i) % MEM_SIZE)) % 192), (str = get_hexa(vm->arena[(index + i) % MEM_SIZE][0])));
-		ft_strdel(&str);
+			2 + ((3 * ((index + i) % MEM_SIZE)) % 192), get_hexa(vm->arena[(index + i) % MEM_SIZE][0]));
 		mvwchgat(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192), 2 +
 			((3 * ((index + i) % MEM_SIZE)) % 192), 2, A_BOLD, vm->arena[(index + i) % MEM_SIZE][1], 0);
 	}
@@ -101,26 +99,9 @@ void		op_sti(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];
-	int				save;
 
-	//(*pc)++;
 	*pc = (*pc + 1) % MEM_SIZE;
-	save = *pc;
-	arg_size[0] = T_REG;
-	if ((vm->arena[*pc][0] == 84 || vm->arena[*pc][0] == 88)
-		&& (arg_size[1] = T_REG))
-		arg_size[2] = vm->arena[*pc][0] == 84 ? T_REG : T_DIR;
-	else if ((vm->arena[*pc][0] == 100 || vm->arena[*pc][0] == 104)
-		&& (arg_size[1] = T_DIR))
-		arg_size[2] = vm->arena[*pc][0] == 100 ? T_REG : T_DIR;
-	else if ((vm->arena[*pc][0] == 116 || vm->arena[*pc][0] == 120)
-		&& (arg_size[1] = T_IND))
-		arg_size[2] = vm->arena[*pc][0] == 116 ? T_REG : T_DIR;
+	recup_opc(vm->arena[*pc][0], arg_size);
 	if (ft_arg(vm, pc, arg_value, arg_size))
-	{
-		if (vm->arena[save][0] == 84 || vm->arena[save][0] == 88
-		|| vm->arena[save][0] == 100 || vm->arena[save][0] == 104
-		|| vm->arena[save][0] == 116 || vm->arena[save][0] == 120)
-			exec_sti(vm, arg_value, arg_size);
-	}
+		exec_sti(vm, arg_value, arg_size);
 }

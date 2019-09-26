@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 16:52:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 19:33:22 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,7 @@ void	ft_error(int err, int nb_line, t_vm *vm)
 	char	*tab_err[20];
 
 	if (vm->option_visu == 1)
-	{
 		endwin();
-		free(vm->visu.hud);
-		free(vm->visu.arena);
-		vm->option_i == 1 ? free(vm->visu.desc) : 0;
-	}
 	if (vm->beg != NULL)
 		free_chaine(vm->beg);
 	ft_fill_tab_err(tab_err);
@@ -63,4 +58,26 @@ void	ft_error(int err, int nb_line, t_vm *vm)
 		ft_dprintf(2, "error : %d || %s, line %d\n",
 		err, tab_err[err], nb_line);
 	exit(0);
+}
+
+void	recup_opc(unsigned char opc, unsigned int *arg_size)
+{
+	int				i;
+	unsigned char	tab[3];
+
+	tab[0] = opc / 64;
+	opc %= 64;
+	tab[1] = opc / 16;
+	opc %= 16;
+	tab[2] = opc / 4;
+	i = -1;
+	while (++i < 3)
+		if (tab[i] == REG_CODE)
+			arg_size[i] = T_REG;
+		else if (tab[i] == DIR_CODE)
+			arg_size[i] = T_DIR;
+		else if (tab[i] == IND_CODE)
+			arg_size[i] = T_IND;
+		else
+			arg_size[i] = 0;
 }

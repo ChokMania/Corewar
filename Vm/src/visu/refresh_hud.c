@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   refresh_hud.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/26 16:52:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 19:36:23 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ void		refresh_pc(t_vm *vm)
 void		visual_every_cycle(t_vm *vm)
 {
 	char	*str;
+
+	str = ft_itoa(vm->cycle);
 	wattron(vm->visu.hud, A_BOLD);
-	mvwprintw(vm->visu.hud, 13, 13, (str = ft_itoa(vm->cycle)));
+	mvwprintw(vm->visu.hud, 13, 13, str);
 	ft_strdel(&str);
 	wattroff(vm->visu.hud, A_BOLD);
 	wrefresh(vm->visu.hud);

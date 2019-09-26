@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 16:15:34 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 14:13:19 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ int			main(int ac, char **av)
 	ft_reverse_list(&vm.beg);
 	vm.proc = vm.beg;
 	ft_play(&vm);
+	vm.option_visu == 1 ? endwin() : 0;
 	return (0);
 }

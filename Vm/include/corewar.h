@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 15:56:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 19:34:10 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ void			ft_dead_proc(t_vm *vm, t_proc **current);
 void			ft_reverse_list(t_proc **beg);
 
 void			ft_parsing(t_vm *vm, char **av);
+
+void			recup_opc(unsigned char opc, unsigned int *arg_size);
 
 void			ft_args(int ac, char **av, t_vm *vm, char *tab[5]);
 

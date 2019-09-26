@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   refresh_live.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:59 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/26 16:52:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 18:20:53 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	refresh_live_by_champ(t_vm *vm, unsigned int i)
 {
-	t_proc	*current;
 	char	*str;
+	t_proc	*current;
 
 	current = vm->beg;
 	while (current && i + 1 != current->n_champ)
@@ -30,11 +30,9 @@ void	refresh_live_by_champ(t_vm *vm, unsigned int i)
 		if (vm->nb_live_champ[i] == 0)
 			mvwprintw(vm->visu.hud, 20 + (i * 4), 40, "0             ");
 		else
-		{
 			mvwprintw(vm->visu.hud, 20 + (i * 4), 40,
 				(str = ft_itoa(vm->nb_live_champ[i])));
-			ft_strdel(&str);
-		}
+		ft_strdel(&str);
 		wattroff(vm->visu.hud, A_BOLD);
 	}
 }

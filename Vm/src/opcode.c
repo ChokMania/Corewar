@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opcode.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 11:11:05 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 16:00:39 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 18:25:10 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ void		ft_wait(t_vm *vm, unsigned char opcode)
 
 void		ft_visu_wait(t_vm *vm)
 {
+	char	*str;
+
 	if (vm->option_visu_d == 1)
 	{
 		wattron(vm->visu.hud, A_BOLD);
@@ -113,10 +115,12 @@ void		ft_visu_wait(t_vm *vm)
 		mvwprintw(vm->visu.hud, 26 + (vm->proc->n_champ - 1) * 2 +
 			vm->nb_champ * 4, 61, "Need to wait : ");
 		mvwprintw(vm->visu.hud, 26 + (vm->proc->n_champ - 1) * 2 +
-			vm->nb_champ * 4, 77, ft_itoa(vm->proc->wait));
+			vm->nb_champ * 4, 77, (str = ft_itoa(vm->proc->wait)));
+		ft_strdel(&str);
 		mvwprintw(vm->visu.hud, 26 + (vm->proc->n_champ - 1) * 2 +
-			vm->nb_champ * 4, 78 + ft_strlen(ft_itoa(vm->proc->wait)),
+			vm->nb_champ * 4, 78 + ft_strlen((str = ft_itoa(vm->proc->wait))),
 			"cycles.");
+		ft_strdel(&str);
 		wrefresh(vm->visu.hud);
 	}
 }

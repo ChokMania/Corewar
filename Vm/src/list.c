@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:35:03 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 16:31:23 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 11:57:27 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,10 @@ void	ft_dead_proc(t_vm *vm, t_proc **current)
 		del = del->next;
 	if (is_first)
 	{
+		/* a voir */
 		ft_list_count_vm(vm->beg) == 0 ? ft_victory(vm, *current) : 0;
 		*current = (*current)->next;
 		vm->beg = *current;
-		free(del);
-	}
-	else if (del && del->next)
-	{
-		*current = vm->beg;
-		while ((*current)->next != del)
-			*current = (*current)->next;
-		(*current)->next = del->next;
-		*current = (*current)->next;
 		free(del);
 	}
 	else
@@ -54,7 +46,7 @@ void	ft_dead_proc(t_vm *vm, t_proc **current)
 		*current = vm->beg;
 		while ((*current)->next != del)
 			*current = (*current)->next;
-		(*current)->next = NULL;
+		(*current)->next = del && del->next ? del->next : NULL;
 		*current = (*current)->next;
 		free(del);
 	}

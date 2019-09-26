@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xor.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:55 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 15:32:20 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/26 12:12:11 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		op_xor(t_vm *vm, unsigned int *pc)
 	unsigned int	arg_size[3];
 	int				save;
 
-	(*pc)++;
+	(*pc) = (*pc + 1) % MEM_SIZE;
 	save = (*pc);
 	arg_size[2] = T_REG;
 	if ((vm->arena[*pc][0] == 84) && (arg_size[0] = T_REG))

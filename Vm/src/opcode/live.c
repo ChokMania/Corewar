@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 14:29:49 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/26 11:55:35 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 static void	exec_live(t_vm *vm, unsigned int arg_value)
 {
 	int		i;
-	t_proc	*current;
-	t_proc	*save;
 	int		j;
+	t_proc	*save;
+	t_proc	*current;
 
 	j = 0;
 	current = vm->beg;
@@ -46,10 +46,8 @@ static void	exec_live(t_vm *vm, unsigned int arg_value)
 		}
 		if (j >= 1 && vm->option_verbose >= 1 && vm->option_verbose <= 2
 			&& !vm->option_visu && !vm->option_visu_d)
-		{
 			ft_printf("Player %u (%s) is said to be alive\n",
 				save->n_champ, save->head.prog_name);
-		}
 	}
 }
 

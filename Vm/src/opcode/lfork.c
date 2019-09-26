@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lfork.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:12 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 15:57:01 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 14:30:53 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {
-	(*pc) += T_DIR;
-	*arg_value = vm->arena[*pc - 1][0] << 8 | vm->arena[*pc][0];
+	(*pc) = ((*pc) + T_DIR) % MEM_SIZE;
+	*arg_value = vm->arena[((*pc) - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
 }
 
 static void	exec_lfork(t_vm *vm, unsigned int arg_value)

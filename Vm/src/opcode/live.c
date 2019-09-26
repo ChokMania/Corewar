@@ -6,7 +6,7 @@
 /*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 14:29:49 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/26 14:32:42 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {
-	(*pc) += T_IND;
-	(*arg_value) = vm->arena[*pc - 3][0] << 24 | vm->arena[*pc - 2][0] << 16
-		| vm->arena[*pc - 1][0] << 8 | vm->arena[*pc][0];
+	(*pc) =  ((*pc) + T_IND) % MEM_SIZE;
+	(*arg_value) = vm->arena[((*pc) - 3) % MEM_SIZE][0] << 24 | vm->arena[((*pc) - 2) % MEM_SIZE][0] << 16
+		| vm->arena[((*pc) - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
 }
 
 static void	exec_live(t_vm *vm, unsigned int arg_value)

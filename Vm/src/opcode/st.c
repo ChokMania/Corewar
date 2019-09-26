@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 14:37:17 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 14:47:44 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ static void	visual_st(t_vm *vm, int index)
 	ft_visu_d_message(vm, "st");
 }
 
-static void	exec_st(t_vm *vm, unsigned int arg_value[3],
-	unsigned int arg_size[3])
+static void	exec_st(t_vm *vm, unsigned int arg_value[2]
+	, unsigned int arg_size[2])
 {
 	unsigned int	i;
 	unsigned int	index;
@@ -96,16 +96,14 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 
 void		op_st(t_vm *vm, unsigned int *pc)
 {
-	unsigned int	arg_value[3];
-	unsigned int	arg_size[3];
+	unsigned int	arg_value[2];
+	unsigned int	arg_size[2];
 	int				save;
 
 	//(*pc)++;
 	*pc = (*pc + 1) % MEM_SIZE;
 	save = *pc;
 	arg_size[0] = T_REG;
-	arg_value[2] = 0;
-	arg_size[2] = 0;
 	if (vm->arena[*pc][0] == 80)
 		arg_size[1] = T_REG;
 	else if (vm->arena[*pc][0] == 112)

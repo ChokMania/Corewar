@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:24:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 12:25:22 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/26 12:34:19 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {
-	(*pc) += T_REG;
+	(*pc) = (*pc + T_REG) % MEM_SIZE;
 	(*arg_value) = vm->arena[*pc][0] - 0x01;
 	return (*arg_value > 15 ? 0 : 1);
 }
@@ -29,7 +29,7 @@ void		op_aff(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value;
 
-	(*pc)++;
+	(*pc) = (*pc + 1) % MEM_SIZE;
 	if (ft_arg(vm, pc, &arg_value))
 	{
 		exec_aff(vm, arg_value);

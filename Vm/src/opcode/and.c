@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   and.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:34 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 12:38:41 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 13:31:12 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		}
 		else if (arg_size[i] == T_DIR)
 		{
-			(*pc) = (*pc + T_IND) % MEM_SIZE;
+			(*pc) = (*pc + T_DIR) % MEM_SIZE;
 			arg_size[i] = T_DIR + 1;
 			arg_value[i] = vm->arena[(*pc - 3) % MEM_SIZE][0] << 24
 				| vm->arena[(*pc - 2) % MEM_SIZE][0] << 16
@@ -40,7 +40,7 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		}
 		else
 		{
-			(*pc) += T_DIR;
+			(*pc) = (*pc + T_DIR) % MEM_SIZE;
 			arg_size[i] = T_IND;
 			arg_value[i] = vm->arena[*pc - 1][0] << 8 | vm->arena[*pc][0];
 		}

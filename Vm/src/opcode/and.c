@@ -3,27 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   and.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:34 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 12:12:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/26 12:30:37 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
+static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	unsigned int *arg_size)
 {
 	int		i;
+	int		err;
 
 	i = -1;
+	err = 1;
 	while (++i < 3)
 		if (arg_size[i] == T_REG)
 		{
 			(*pc) += T_REG;
 			arg_size[i] = T_REG;
 			arg_value[i] = vm->arena[*pc][0] - 0x01;
+			if (arg_value[i] > 15)
+				err = 0;
 		}
 		else if (arg_size[i] == T_DIR)
 		{
@@ -39,6 +43,7 @@ static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 			arg_size[i] = T_IND;
 			arg_value[i] = vm->arena[*pc - 1][0] << 8 | vm->arena[*pc][0];
 		}
+	return (err);
 }
 
 static void	exec_and(t_vm *vm, unsigned int arg_value[3],
@@ -95,11 +100,11 @@ void		op_and(t_vm *vm, unsigned int *pc)
 			arg_size[1] = T_IND;
 	else
 		op_and_suite(vm, pc, arg_size);
-	ft_arg(vm, pc, arg_value, arg_size);
-	if (vm->arena[save][0] == 84 || vm->arena[save][0] == 100
-		|| vm->arena[save][0] == 116 || vm->arena[save][0] == 148
-		|| vm->arena[save][0] == 164 || vm->arena[save][0] == 180
-		|| vm->arena[save][0] == 212 || vm->arena[save][0] == 228
-		|| vm->arena[save][0] == 244)
-		exec_and(vm, arg_value, arg_size);
+	if (ft_arg(vm, pc, arg_value, arg_size))
+		if (vm->arena[save][0] == 84 || vm->arena[save][0] == 100
+			|| vm->arena[save][0] == 116 || vm->arena[save][0] == 148
+			|| vm->arena[save][0] == 164 || vm->arena[save][0] == 180
+			|| vm->arena[save][0] == 212 || vm->arena[save][0] == 228
+			|| vm->arena[save][0] == 244)
+			exec_and(vm, arg_value, arg_size);
 }

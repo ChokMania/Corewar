@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 19:33:02 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/28 18:18:46 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 			*pc = (*pc + T_IND) % MEM_SIZE;
 			arg_size[i] = T_DIR + 1;
 			arg_value[i] = vm->arena[(*pc - 3) % MEM_SIZE][0] << 24
-				| vm->arena[(*pc - 2) % MEM_SIZE][0] << 16 | vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
+				| vm->arena[(*pc - 2) % MEM_SIZE][0] << 16
+				| vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
 				| vm->arena[*pc][0];
 		}
 		else if (arg_size[i] == T_IND)
@@ -45,7 +46,8 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 			ret = 1;
 			*pc = (*pc + T_DIR) % MEM_SIZE;
 			arg_size[i] = T_IND;
-			arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
+			arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
+			| vm->arena[*pc][0];
 		}
 	return (ret);
 }
@@ -58,9 +60,11 @@ static void	visual_st(t_vm *vm, int index)
 	while (--i >= 0)
 	{
 		mvwprintw(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192),
-			2 + ((3 * ((index + i) % MEM_SIZE)) % 192), get_hexa(vm->arena[(index + i) % MEM_SIZE][0]));
+			2 + ((3 * ((index + i) % MEM_SIZE)) % 192),
+			get_hexa(vm->arena[(index + i) % MEM_SIZE][0]));
 		mvwchgat(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192), 2 +
-			((3 * ((index + i) % MEM_SIZE)) % 192), 2, A_BOLD, vm->arena[(index + i) % MEM_SIZE][1], 0);
+			((3 * ((index + i) % MEM_SIZE)) % 192), 2, A_BOLD,
+			vm->arena[(index + i) % MEM_SIZE][1], 0);
 	}
 	wrefresh(vm->visu.arena);
 	ft_visu_d_message(vm, "st");
@@ -81,7 +85,7 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 	index += vm->proc->pc - 2;
 	index %= MEM_SIZE;
 	size = 2 + arg_size[1];
-	/* NO IDX MOD*/
+	//NO IDX MOD
 	if (arg_value[0] <= 15)
 	{
 		tmp = vm->proc->r[arg_value[0]];

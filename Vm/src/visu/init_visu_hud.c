@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:29 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/26 18:19:08 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/28 18:25:32 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,15 @@ void	create_player_hud(t_vm *vm, int *i)
 		mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 12, (str = ft_itoa((*i) + 1)));
 		ft_strdel(&str);
 		wattron(vm->visu.hud, COLOR_PAIR((*i) + 1));
-		if (ft_strlen(vm->proc->head.prog_name) >= 120)
-			mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
-			ft_strsub(vm->proc->head.prog_name, 0, 92));
-		else
-			mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
-				vm->proc->head.prog_name);
+		ft_strlen(vm->proc->head.prog_name) >= 120
+			? mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
+			ft_strsub(vm->proc->head.prog_name, 0, 92))
+			: mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
+			vm->proc->head.prog_name);
 		wattroff(vm->visu.hud, COLOR_PAIR(((*i) + 1)));
 		mvwprintw(vm->visu.hud, 19 + ((*i) * 4), 7, "Last live :\t\t\t0");
-		mvwprintw(vm->visu.hud, 20 + ((*i) * 4), 7
+		mvwprintw(vm->visu.hud, 20 + ((*i)++ * 4), 7
 		, "live in current period :\t\t0");
-		(*i)++;
 		vm->proc = vm->proc->next;
 	}
 	vm->proc = vm->beg;
@@ -62,7 +60,8 @@ void	write_infos_hud(t_vm *vm, int i)
 	char	*str;
 
 	mvwprintw(vm->visu.hud, 26 + (i * 4), 5, "CYCLE TO DIE :");
-	mvwprintw(vm->visu.hud, 26 + (i * 4), 20, (str = ft_itoa(vm->cycle_to_die)));
+	mvwprintw(vm->visu.hud, 26 + (i * 4), 20,
+		(str = ft_itoa(vm->cycle_to_die)));
 	ft_strdel(&str);
 	mvwprintw(vm->visu.hud, 28 + (i * 4), 5, "CYCLE_DELTA :");
 	mvwprintw(vm->visu.hud, 28 + (i * 4), 20, (str = ft_itoa(CYCLE_DELTA)));

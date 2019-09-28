@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:59 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/26 18:20:53 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/28 18:20:34 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	refresh_live_by_champ(t_vm *vm, unsigned int i)
 		wattron(vm->visu.hud, A_BOLD);
 		mvwprintw(vm->visu.hud, 19 + (i * 4), 7, "Last live :          "
 			"                                       ");
-		mvwprintw(vm->visu.hud, 19 + (i * 4), 40, (str = ft_itoa(current->last_live)));
+		mvwprintw(vm->visu.hud, 19 + (i * 4), 40,
+			(str = ft_itoa(current->last_live)));
 		ft_strdel(&str);
 		if (vm->nb_live_champ[i] == 0)
 			mvwprintw(vm->visu.hud, 20 + (i * 4), 40, "0             ");
@@ -61,7 +62,7 @@ void	refresh_live(t_vm *vm, int barre)
 	j = 0;
 	total_live = 0;
 	while (++i < vm->nb_champ && (total_live += vm->nb_live_champ[i]) >= 0)
-		refresh_live_by_champ(vm, (unsigned int )i);
+		refresh_live_by_champ(vm, (unsigned int)i);
 	i = -1;
 	tmp = 0;
 	while (total_live != 0 && j < 100)

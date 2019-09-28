@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 16:24:26 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/28 18:27:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,10 @@ static void	ft_cdt_suite(t_vm *vm)
 
 	current = vm->beg;
 	i = 0;
-	if (vm->cycle_to_die == 0)
-	{
-		vm->cycle++;
+	if (vm->cycle_to_die == 0 && vm->cycle++)
 		ft_winner(vm);
-	}
-	while (current && !current->alive)
-	{
-		i++;
+	while (current && !current->alive && ++i)
 		current = current->next;
-	}
 	i == ft_list_count_vm(vm->beg) ? ft_winner(vm) : 0;
 	current = vm->beg;
 	while (current)
@@ -107,8 +101,8 @@ static void	ft_cdt_suite(t_vm *vm)
 			current->alive = 0;
 			current = current->next;
 		}
-	i = -1;
 	}
+	i = -1;
 	while (++i < vm->nb_champ)
 		vm->nb_live_champ[i] = 0;
 }

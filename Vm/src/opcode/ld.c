@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ld.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:08 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 14:37:34 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/09/28 16:22:24 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,10 @@ void		op_ld(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[2];
 	unsigned int	arg_size[2];
-	int				save;
 
 	(*pc) = (*pc + 1) % MEM_SIZE;
-	save = (*pc);
-	arg_size[1] = T_REG;
-	if (vm->arena[*pc][0] == 144)
-		arg_size[0] = T_DIR;
-	else if (vm->arena[*pc][0] == 208)
-		arg_size[0] = T_IND;
-	if (ft_arg(vm, pc, arg_value, arg_size)
-		&& (vm->arena[save][0] == 144 || vm->arena[save][0] == 208))
+	recup_opc(vm->arena[*pc][0], arg_size);
+	if (ft_arg(vm, pc, arg_value, arg_size))
 	{
 		exec_ld(vm, arg_value, arg_size);
 		ft_visu_d_message(vm, "ld");

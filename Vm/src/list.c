@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 13:35:03 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 16:31:23 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/28 18:10:35 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int				ft_list_lenght(t_proc *beg_real)
+int		ft_list_lenght(t_proc *beg_real)
 {
 	int		i;
 	t_proc	*beg;
@@ -40,21 +40,12 @@ void	ft_dead_proc(t_vm *vm, t_proc **current)
 		vm->beg = *current;
 		free(del);
 	}
-	else if (del && del->next)
-	{
-		*current = vm->beg;
-		while ((*current)->next != del)
-			*current = (*current)->next;
-		(*current)->next = del->next;
-		*current = (*current)->next;
-		free(del);
-	}
 	else
 	{
 		*current = vm->beg;
 		while ((*current)->next != del)
 			*current = (*current)->next;
-		(*current)->next = NULL;
+		(*current)->next = del && del->next ? del->next : NULL;
 		*current = (*current)->next;
 		free(del);
 	}

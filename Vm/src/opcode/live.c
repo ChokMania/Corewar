@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 14:32:42 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/09/28 18:15:27 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 {
-	(*pc) =  ((*pc) + T_IND) % MEM_SIZE;
-	(*arg_value) = vm->arena[((*pc) - 3) % MEM_SIZE][0] << 24 | vm->arena[((*pc) - 2) % MEM_SIZE][0] << 16
+	(*pc) = ((*pc) + T_IND) % MEM_SIZE;
+	(*arg_value) = vm->arena[((*pc) - 3) % MEM_SIZE][0] << 24
+		| vm->arena[((*pc) - 2) % MEM_SIZE][0] << 16
 		| vm->arena[((*pc) - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
 }
 
@@ -46,10 +47,8 @@ static void	exec_live(t_vm *vm, unsigned int arg_value)
 		}
 		if (j >= 1 && vm->option_verbose >= 1 && vm->option_verbose <= 2
 			&& !vm->option_visu && !vm->option_visu_d)
-		{
 			ft_printf("Player %u (%s) is said to be alive\n",
 				save->n_champ, save->head.prog_name);
-		}
 	}
 }
 

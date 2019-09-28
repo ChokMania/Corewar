@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/28 18:18:46 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/28 18:33:33 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	int		ret;
 
 	i = -1;
-	ret = 0;
+	ret = 1;
 	while (++i < 2)
 		if (arg_size[i] == T_REG)
 		{
-			ret = 1;
 			*pc = (*pc + T_REG) % MEM_SIZE;
 			arg_size[i] = T_REG;
 			arg_value[i] = vm->arena[*pc][0] - 0x01;
@@ -33,7 +32,6 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		}
 		else if (arg_size[i] == T_DIR)
 		{
-			ret = 1;
 			*pc = (*pc + T_IND) % MEM_SIZE;
 			arg_size[i] = T_DIR + 1;
 			arg_value[i] = vm->arena[(*pc - 3) % MEM_SIZE][0] << 24
@@ -43,7 +41,6 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		}
 		else if (arg_size[i] == T_IND)
 		{
-			ret = 1;
 			*pc = (*pc + T_DIR) % MEM_SIZE;
 			arg_size[i] = T_IND;
 			arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:07 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/28 18:16:43 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/28 18:34:41 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		}
 		else if (arg_size[i] == T_DIR)
 		{
-			(*pc) += T_DIR;
+			(*pc) = ((*pc) + T_DIR) % MEM_SIZE;
 			arg_size[i] = T_DIR;
 			arg_value[i] = vm->arena[((*pc) - 1) % MEM_SIZE][0] << 8
-			| vm->arena[*pc][0];
+				| vm->arena[*pc][0];
 		}
 		else if (arg_size[i] == T_IND)
 		{
-			(*pc) += T_DIR;
+			(*pc) = ((*pc) + T_DIR) % MEM_SIZE;
 			arg_size[i] = T_IND;
 			arg_value[i] = vm->arena[((*pc) - 1) % MEM_SIZE][0] << 8
-			| vm->arena[*pc][0];
+				| vm->arena[*pc][0];
 		}
 	return (ret);
 }

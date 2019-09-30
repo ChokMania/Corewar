@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/30 10:26:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 17:14:33 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_init_vm_suite(t_vm *vm)
 		while (++j < REG_NUMBER)
 			vm->proc->r[j] = j == 0 ? 0xFFFFFFFF - i : 0;
 		vm->nb_live_champ[i] = 0;
-		vm->proc->wait = 0;
+		vm->proc->wait = vm->cycle;
 		if (i + 1 < vm->nb_champ)
 		{
 			if (!(vm->proc->next = malloc(sizeof(t_proc))))

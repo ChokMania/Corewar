@@ -1,0 +1,10 @@
+optimise les wait
+faire moins doperations.
+
+commencer a faire une focntion unique pour les args. () reste a faire ceux avec un seul args
+
+IDX MOD BASIQUE (le meme que les forks)
+
+PB HELLTRAIN (faire dump -8902) pour checker en rapport peut etre
+autre pb helltrain 6336 6337 (jump trop grand dans le cas d'opc non valide)
+()

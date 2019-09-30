@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/30 13:28:39 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 18:52:21 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ void	ft_error(int err, int nb_line, t_vm *vm)
 	exit(0);
 }
 
-void	recup_opc(unsigned char opc, unsigned int *arg_size)
+int	recup_opc(unsigned char opc, unsigned int *arg_size, int opcode[2])
 {
 	int				i;
 	unsigned char	tab[3];
+	unsigned int	jump;
 
+	jump = 0;
 	tab[0] = opc / 64;
 	opc %= 64;
 	tab[1] = opc / 16;
@@ -72,12 +74,56 @@ void	recup_opc(unsigned char opc, unsigned int *arg_size)
 	tab[2] = opc / 4;
 	i = -1;
 	while (++i < 3)
+	{
 		if (tab[i] == REG_CODE)
+		{
 			arg_size[i] = T_REG;
+			jump += arg_size[i];
+		}
 		else if (tab[i] == DIR_CODE)
+		{
 			arg_size[i] = T_DIR;
+			jump += opcode[0];
+		}
 		else if (tab[i] == IND_CODE)
+		{
 			arg_size[i] = T_IND;
+			jump += opcode[1];
+		}
 		else
 			arg_size[i] = 0;
+	}
+	return (jump);
+}
+
+int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
+	unsigned int *arg_size, int opcode[2])
+{
+	int		i;
+	int		ret;
+
+	i = -1;
+	ret = 1;
+	while (++i < 3)
+		if (arg_size[i] == T_REG)
+		{
+			(*pc) = (*pc + T_REG) % MEM_SIZE;
+			arg_value[i] = vm->arena[*pc][0] - 0x01;
+			if (arg_value[i] > 15)
+				ret = 0;
+		}
+		else if (arg_size[i] == T_DIR)
+		{
+			(*pc) = (*pc + opcode[0]) % MEM_SIZE;
+			arg_value[i] = vm->arena[(*pc - 3) % MEM_SIZE][0] << 24
+				| vm->arena[(*pc - 2) % MEM_SIZE][0] << 16
+				| vm->arena[(*pc - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
+		}
+		else if (arg_size[i] == T_IND)
+		{
+			(*pc) = (*pc + opcode[1]) % MEM_SIZE;
+			arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
+				| vm->arena[*pc][0];
+		}
+	return (ret);
 }

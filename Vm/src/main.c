@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/30 14:04:52 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 17:18:49 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,6 @@ static void	ft_apply_proc(t_vm *vm)
 		}
 		vm->proc = vm->proc->next;
 	}
-}
-
-static int ft_print_all(t_vm *vm)
-{
-	while (vm->proc)
-	{
-		ft_printf("name : %s, number : %d, alive : %d wait : %d creation : %d opcode: %hhd\n",
-		vm->proc->head.prog_name, vm->proc->number, vm->proc->alive, vm->proc->wait,
-		vm->proc->creation, vm->arena[vm->proc->pc][0]);
-		vm->proc = vm->proc->next;
-	}
-	ft_printf("\n\ncycle : %d, cycle_to_die : %d\nlive zork: %d\tlive helltrain : %d\n",
-	vm->cycle, vm->cycle_to_die, vm->nb_live_champ[0], vm->nb_live_champ[1]);
-	exit (0);
 }
 
 void		ft_play(t_vm *vm)

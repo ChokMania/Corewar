@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 14:13:19 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 14:04:52 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	ft_apply_proc(t_vm *vm, int *i)
+static void	ft_apply_proc(t_vm *vm)
 {
 	while (vm->proc)
 	{
@@ -24,14 +24,27 @@ static void	ft_apply_proc(t_vm *vm, int *i)
 			ft_visu_wait(vm);
 			if (!vm->proc->wait)
 			{
-				ft_choise_opcode(vm, &vm->proc->pc, vm->arena[vm->proc->pc][0]);
+				ft_choise_opcode(vm, &vm->proc->pc, vm->proc->opcode);
 				vm->proc->pc++;
 				vm->proc->pc %= MEM_SIZE;
 			}
 		}
 		vm->proc = vm->proc->next;
-		(*i)++;
 	}
+}
+
+static int ft_print_all(t_vm *vm)
+{
+	while (vm->proc)
+	{
+		ft_printf("name : %s, number : %d, alive : %d wait : %d creation : %d opcode: %hhd\n",
+		vm->proc->head.prog_name, vm->proc->number, vm->proc->alive, vm->proc->wait,
+		vm->proc->creation, vm->arena[vm->proc->pc][0]);
+		vm->proc = vm->proc->next;
+	}
+	ft_printf("\n\ncycle : %d, cycle_to_die : %d\nlive zork: %d\tlive helltrain : %d\n",
+	vm->cycle, vm->cycle_to_die, vm->nb_live_champ[0], vm->nb_live_champ[1]);
+	exit (0);
 }
 
 void		ft_play(t_vm *vm)
@@ -40,7 +53,11 @@ void		ft_play(t_vm *vm)
 
 	while (!(i = 0))
 	{
-		vm->proc = vm->beg;
+		vm->option_dump > 0 && vm->option_dump == vm->cycle
+			? ft_print_dump(*vm) : 0;
+		if (vm->cycle > 0
+			&& (vm->cycle - vm->total_to_die) % vm->cycle_to_die == 0)
+			ft_cycle_to_die(vm);
 		if (vm->option_visu == 1)
 		{
 			refresh_pc(vm);
@@ -48,12 +65,9 @@ void		ft_play(t_vm *vm)
 			refresh_process(vm);
 			visual_every_cycle(vm);
 		}
-		if (vm->option_dump > 0 && vm->option_dump == vm->cycle)
-			ft_print_dump(*vm);
-		ft_apply_proc(vm, &i);
-		if (vm->cycle > 0
-			&& (vm->cycle - vm->total_to_die) % vm->cycle_to_die == 0)
-			ft_cycle_to_die(vm);
+		vm->proc = vm->beg;
+		ft_apply_proc(vm);
+		vm->proc = vm->beg;
 		vm->cycle++;
 		vm->option_verbose == 2 && !vm->option_visu
 		&& !vm->option_visu_d

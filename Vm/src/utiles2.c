@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utiles2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 10:56:33 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/24 15:57:49 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 13:11:39 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	ft_invert_byte(unsigned int *val)
+void		ft_invert_byte(unsigned int *val)
 {
 	int				i;
 	unsigned int	revnbr;
@@ -29,7 +29,7 @@ void	ft_invert_byte(unsigned int *val)
 	*val = revnbr;
 }
 
-void	ft_victory(t_vm *vm, t_proc *current)
+void		ft_victory(t_vm *vm, t_proc *current)
 {
 	vm->option_visu == 1 ? ft_victory_visu(vm, current) : 0;
 	ft_printf("Contestant %d, \"%s\", has won !\n",
@@ -38,7 +38,7 @@ void	ft_victory(t_vm *vm, t_proc *current)
 	exit(0);
 }
 
-void	ft_introduce(t_vm *vm)
+void		ft_introduce(t_vm *vm)
 {
 	int		i;
 
@@ -55,14 +55,27 @@ void	ft_introduce(t_vm *vm)
 	vm->proc = vm->beg;
 }
 
-void	free_chaine(t_proc *proc)
+void		free_chaine(t_proc *proc)
 {
 	if (proc->next)
 		free_chaine(proc->next);
 	free(proc);
 }
 
-void	ft_print_dump(t_vm vm)
+static void	ft_color_tqt(unsigned char color)
+{
+	if (color == 1)
+		ft_printf("\033[31m");
+	else if (color == 2)
+		ft_printf("\033[34m");
+	else if (color == 3)
+		ft_printf("\033[33m");
+	else if (color == 4)
+		ft_printf("\033[36m");
+
+}
+
+void		ft_print_dump(t_vm vm)
 {
 	int		i;
 
@@ -74,7 +87,9 @@ void	ft_print_dump(t_vm vm)
 		{
 			if (i != 0 && i % 64 == 0)
 				ft_printf("\n%#.4x : ", i);
+			//ft_color_tqt(vm.arena[i][1]);
 			ft_printf("%.2hhx ", vm.arena[i][0]);
+			//ft_printf("\033[0m");
 		}
 		ft_printf("\n");
 		exit(0);

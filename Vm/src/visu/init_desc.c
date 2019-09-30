@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_desc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 10:04:56 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/19 14:00:50 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 09:52:01 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		ft_visu_d_message(t_vm *vm, char *str)
 void		init_description(t_vm *vm)
 {
 	int		j;
+	char	*str;
 	t_proc	*current;
 
 	j = -1;
@@ -40,7 +41,8 @@ void		init_description(t_vm *vm)
 	{
 		wattron(vm->visu.hud, COLOR_PAIR(j + 1));
 		mvwprintw(vm->visu.hud, 26 + j * 2 + vm->nb_champ * 4, 40,
-			ft_strsub(current->head.prog_name, 0, 10));
+			(str = ft_strsub(current->head.prog_name, 0, 10)));
+		ft_strdel(&str);
 		mvwprintw(vm->visu.hud, 26 + j * 2 + vm->nb_champ * 4, 50, "   : ");
 		wattroff(vm->visu.hud, COLOR_PAIR((j + 1)));
 		current = current->next;

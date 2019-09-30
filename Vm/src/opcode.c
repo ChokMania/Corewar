@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 11:11:05 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 18:25:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 14:04:32 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	ft_wait_suite(t_vm *vm, unsigned char opcode)
 
 void		ft_wait(t_vm *vm, unsigned char opcode)
 {
+	vm->proc->opcode = opcode;
 	if (opcode == 1)
 		vm->proc->wait = 9;
 	else if (opcode == 2)

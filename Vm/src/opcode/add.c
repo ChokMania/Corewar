@@ -3,28 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:59 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 14:15:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 14:55:07 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
+static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
+	unsigned int *arg_size)
 {
 	int		i;
 	int		ret;
 
 	ret = 1;
-	i = 0;
-	while (i < 3)
+	i = -1;
+	while (++i < 3)
 	{
-		(*pc) = (*pc + T_REG) % MEM_SIZE;
-		arg_value[i] = vm->arena[*pc][0] - 0x01;
-		if (arg_value[i++] > 15)
+		if (arg_size[i] == T_REG)
+		{
+			(*pc) = (*pc + T_REG) % MEM_SIZE;
+			arg_value[i] = vm->arena[*pc][0] - 0x01;
+			if (arg_value[i] > 15)
+				ret = 0;
+		}
+		else
+		{
+			(*pc) = (*pc + T_IND) % MEM_SIZE;
 			ret = 0;
+		}
 	}
 	return (ret);
 }
@@ -39,8 +48,11 @@ static void	exec_add(t_vm *vm, unsigned int arg_value[3])
 void		op_add(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
+	unsigned int	arg_size[3];
 
-	if (ft_arg(vm, pc, arg_value))
+	(*pc) = (*pc + 1) % MEM_SIZE;
+	recup_opc(vm->arena[*pc][0], arg_size);
+	if (ft_arg(vm, pc, arg_value, arg_size))
 	{
 		exec_add(vm, arg_value);
 		ft_visu_d_message(vm, "add");

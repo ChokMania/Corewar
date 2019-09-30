@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:29 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/28 18:25:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 09:54:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ void	create_player_hud(t_vm *vm, int *i)
 		mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 12, (str = ft_itoa((*i) + 1)));
 		ft_strdel(&str);
 		wattron(vm->visu.hud, COLOR_PAIR((*i) + 1));
-		ft_strlen(vm->proc->head.prog_name) >= 120
-			? mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
-			ft_strsub(vm->proc->head.prog_name, 0, 92))
-			: mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
-			vm->proc->head.prog_name);
+		if (ft_strlen(vm->proc->head.prog_name) >= 120)
+		{
+			mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
+				(str = ft_strsub(vm->proc->head.prog_name, 0, 92)));
+			ft_strdel(&str);
+		}
+		else
+			mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
+				vm->proc->head.prog_name);
 		wattroff(vm->visu.hud, COLOR_PAIR(((*i) + 1)));
 		mvwprintw(vm->visu.hud, 19 + ((*i) * 4), 7, "Last live :\t\t\t0");
 		mvwprintw(vm->visu.hud, 20 + ((*i)++ * 4), 7
@@ -34,10 +38,10 @@ void	create_player_hud(t_vm *vm, int *i)
 		vm->proc = vm->proc->next;
 	}
 	vm->proc = vm->beg;
-	mvwprintw(vm->visu.hud, 19 + ((*i) * 4), 35
-		, "Live breakdown for current period :");
-	mvwprintw(vm->visu.hud, 22 + ((*i) * 4), 37
-		, "Live breakdown for last period :");
+	mvwprintw(vm->visu.hud, 19 + ((*i) * 4), 35,
+		"Live breakdown for current period :");
+	mvwprintw(vm->visu.hud, 22 + ((*i) * 4), 37,
+		"Live breakdown for last period :");
 	wattroff(vm->visu.hud, A_BOLD);
 }
 

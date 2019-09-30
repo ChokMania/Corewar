@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:59 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/28 18:20:34 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 14:18:30 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	refresh_live_by_champ(t_vm *vm, unsigned int i)
 		mvwprintw(vm->visu.hud, 19 + (i * 4), 40,
 			(str = ft_itoa(current->last_live)));
 		ft_strdel(&str);
+		mvwprintw(vm->visu.hud, 20 + (i * 4), 40, "                        ");
 		if (vm->nb_live_champ[i] == 0)
-			mvwprintw(vm->visu.hud, 20 + (i * 4), 40, "0             ");
+			mvwprintw(vm->visu.hud, 20 + (i * 4), 40, "0");
 		else
 			mvwprintw(vm->visu.hud, 20 + (i * 4), 40,
 				(str = ft_itoa(vm->nb_live_champ[i])));
@@ -78,4 +79,5 @@ void	refresh_live(t_vm *vm, int barre)
 			wattroff(vm->visu.hud, COLOR_PAIR(i < vm->nb_champ ? i + 1 : 9));
 		}
 	}
+	wrefresh(vm->visu.hud);
 }

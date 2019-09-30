@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/26 19:34:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 14:04:13 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct	s_proc
 	int				last_live;
 	int				number;
 
+	unsigned char	opcode;
 	unsigned int	pc;
 	unsigned int	n_champ;
 	unsigned int	r[REG_NUMBER];
@@ -125,7 +126,7 @@ void			ft_reverse_list(t_proc **beg);
 
 void			ft_parsing(t_vm *vm, char **av);
 
-void			recup_opc(unsigned char opc, unsigned int *arg_size);
+void			recup_opc(unsigned char ocp, unsigned int *arg_size);
 
 void			ft_args(int ac, char **av, t_vm *vm, char *tab[5]);
 

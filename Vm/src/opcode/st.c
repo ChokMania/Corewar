@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/28 18:33:33 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 15:21:14 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 			arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
 			| vm->arena[*pc][0];
 		}
+		else
+			ret = 0;
 	return (ret);
 }
 
@@ -83,7 +85,10 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 	index %= MEM_SIZE;
 	size = 2 + arg_size[1];
 	//NO IDX MOD
-	if (arg_value[0] <= 15)
+	//INVALID READ DE ST
+	if (arg_size[1] == T_REG)
+		vm->proc->r[arg_value[1]] = vm->proc->r[arg_value[0]];
+	else
 	{
 		tmp = vm->proc->r[arg_value[0]];
 		i = 5;
@@ -93,8 +98,8 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 			vm->arena[(index + i - 1) % MEM_SIZE][1] = vm->proc->n_champ;
 			tmp >>= 8;
 		}
-		vm->option_visu == 1 ? visual_st(vm, index) : 0;
 	}
+	vm->option_visu == 1 ? visual_st(vm, index) : 0;
 }
 
 void		op_st(t_vm *vm, unsigned int *pc)

@@ -6,13 +6,14 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:04 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/28 18:26:46 by judumay          ###   ########.fr       */
+/*   Updated: 2019/09/30 12:06:36 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
+static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
+	unsigned int *arg_size)
 {
 	int		i;
 	int		ret;
@@ -21,10 +22,18 @@ static int	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
 	ret = 1;
 	while (i < 3)
 	{
-		*pc = (*pc + T_REG) % MEM_SIZE;
-		arg_value[i++] = vm->arena[*pc][0] - 0x01;
-		if (arg_value[i] > 15)
+		if (arg_size[i] == T_REG)
+		{
+			*pc = (*pc + T_REG) % MEM_SIZE;
+			arg_value[i++] = vm->arena[*pc][0] - 0x01;
+			if (arg_value[i] > 15)
+				ret = 0;
+		}
+		else
+		{
+			(*pc) = (*pc + T_IND) % MEM_SIZE;
 			ret = 0;
+		}
 	}
 	return (ret);
 }
@@ -39,8 +48,11 @@ static void	exec_sub(t_vm *vm, unsigned int arg_value[3])
 void		op_sub(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
+	unsigned int	arg_size[3];
 
-	if (ft_arg(vm, pc, arg_value))
+	(*pc) = (*pc + 1) % MEM_SIZE;
+	recup_opc(vm->arena[*pc][0], arg_size);
+	if (ft_arg(vm, pc, arg_value, arg_size))
 	{
 		exec_sub(vm, arg_value);
 		ft_visu_d_message(vm, "sub");

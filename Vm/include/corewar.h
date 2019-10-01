@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 11:24:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/01 11:26:03 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void			ft_reverse_list(t_proc **beg);
 void			ft_parsing(t_vm *vm, char **av);
 
 int				recup_opc(unsigned char opc, unsigned int *arg_size,
-					int opcode[2], int arg)
+					int opcode[2], int arg);
 int				ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 					unsigned int *arg_size, int opcode[2]);
 

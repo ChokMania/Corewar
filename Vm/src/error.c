@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/30 18:52:21 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/01 11:23:36 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_error(int err, int nb_line, t_vm *vm)
 	exit(0);
 }
 
-int	recup_opc(unsigned char opc, unsigned int *arg_size, int opcode[2])
+int	recup_opc(unsigned char opc, unsigned int *arg_size, int opcode[2], int arg)
 {
 	int				i;
 	unsigned char	tab[3];
@@ -73,7 +73,7 @@ int	recup_opc(unsigned char opc, unsigned int *arg_size, int opcode[2])
 	opc %= 16;
 	tab[2] = opc / 4;
 	i = -1;
-	while (++i < 3)
+	while (++i < arg)
 	{
 		if (tab[i] == REG_CODE)
 		{
@@ -97,7 +97,7 @@ int	recup_opc(unsigned char opc, unsigned int *arg_size, int opcode[2])
 }
 
 int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
-	unsigned int *arg_size, int opcode[2])
+	unsigned int *arg_size, int size[2])
 {
 	int		i;
 	int		ret;
@@ -114,14 +114,14 @@ int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		}
 		else if (arg_size[i] == T_DIR)
 		{
-			(*pc) = (*pc + opcode[0]) % MEM_SIZE;
+			(*pc) = (*pc + size[0]) % MEM_SIZE;
 			arg_value[i] = vm->arena[(*pc - 3) % MEM_SIZE][0] << 24
 				| vm->arena[(*pc - 2) % MEM_SIZE][0] << 16
 				| vm->arena[(*pc - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
 		}
 		else if (arg_size[i] == T_IND)
 		{
-			(*pc) = (*pc + opcode[1]) % MEM_SIZE;
+			(*pc) = (*pc + size[1]) % MEM_SIZE;
 			arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
 				| vm->arena[*pc][0];
 		}

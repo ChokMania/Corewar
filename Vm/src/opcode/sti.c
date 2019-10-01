@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/30 18:53:17 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/01 11:19:26 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		op_sti(t_vm *vm, unsigned int *pc)
 	opcode[1] = 2;
 	(*pc) = (*pc + 1) % MEM_SIZE;
 	jump = *pc;
-	jump += recup_opc(vm->arena[*pc][0], arg_size, opcode) % MEM_SIZE;
+	jump += recup_opc(vm->arena[*pc][0], arg_size, opcode, 3) % MEM_SIZE;
 	if (ft_opcode(vm, pc, arg_value, arg_size, opcode)
 	&& arg_size[0] == T_REG
 	&& (arg_size[1] == T_REG || arg_size[1] == T_DIR || arg_size[1] == T_IND)

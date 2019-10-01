@@ -6,7 +6,7 @@
 /*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 10:32:46 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/01 11:20:28 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ static void	ft_apply_proc(t_vm *vm)
 {
 	while (vm->proc)
 	{
+		// vm->proc->head.prog_name[0] == 'C' ? ft_printf("vm->proc->opcode: %d\n", vm->proc->opcode) : 0;
 		if (vm->proc->wait == vm->cycle)
 			ft_wait(vm, vm->arena[vm->proc->pc][0]);
 		else
 		{
 			ft_visu_wait(vm);
-			if (vm->proc->wait - 1 == vm->cycle)
+			if (vm->proc->wait == vm->cycle + 1)
 			{
 				ft_choise_opcode(vm, &vm->proc->pc, vm->proc->opcode);
 				vm->proc->pc++;

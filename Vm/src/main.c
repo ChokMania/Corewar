@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 11:20:28 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:08:35 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	ft_apply_proc(t_vm *vm)
 {
 	while (vm->proc)
 	{
-		// vm->proc->head.prog_name[0] == 'C' ? ft_printf("vm->proc->opcode: %d\n", vm->proc->opcode) : 0;
 		if (vm->proc->wait == vm->cycle)
 			ft_wait(vm, vm->arena[vm->proc->pc][0]);
 		else
@@ -40,7 +39,7 @@ void		ft_play(t_vm *vm)
 	while (!(i = 0))
 	{
 		vm->option_dump > 0 && vm->option_dump == vm->cycle
-			? ft_print_dump(*vm) : 0;
+			? ft_print_dump(vm) : 0;
 		if (vm->cycle > 0
 			&& (vm->cycle - vm->total_to_die) % vm->cycle_to_die == 0)
 			ft_cycle_to_die(vm);
@@ -55,8 +54,7 @@ void		ft_play(t_vm *vm)
 		ft_apply_proc(vm);
 		vm->proc = vm->beg;
 		vm->cycle++;
-		vm->option_verbose == 2 && !vm->option_visu
-		&& !vm->option_visu_d
+		vm->option_verbose == 2 && !vm->option_visu && !vm->option_visu_d
 		? ft_printf("It is now cycle %d\n", vm->cycle) : 0;
 	}
 }

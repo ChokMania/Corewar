@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 10:56:33 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/30 13:11:39 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/01 12:14:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ static void	ft_color_tqt(unsigned char color)
 
 }
 
-void		ft_print_dump(t_vm vm)
+void		ft_print_dump(t_vm *vm)
 {
 	int		i;
 
-	if (vm.option_visu == 0 && vm.option_visu_d == 0)
+	if (!vm->option_visu && !vm->option_visu_d
+		&& vm->cycle == vm->option_dump)
 	{
 		ft_printf("0x0000 : ");
 		i = -1;
@@ -88,7 +89,7 @@ void		ft_print_dump(t_vm vm)
 			if (i != 0 && i % 64 == 0)
 				ft_printf("\n%#.4x : ", i);
 			//ft_color_tqt(vm.arena[i][1]);
-			ft_printf("%.2hhx ", vm.arena[i][0]);
+			ft_printf("%.2hhx ", vm->arena[i][0]);
 			//ft_printf("\033[0m");
 		}
 		ft_printf("\n");

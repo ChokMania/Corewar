@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 11:23:36 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/01 12:14:30 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int	recup_opc(unsigned char opc, unsigned int *arg_size, int opcode[2], int arg)
 	opc %= 16;
 	tab[2] = opc / 4;
 	i = -1;
+	arg_size[0] = 0;
+	arg_size[1] = 0;
+	arg_size[2] = 0;
 	while (++i < arg)
 	{
 		if (tab[i] == REG_CODE)

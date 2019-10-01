@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arg.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 17:34:47 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/25 12:33:27 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/10/01 11:34:37 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int		ft_option(int ac, char **av, t_vm *vm, char *tab[5])
 	if ((!ft_strcmp(av[0], "-dump") || !ft_strcmp(av[0], "-d")))
 	{
 		if (ac < 2 || ft_strlen(av[1]) > 10
-			|| (vm->option_dump = ft_atol(av[1]) + 1) < 1)
+			|| (vm->option_dump = ft_atol(av[1])) < 1)
 			ft_error(ERROR_OPTION, -1, vm);
 		return (1);
 	}

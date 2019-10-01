@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/30 18:52:43 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/01 10:19:58 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,27 @@
 
 typedef struct	s_proc
 {
-	int				wait;
 	int				creation;
 	int				alive;
 	int				carry;
 	int				last_live;
 	int				number;
-
-	unsigned char	opcode;
+	t_header		head;
+	unsigned int	wait;
 	unsigned int	pc;
 	unsigned int	n_champ;
 	unsigned int	r[REG_NUMBER];
-
-	t_header		head;
-
+	unsigned char	opcode;
 	struct s_proc	*next;
 }				t_proc;
 
 typedef	struct	s_visu
 {
+	int				cps;
 	WINDOW			*arena;
 	WINDOW			*hud;
 	WINDOW			*desc;
 	WINDOW			*winner;
-	int				cps;
 }				t_visu;
 
 typedef struct	s_vm
@@ -103,12 +100,12 @@ typedef struct	s_vm
 	long			option_i;
 	t_proc			*proc;
 	t_proc			*beg;
+	t_visu			visu;
 	unsigned int	cycle;
 	unsigned int	cycle_to_die;
 	unsigned int	total_to_die;
 	unsigned int	nb_check_cycle;
 	unsigned int	nb_live_champ[MAX_PLAYERS];
-	t_visu			visu;
 	unsigned char	arena[MEM_SIZE][2];
 }				t_vm;
 

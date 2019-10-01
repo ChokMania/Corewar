@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/30 17:18:49 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/01 10:32:46 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ static void	ft_apply_proc(t_vm *vm)
 {
 	while (vm->proc)
 	{
-		if (vm->proc->wait == 0)
+		if (vm->proc->wait == vm->cycle)
 			ft_wait(vm, vm->arena[vm->proc->pc][0]);
 		else
 		{
-			vm->proc->wait--;
 			ft_visu_wait(vm);
-			if (!vm->proc->wait)
+			if (vm->proc->wait - 1 == vm->cycle)
 			{
 				ft_choise_opcode(vm, &vm->proc->pc, vm->proc->opcode);
 				vm->proc->pc++;

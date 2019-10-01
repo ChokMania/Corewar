@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:24:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 11:20:46 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/01 15:01:54 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ void		op_aff(t_vm *vm, unsigned int *pc)
 		exec_aff(vm, arg_value);
 		ft_visu_d_message(vm, "aff");
 	}
+	else
+		*pc = jump;
 }

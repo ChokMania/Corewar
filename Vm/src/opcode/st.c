@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:57:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 15:27:51 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ static void	visual_st(t_vm *vm, int index)
 	ft_visu_d_message(vm, "st");
 }
 
-static void	exec_st(t_vm *vm, unsigned int arg_value[3],
-	unsigned int arg_size[3])
+static unsigned int exec_st(t_vm *vm, unsigned int arg_value[3],
+	unsigned int arg_size[3], unsigned int index)
 {
 	unsigned int	i;
-	unsigned int	index;
 	unsigned int	tmp;
 	unsigned int	realpc;
 
@@ -58,22 +57,25 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 			tmp >>= 8;
 		}
 	}
+	return (index);
 }
 
 void		op_st(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];
+	unsigned int	index;
 	int				jump;
 
 	(*pc) = (*pc + 1) % MEM_SIZE;
 	jump = *pc;
+	index = 0;
 	jump += recup_opc(vm->arena[*pc][0], arg_size, 4, 2) % MEM_SIZE;
 	if (ft_opcode(vm, arg_value, arg_size, 4)
 	&& arg_size[0] == T_REG
 	&& (arg_size[1] == T_REG || arg_size[1] == T_IND))
 	{
-		exec_st(vm, arg_value, arg_size);
+		index = exec_st(vm, arg_value, arg_size, index);
 		vm->option_visu == 1 ? visual_st(vm, index) : 0;
 	}
 	else

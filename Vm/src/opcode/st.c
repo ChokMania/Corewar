@@ -6,13 +6,13 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 15:27:51 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 15:29:04 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	visual_st(t_vm *vm, int index)
+static void			visual_st(t_vm *vm, int index)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ static void	visual_st(t_vm *vm, int index)
 	ft_visu_d_message(vm, "st");
 }
 
-static unsigned int exec_st(t_vm *vm, unsigned int arg_value[3],
+static unsigned int	exec_st(t_vm *vm, unsigned int arg_value[3],
 	unsigned int arg_size[3], unsigned int index)
 {
 	unsigned int	i;
@@ -60,7 +60,7 @@ static unsigned int exec_st(t_vm *vm, unsigned int arg_value[3],
 	return (index);
 }
 
-void		op_st(t_vm *vm, unsigned int *pc)
+void				op_st(t_vm *vm, unsigned int *pc)
 {
 	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];

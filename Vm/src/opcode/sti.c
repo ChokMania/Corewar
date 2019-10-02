@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 13:41:56 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 14:54:14 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,7 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3],
 		index += arg_value[2] - T_DIR;
 	index += vm->proc->pc - 2;
 	realpc = (vm->proc->pc - arg_size[0] - arg_size[1] - arg_size[2]) % MEM_SIZE;
-	index %= MEM_SIZE;
-	//idx mode
-	if ((index < realpc && realpc - index <= IDX_MOD) || (index > realpc && index - realpc <= IDX_MOD) || (index > realpc && realpc + MEM_SIZE - index <= IDX_MOD) || (index < realpc && index + MEM_SIZE - realpc <= IDX_MOD))
-		;
-	else if (index < realpc)
-		index = realpc - (realpc - index) % IDX_MOD;
-	else if (index > realpc)
-		index = (realpc + (index % IDX_MOD) - 1) % MEM_SIZE;
-	// fin idx mode
+	index = idx_mod(realpc, index % MEM_SIZE);
 	tmp = vm->proc->r[arg_value[0]];
 	i = 5;
 	while (--i >= 1)

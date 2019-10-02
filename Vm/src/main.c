@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:31:21 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:43:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,21 @@ void		ft_play(t_vm *vm)
 static void	ft_usage(void)
 {
 	ft_printf("Usage : ./corewar (-d/-dump N)"
-	"[[-n N] <champion1.cor>] <...>\n\n");
+		"[[-n N] <champion1.cor>] <...>\n\n");
 	ft_printf("\t-d/-dump      N : Dumps memory after N(int >= 0) "
-	"cycles then exit the program\n");
+		"cycles then exit the program.\n");
+	ft_printf("\t-dc/-dumpc      N : Dumps memory after N(int >= 0) "
+		"cycles then exit the program with color.\n");
 	ft_printf("\t-n/-number    N : Give to champion(s) N(int > 0) "
-	"player number\n");
+		"player number\n");
 	ft_printf("\t-v/-verbose   N : Give more infos during match\n");
-	ft_printf("\t\t\t\t- 0 : Show only essentials\n");
-	ft_printf("\t\t\t\t- 1 : Show lives\n");
-	ft_printf("\t\t\t\t- 2 : Show cycles\n");
-	ft_printf("\t\t\t\t- 3 : Show death\n");
-	ft_printf("\t-vi/-visual     : Give visual of the match\n");
+	ft_printf("\t\t\t\t- 0 : Show only essentials.\n");
+	ft_printf("\t\t\t\t- 1 : Show lives.\n");
+	ft_printf("\t\t\t\t- 2 : Show cycles.\n");
+	ft_printf("\t\t\t\t- 2 : Show cycles to die.\n");
+	ft_printf("\t-vi/-visual     : Give visual of the match.\n");
 	ft_printf("\t-vid/-visuald   : Add explication on the visual "
-	"(ONLY 1 PROCESS BY CHAMPION)\n");
+		"(ONLY 1 PROCESS BY CHAMPION).\n");
 	exit(0);
 }
 

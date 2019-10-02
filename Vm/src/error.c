@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:47:29 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 16:56:55 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,13 @@ int			ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
 {
 	int		i;
 	int		ret;
+/*	int		realpc;
 
-	i = -1;
+	realpc = vm->proc->pc;
+	if (vm->proc->opcode == 9 || vm->proc->opcode == 12
+		|| vm->proc->opcode == 15 || vm->proc->opcode == 1)
+		realpc = (vm->proc->pc + 1) % MEM_SIZE;
+*/	i = -1;
 	ret = 1;
 	while (++i < 3 && !(arg_value[i] = 0))
 		if (arg_size[i] == T_REG)
@@ -127,6 +132,10 @@ int			ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
 			(vm->proc->pc) = (vm->proc->pc + 2) % MEM_SIZE;
 			arg_value[i] = vm->arena[(vm->proc->pc - 1) % MEM_SIZE][0] << 8
 				| vm->arena[vm->proc->pc][0];
+			//if (vm->proc->opcode != 14 && vm->proc->opcode != 13
+			//	&& vm->proc->opcode != 15)
+			//	arg_value[i] = (arg_value[i] % MEM_SIZE) % IDX_MOD;
+			//	arg_value[i] = idx_mod(realpc, arg_value[i]);
 		}
 	return (ret);
 }

@@ -7,7 +7,7 @@ NAME_ASM			=	asm
 # Compilation mode
 WALL				=	yes
 WEXTRA				=	yes
-WERROR				=	no
+WERROR				=	yes
 FSANITIZE			=	no
 DEBUG				=	no
 O2					=	yes

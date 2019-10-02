@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 12:14:30 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 11:34:15 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,13 @@ int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		else if (arg_size[i] == T_DIR)
 		{
 			(*pc) = (*pc + size[0]) % MEM_SIZE;
-			arg_value[i] = vm->arena[(*pc - 3) % MEM_SIZE][0] << 24
+			if (size[0] == 4)
+				arg_value[i] = vm->arena[(*pc - 3) % MEM_SIZE][0] << 24
 				| vm->arena[(*pc - 2) % MEM_SIZE][0] << 16
 				| vm->arena[(*pc - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
+			else
+				arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
+				| vm->arena[*pc][0];
 		}
 		else if (arg_size[i] == T_IND)
 		{
@@ -128,5 +132,7 @@ int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 			arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
 				| vm->arena[*pc][0];
 		}
+		else
+			arg_value[i] = 0;;
 	return (ret);
 }

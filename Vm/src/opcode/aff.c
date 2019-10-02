@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aff.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:24:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 15:23:52 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/10/02 10:57:46 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	exec_aff(t_vm *vm, unsigned int arg_value[3])
 {
-	vm->option_visu == 0 && vm->option_visu_d == 0
+	vm->option_visu == 0 && vm->option_visu_d == 0 && vm->option_dump <= 0
 		? ft_printf("%c", vm->proc->r[arg_value[0]] % 256) : 0;
 }
 

@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   opcode.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 11:11:05 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 16:45:00 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:15:52 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		tab_opcode_set(tab_opcode tab_opcode[17])
+void		tab_opcode_set(tab_opcode tab_opcode_array[17])
 {
-	tab_opcode[0] = 0;
-	tab_opcode[1] = &op_live;
-	tab_opcode[2] = &op_ld;
-	tab_opcode[3] = &op_st;
-	tab_opcode[4] = &op_add;
-	tab_opcode[5] = &op_sub;
-	tab_opcode[6] = &op_and;
-	tab_opcode[7] = &op_or;
-	tab_opcode[8] = &op_xor;
-	tab_opcode[9] = &op_zjmp;
-	tab_opcode[10] = &op_ldi;
-	tab_opcode[11] = &op_sti;
-	tab_opcode[12] = &op_fork;
-	tab_opcode[13] = &op_lld;
-	tab_opcode[14] = &op_lldi;
-	tab_opcode[15] = &op_lfork;
-	tab_opcode[16] = &op_aff;
+	tab_opcode_array[0] = 0;
+	tab_opcode_array[1] = &op_live;
+	tab_opcode_array[2] = &op_ld;
+	tab_opcode_array[3] = &op_st;
+	tab_opcode_array[4] = &op_add;
+	tab_opcode_array[5] = &op_sub;
+	tab_opcode_array[6] = &op_and;
+	tab_opcode_array[7] = &op_or;
+	tab_opcode_array[8] = &op_xor;
+	tab_opcode_array[9] = &op_zjmp;
+	tab_opcode_array[10] = &op_ldi;
+	tab_opcode_array[11] = &op_sti;
+	tab_opcode_array[12] = &op_fork;
+	tab_opcode_array[13] = &op_lld;
+	tab_opcode_array[14] = &op_lldi;
+	tab_opcode_array[15] = &op_lfork;
+	tab_opcode_array[16] = &op_aff;
 }
 
 void		tab_wait_set(t_vm *vm)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 16:39:04 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:18:00 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct	s_vm
 
 typedef void	(*tab_opcode)(t_vm *, unsigned int *);
 
-void			tab_opcode_set(tab_opcode tab_opcode[17]);
+void			tab_opcode_set(tab_opcode tab_opcode_array[17]);
 void			tab_wait_set(t_vm *vm);
 
 void			ft_error(int err, int nb_line, t_vm *vm);
@@ -123,7 +123,6 @@ void			ft_put_instruct(int pc, unsigned int arg_value[3],
 void			ft_init_vm(t_vm *vm);
 void			ft_cycle_to_die(t_vm *vm);
 
-//void			ft_wait(t_vm *vm, unsigned char opcode);
 void			ft_wait(t_vm *vm, unsigned char opcode);
 
 void			ft_dead_proc(t_vm *vm, t_proc **current);

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 16:56:55 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 17:15:26 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void	ft_ternaire_arg(t_vm *vm, unsigned int *arg_value,
 }
 
 int			ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
-	int size_dir)
+				int size_dir)
 {
 	int		i;
 	int		ret;

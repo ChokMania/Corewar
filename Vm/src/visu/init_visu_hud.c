@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:29 by judumay           #+#    #+#             */
-/*   Updated: 2019/10/02 14:21:42 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 15:39:59 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	ft_aff_hud(t_vm *vm, int *i, char *str)
 	else
 		mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
 			vm->proc->head.prog_name);
+	ft_strdel(&str);
 	wattroff(vm->visu.hud, COLOR_PAIR(((*i) + 1)));
 }
 
@@ -34,7 +35,6 @@ void		create_player_hud(t_vm *vm, int *i)
 		mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 12, (str = ft_itoa((*i) + 1)));
 		ft_strdel(&str);
 		ft_aff_hud(vm, i, str);
-		ft_strdel(&str);
 		mvwprintw(vm->visu.hud, 19 + ((*i) * 4), 7, "Last live :\t\t\t0");
 		mvwprintw(vm->visu.hud, 20 + ((*i)++ * 4), 7
 		, "live in current period :\t\t0");

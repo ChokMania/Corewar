@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_visu_arena.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@42.student.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:55:22 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/19 14:09:42 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 15:33:40 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ void	init_color_vm(void)
 
 void	init_champ_in_visu(t_vm *vm)
 {
-	int i;
-	int color;
+	int		i;
+	int		color;
+	char	*str;
 
 	i = 0;
 	while (i < MEM_SIZE * 3)
 	{
 		color = 9;
 		mvwprintw(vm->visu.arena, 1 + (i / 192), 2 + (i % 192),
-			get_hexa(vm->arena[i / 3][0]));
+			(str = get_hexa(vm->arena[i / 3][0])));
+		ft_strdel(&str);
 		if (vm->arena[i / 3][1] != 0)
 			color = vm->arena[i / 3][1];
 		mvwchgat(vm->visu.arena, 1 + (i / 192), 2 + (i % 192), 2, A_BOLD,

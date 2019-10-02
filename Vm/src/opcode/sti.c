@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 15:28:56 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 15:33:12 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 static void			visual_sti(t_vm *vm, int index)
 {
-	int	i;
+	int		i;
+	char	*str;
 
 	i = 4;
 	while (--i >= 0)
 	{
 		mvwprintw(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192),
 			2 + ((3 * ((index + i) % MEM_SIZE)) % 192),
-			get_hexa(vm->arena[(index + i) % MEM_SIZE][0]));
+			(str = get_hexa(vm->arena[(index + i) % MEM_SIZE][0])));
+		ft_strdel(&str);
 		mvwchgat(vm->visu.arena, 1 + ((3 * ((index + i) % MEM_SIZE)) / 192), 2 +
 			((3 * ((index + i) % MEM_SIZE)) % 192), 2, A_BOLD,
 			vm->arena[(index + i) % MEM_SIZE][1], 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 11:34:15 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 12:40:14 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_error(int err, int nb_line, t_vm *vm)
 	exit(0);
 }
 
-int	recup_opc(unsigned char opc, unsigned int *arg_size, int opcode[2], int arg)
+int	recup_opc(unsigned char opc, unsigned int *arg_size, int size, int arg)
 {
 	int				i;
 	unsigned char	tab[3];
@@ -73,34 +73,18 @@ int	recup_opc(unsigned char opc, unsigned int *arg_size, int opcode[2], int arg)
 	opc %= 16;
 	tab[2] = opc / 4;
 	i = -1;
-	arg_size[0] = 0;
-	arg_size[1] = 0;
-	arg_size[2] = 0;
-	while (++i < arg)
-	{
-		if (tab[i] == REG_CODE)
-		{
-			arg_size[i] = T_REG;
-			jump += arg_size[i];
-		}
-		else if (tab[i] == DIR_CODE)
-		{
-			arg_size[i] = T_DIR;
-			jump += opcode[0];
-		}
-		else if (tab[i] == IND_CODE)
-		{
-			arg_size[i] = T_IND;
-			jump += opcode[1];
-		}
-		else
-			arg_size[i] = 0;
-	}
+	while (++i < 3 && !(arg_size[i] = 0))
+		if (i < arg && tab[i] == REG_CODE && (arg_size[i] = T_REG))
+			jump += 1;
+		else if (i < arg && tab[i] == DIR_CODE && (arg_size[i] = T_DIR))
+			jump += size;
+		else if (i < arg && tab[i] == IND_CODE && (arg_size[i] = T_IND))
+			jump += 2;
 	return (jump);
 }
 
 int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
-	unsigned int *arg_size, int size[2])
+	unsigned int *arg_size, int size)
 {
 	int		i;
 	int		ret;
@@ -110,15 +94,15 @@ int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	while (++i < 3)
 		if (arg_size[i] == T_REG)
 		{
-			(*pc) = (*pc + T_REG) % MEM_SIZE;
+			(*pc) = (*pc + 1) % MEM_SIZE;
 			arg_value[i] = vm->arena[*pc][0] - 0x01;
 			if (arg_value[i] > 15)
 				ret = 0;
 		}
 		else if (arg_size[i] == T_DIR)
 		{
-			(*pc) = (*pc + size[0]) % MEM_SIZE;
-			if (size[0] == 4)
+			(*pc) = (*pc + size) % MEM_SIZE;
+			if (size == 4)
 				arg_value[i] = vm->arena[(*pc - 3) % MEM_SIZE][0] << 24
 				| vm->arena[(*pc - 2) % MEM_SIZE][0] << 16
 				| vm->arena[(*pc - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
@@ -128,7 +112,7 @@ int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 		}
 		else if (arg_size[i] == T_IND)
 		{
-			(*pc) = (*pc + size[1]) % MEM_SIZE;
+			(*pc) = (*pc + 2) % MEM_SIZE;
 			arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
 				| vm->arena[*pc][0];
 		}

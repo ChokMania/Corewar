@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 15:09:19 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/10/02 12:33:37 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ void			ft_reverse_list(t_proc **beg);
 void			ft_parsing(t_vm *vm, char **av);
 
 int				recup_opc(unsigned char opc, unsigned int *arg_size,
-					int size[2], int arg);
+					int size, int arg);
 int				ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
-					unsigned int *arg_size, int size[2]);
+					unsigned int *arg_size, int size);
 
 void			ft_args(int ac, char **av, t_vm *vm, char *tab[5]);
 

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:35 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/28 18:19:44 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 15:47:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		refresh_process(t_vm *vm)
 	wattron(vm->visu.hud, A_BOLD);
 	mvwprintw(vm->visu.hud, 15, 17, "      ");
 	mvwprintw(vm->visu.hud, 15, 17,
-		(str = ft_itoa(ft_list_count_vm(vm->proc))));
+		(str = ft_itoa(ft_list_count_vm(vm->beg))));
 	ft_strdel(&str);
 	wattroff(vm->visu.hud, A_BOLD);
 	wrefresh(vm->visu.hud);

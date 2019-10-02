@@ -3,24 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/28 18:15:27 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:30:41 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	ft_arg(t_vm *vm, unsigned int *pc, unsigned int *arg_value)
-{
-	(*pc) = ((*pc) + T_IND) % MEM_SIZE;
-	(*arg_value) = vm->arena[((*pc) - 3) % MEM_SIZE][0] << 24
-		| vm->arena[((*pc) - 2) % MEM_SIZE][0] << 16
-		| vm->arena[((*pc) - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
-}
-
-static void	exec_live(t_vm *vm, unsigned int arg_value)
+static void	exec_live(t_vm *vm, unsigned int arg_value[3])
 {
 	int		i;
 	t_proc	*current;
@@ -31,7 +23,7 @@ static void	exec_live(t_vm *vm, unsigned int arg_value)
 	current = vm->beg;
 	vm->proc->alive++;
 	i = 1;
-	while (i <= 4 && vm->nb_champ >= i && arg_value != UINT32_MAX - i + 1)
+	while (i <= 4 && vm->nb_champ >= i && arg_value[0] != UINT32_MAX - i + 1)
 		i++;
 	if (i < 5)
 	{
@@ -54,9 +46,16 @@ static void	exec_live(t_vm *vm, unsigned int arg_value)
 
 void		op_live(t_vm *vm, unsigned int *pc)
 {
-	unsigned int	arg_value;
+	unsigned int	arg_value[3];
+	unsigned int	arg_size[3];
 
-	ft_arg(vm, pc, &arg_value);
-	exec_live(vm, arg_value);
-	ft_visu_d_message(vm, "live");
+	(void)(*pc);
+	arg_size[0] = T_DIR;
+	arg_size[1] = 0;
+	arg_size[2] = 0;
+	if (ft_opcode(vm, arg_value, arg_size, 4))
+	{
+		exec_live(vm, arg_value);
+		ft_visu_d_message(vm, "live");
+	}
 }

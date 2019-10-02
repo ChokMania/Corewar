@@ -3,21 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:30:41 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 14:40:46 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+static void	ft_check_verbose(t_vm *vm, int j, t_proc *save)
+{
+	if (j >= 1 && vm->option_verbose >= 1 && vm->option_verbose <= 2
+		&& !vm->option_visu && !vm->option_visu_d)
+		ft_printf("Player %u (%s) is said to be alive\n",
+			save->n_champ, save->head.prog_name);
+}
+
 static void	exec_live(t_vm *vm, unsigned int arg_value[3])
 {
 	int		i;
+	int		j;
 	t_proc	*current;
 	t_proc	*save;
-	int		j;
 
 	j = 0;
 	current = vm->beg;
@@ -37,10 +45,6 @@ static void	exec_live(t_vm *vm, unsigned int arg_value[3])
 			}
 			current = current->next;
 		}
-		if (j >= 1 && vm->option_verbose >= 1 && vm->option_verbose <= 2
-			&& !vm->option_visu && !vm->option_visu_d)
-			ft_printf("Player %u (%s) is said to be alive\n",
-				save->n_champ, save->head.prog_name);
 	}
 }
 

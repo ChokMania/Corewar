@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:04 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 13:41:56 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 14:38:18 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	exec_sub(t_vm *vm, unsigned int arg_value[3])
 
 void		op_sub(t_vm *vm, unsigned int *pc)
 {
-		unsigned int	arg_value[3];
+	unsigned int	arg_value[3];
 	unsigned int	arg_size[3];
 	int				jump;
 

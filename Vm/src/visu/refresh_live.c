@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:59 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/30 14:18:30 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:15:09 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	refresh_live(t_vm *vm, int barre)
 	i = -1;
 	tmp = 0;
 	while (total_live != 0 && j < 100)
-	{
 		if (tmp == 0)
 			tmp = ft_round_sup((vm->nb_live_champ[++i] * 100 / total_live));
 		else
@@ -78,6 +77,5 @@ void	refresh_live(t_vm *vm, int barre)
 			tmp--;
 			wattroff(vm->visu.hud, COLOR_PAIR(i < vm->nb_champ ? i + 1 : 9));
 		}
-	}
 	wrefresh(vm->visu.hud);
 }

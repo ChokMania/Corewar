@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 18:29:17 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 13:59:30 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 14:14:16 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void				ft_parsing_suite(t_vm *vm)
 			&& (vm->arena[index][1] = nb_player + 1))
 			vm->arena[index++][0] = ft_read(vm->fd[nb_player]
 				, nb_player + 1, vm, j);
-		// PB VALGRIND ICI
 		if (read(vm->fd[nb_player], &buf, sizeof(char)) != 0)
 			ft_error(ERROR_PROG_SIZE, -1, vm);
 		while (index < (nb_player + 1) * MEM_SIZE / vm->nb_champ

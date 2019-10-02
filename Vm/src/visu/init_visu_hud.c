@@ -6,13 +6,25 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 12:02:29 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/30 09:54:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:21:42 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	create_player_hud(t_vm *vm, int *i)
+static void	ft_aff_hud(t_vm *vm, int *i, char *str)
+{
+	str = ft_strsub(vm->proc->head.prog_name, 0, 92);
+	wattron(vm->visu.hud, COLOR_PAIR((*i) + 1));
+	if (ft_strlen(vm->proc->head.prog_name) >= 120)
+		mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18, str);
+	else
+		mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
+			vm->proc->head.prog_name);
+	wattroff(vm->visu.hud, COLOR_PAIR(((*i) + 1)));
+}
+
+void		create_player_hud(t_vm *vm, int *i)
 {
 	char	*str;
 
@@ -21,17 +33,8 @@ void	create_player_hud(t_vm *vm, int *i)
 		mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 5, "Player   :");
 		mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 12, (str = ft_itoa((*i) + 1)));
 		ft_strdel(&str);
-		wattron(vm->visu.hud, COLOR_PAIR((*i) + 1));
-		if (ft_strlen(vm->proc->head.prog_name) >= 120)
-		{
-			mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
-				(str = ft_strsub(vm->proc->head.prog_name, 0, 92)));
-			ft_strdel(&str);
-		}
-		else
-			mvwprintw(vm->visu.hud, 18 + ((*i) * 4), 18,
-				vm->proc->head.prog_name);
-		wattroff(vm->visu.hud, COLOR_PAIR(((*i) + 1)));
+		ft_aff_hud(vm, i, str);
+		ft_strdel(&str);
 		mvwprintw(vm->visu.hud, 19 + ((*i) * 4), 7, "Last live :\t\t\t0");
 		mvwprintw(vm->visu.hud, 20 + ((*i)++ * 4), 7
 		, "live in current period :\t\t0");
@@ -45,7 +48,7 @@ void	create_player_hud(t_vm *vm, int *i)
 	wattroff(vm->visu.hud, A_BOLD);
 }
 
-void	refresh_cycle_to_die(t_vm *vm)
+void		refresh_cycle_to_die(t_vm *vm)
 {
 	char	*str;
 
@@ -59,7 +62,7 @@ void	refresh_cycle_to_die(t_vm *vm)
 	wattroff(vm->visu.hud, A_BOLD);
 }
 
-void	write_infos_hud(t_vm *vm, int i)
+void		write_infos_hud(t_vm *vm, int i)
 {
 	char	*str;
 
@@ -87,7 +90,7 @@ void	write_infos_hud(t_vm *vm, int i)
 	wrefresh(vm->visu.hud);
 }
 
-void	init_visual_hud(t_vm *vm)
+void		init_visual_hud(t_vm *vm)
 {
 	int		i;
 	char	*str;

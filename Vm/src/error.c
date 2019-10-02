@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 13:40:36 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 14:15:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	ft_fill_tab_err(char *tab_err[20])
+void		ft_fill_tab_err(char *tab_err[20])
 {
 	tab_err[0] = "0";
 	tab_err[1] = "ld";
@@ -38,7 +38,7 @@ void	ft_fill_tab_err(char *tab_err[20])
 	tab_err[21] = "malloc";
 }
 
-void	ft_error(int err, int nb_line, t_vm *vm)
+void		ft_error(int err, int nb_line, t_vm *vm)
 {
 	char	*tab_err[20];
 
@@ -60,7 +60,8 @@ void	ft_error(int err, int nb_line, t_vm *vm)
 	exit(0);
 }
 
-int	recup_opc(unsigned char opc, unsigned int *arg_size, int size_dir, int arg)
+int			recup_opc(unsigned char opc, unsigned int *arg_size,
+				int size_dir, int arg)
 {
 	int				i;
 	unsigned char	tab[3];
@@ -83,7 +84,20 @@ int	recup_opc(unsigned char opc, unsigned int *arg_size, int size_dir, int arg)
 	return (jump);
 }
 
-int	ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
+static void	ft_ternaire_arg(t_vm *vm, unsigned int *arg_value,
+			int i, int size_dir)
+{
+	(vm->proc->pc) = (vm->proc->pc + size_dir) % MEM_SIZE;
+	arg_value[i] = size_dir == 4
+		? vm->arena[(vm->proc->pc - 3) % MEM_SIZE][0] << 24
+			| vm->arena[(vm->proc->pc - 2) % MEM_SIZE][0] << 16
+			| vm->arena[(vm->proc->pc - 1) % MEM_SIZE][0] << 8
+			| vm->arena[vm->proc->pc][0]
+		: vm->arena[(vm->proc->pc - 1) % MEM_SIZE][0] << 8
+			| vm->arena[vm->proc->pc][0];
+}
+
+int			ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
 	int size_dir)
 {
 	int		i;
@@ -91,7 +105,7 @@ int	ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
 
 	i = -1;
 	ret = 1;
-	while (++i < 3)
+	while (++i < 3 && !(arg_value[i] = 0))
 		if (arg_size[i] == T_REG)
 		{
 			(vm->proc->pc) = (vm->proc->pc + 1) % MEM_SIZE;
@@ -100,23 +114,12 @@ int	ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
 				ret = 0;
 		}
 		else if (arg_size[i] == T_DIR)
-		{
-			(vm->proc->pc) = (vm->proc->pc + size_dir) % MEM_SIZE;
-			if (size_dir == 4)
-				arg_value[i] = vm->arena[(vm->proc->pc - 3) % MEM_SIZE][0] << 24
-				| vm->arena[(vm->proc->pc - 2) % MEM_SIZE][0] << 16
-				| vm->arena[(vm->proc->pc - 1) % MEM_SIZE][0] << 8 | vm->arena[vm->proc->pc][0];
-			else
-				arg_value[i] = vm->arena[(vm->proc->pc - 1) % MEM_SIZE][0] << 8
-				| vm->arena[vm->proc->pc][0];
-		}
+			ft_ternaire_arg(vm, arg_value, i, size_dir);
 		else if (arg_size[i] == T_IND)
 		{
 			(vm->proc->pc) = (vm->proc->pc + 2) % MEM_SIZE;
 			arg_value[i] = vm->arena[(vm->proc->pc - 1) % MEM_SIZE][0] << 8
 				| vm->arena[vm->proc->pc][0];
 		}
-		else
-			arg_value[i] = 0;;
 	return (ret);
 }

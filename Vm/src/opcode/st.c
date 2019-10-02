@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:54:18 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:57:32 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 	unsigned int	index;
 	unsigned int	tmp;
 	unsigned int	realpc;
-	
 
 	if (!(index = 0) && arg_size[1] == T_REG)
 		index += vm->proc->r[arg_value[1]] - T_REG;
@@ -59,7 +58,6 @@ static void	exec_st(t_vm *vm, unsigned int arg_value[3],
 			tmp >>= 8;
 		}
 	}
-	vm->option_visu == 1 ? visual_st(vm, index) : 0;
 }
 
 void		op_st(t_vm *vm, unsigned int *pc)
@@ -74,7 +72,10 @@ void		op_st(t_vm *vm, unsigned int *pc)
 	if (ft_opcode(vm, arg_value, arg_size, 4)
 	&& arg_size[0] == T_REG
 	&& (arg_size[1] == T_REG || arg_size[1] == T_IND))
+	{
 		exec_st(vm, arg_value, arg_size);
+		vm->option_visu == 1 ? visual_st(vm, index) : 0;
+	}
 	else
 		*pc = jump;
 }

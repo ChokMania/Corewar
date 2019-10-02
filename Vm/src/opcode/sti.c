@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:54:14 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:56:50 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3],
 	else if (arg_size[2] == T_DIR)
 		index += arg_value[2] - T_DIR;
 	index += vm->proc->pc - 2;
-	realpc = (vm->proc->pc - arg_size[0] - arg_size[1] - arg_size[2]) % MEM_SIZE;
+	realpc = (vm->proc->pc - arg_size[0]
+		- arg_size[1] - arg_size[2]) % MEM_SIZE;
 	index = idx_mod(realpc, index % MEM_SIZE);
 	tmp = vm->proc->r[arg_value[0]];
 	i = 5;
@@ -57,7 +58,6 @@ static void	exec_sti(t_vm *vm, unsigned int arg_value[3],
 		vm->arena[(index + i - 1) % MEM_SIZE][1] = vm->proc->n_champ;
 		tmp >>= 8;
 	}
-	vm->option_visu == 1 ? visual_sti(vm, index) : 0;
 }
 
 void		op_sti(t_vm *vm, unsigned int *pc)
@@ -73,7 +73,10 @@ void		op_sti(t_vm *vm, unsigned int *pc)
 	&& arg_size[0] == T_REG
 	&& (arg_size[1] == T_REG || arg_size[1] == T_DIR || arg_size[1] == T_IND)
 	&& (arg_size[2] == T_REG || arg_size[2] == T_DIR))
+	{
 		exec_sti(vm, arg_value, arg_size);
+		vm->option_visu == 1 ? visual_sti(vm, index) : 0;
+	}
 	else
 		*pc = jump;
 }

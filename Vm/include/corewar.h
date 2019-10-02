@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <mabouce@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:40:21 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/10/02 16:39:04 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct	s_vm
 	int				nb_proc;
 	int				nb_champ;
 	int				fd[MAX_PLAYERS];
+	int				tab_wait[17];
 	long			option_dump;
 	long			option_verbose;
 	long			option_visu;
@@ -110,15 +111,21 @@ typedef struct	s_vm
 	unsigned char	arena[MEM_SIZE][2];
 }				t_vm;
 
+typedef void	(*tab_opcode)(t_vm *, unsigned int *);
+
+void			tab_opcode_set(tab_opcode tab_opcode[17]);
+void			tab_wait_set(t_vm *vm);
+
 void			ft_error(int err, int nb_line, t_vm *vm);
 void			ft_print_vm(t_vm vm);
 void			ft_put_instruct(int pc, unsigned int arg_value[3],
 					unsigned int arg_size[3]);
 void			ft_init_vm(t_vm *vm);
 void			ft_cycle_to_die(t_vm *vm);
-void			ft_choise_opcode(t_vm *vm, unsigned int *pc,
-					unsigned char opcode);
+
+//void			ft_wait(t_vm *vm, unsigned char opcode);
 void			ft_wait(t_vm *vm, unsigned char opcode);
+
 void			ft_dead_proc(t_vm *vm, t_proc **current);
 void			ft_reverse_list(t_proc **beg);
 unsigned int	idx_mod(unsigned int realpc, unsigned int index);

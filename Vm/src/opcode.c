@@ -6,102 +6,64 @@
 /*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 11:11:05 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 11:20:16 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:45:00 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	ft_choise_opcode_suite(t_vm *vm, unsigned int *pc,
-	unsigned char opcode)
+void		tab_opcode_set(tab_opcode tab_opcode[17])
 {
-	if (opcode == 10)
-		op_ldi(vm, pc);
-	else if (opcode == 11)
-		op_sti(vm, pc);
-	else if (opcode == 12)
-		op_fork(vm, pc);
-	else if (opcode == 13)
-		op_lld(vm, pc);
-	else if (opcode == 14)
-		op_lldi(vm, pc);
-	else if (opcode == 15)
-		op_lfork(vm, pc);
-	else if (opcode == 16)
-		op_aff(vm, pc);
+	tab_opcode[0] = 0;
+	tab_opcode[1] = &op_live;
+	tab_opcode[2] = &op_ld;
+	tab_opcode[3] = &op_st;
+	tab_opcode[4] = &op_add;
+	tab_opcode[5] = &op_sub;
+	tab_opcode[6] = &op_and;
+	tab_opcode[7] = &op_or;
+	tab_opcode[8] = &op_xor;
+	tab_opcode[9] = &op_zjmp;
+	tab_opcode[10] = &op_ldi;
+	tab_opcode[11] = &op_sti;
+	tab_opcode[12] = &op_fork;
+	tab_opcode[13] = &op_lld;
+	tab_opcode[14] = &op_lldi;
+	tab_opcode[15] = &op_lfork;
+	tab_opcode[16] = &op_aff;
 }
 
-void		ft_choise_opcode(t_vm *vm, unsigned int *pc, unsigned char opcode)
+void		tab_wait_set(t_vm *vm)
 {
-	if (opcode == 1)
-		op_live(vm, pc);
-	else if (opcode == 2)
-		op_ld(vm, pc);
-	else if (opcode == 3)
-		op_st(vm, pc);
-	else if (opcode == 4)
-		op_add(vm, pc);
-	else if (opcode == 5)
-		op_sub(vm, pc);
-	else if (opcode == 6)
-		op_and(vm, pc);
-	else if (opcode == 7)
-		op_or(vm, pc);
-	else if (opcode == 8)
-		op_xor(vm, pc);
-	else if (opcode == 9)
-		op_zjmp(vm, pc);
-	else
-		ft_choise_opcode_suite(vm, pc, opcode);
-}
-
-static void	ft_wait_suite(t_vm *vm, unsigned char opcode)
-{
-	if (opcode == 10)
-		vm->proc->wait = vm->cycle + 25;
-	else if (opcode == 11)
-		vm->proc->wait = vm->cycle + 25;
-	else if (opcode == 12)
-		vm->proc->wait = vm->cycle + 800;
-	else if (opcode == 13)
-		vm->proc->wait = vm->cycle + 10;
-	else if (opcode == 14)
-		vm->proc->wait = vm->cycle + 50;
-	else if (opcode == 15)
-		vm->proc->wait = vm->cycle + 1000;
-	else if (opcode == 16)
-		vm->proc->wait = vm->cycle + 2;
-	else
-	{
-		vm->proc->pc = (vm->proc->pc + 1) % MEM_SIZE;
-		vm->proc->wait = vm->cycle + 1;
-	}
+	vm->tab_wait[0] = 1;
+	vm->tab_wait[1] = 10;
+	vm->tab_wait[2] = 5;
+	vm->tab_wait[3] = 5;
+	vm->tab_wait[4] = 10;
+	vm->tab_wait[5] = 10;
+	vm->tab_wait[6] = 6;
+	vm->tab_wait[7] = 6;
+	vm->tab_wait[8] = 6;
+	vm->tab_wait[9] = 20;
+	vm->tab_wait[10] = 25;
+	vm->tab_wait[11] = 25;
+	vm->tab_wait[12] = 800;
+	vm->tab_wait[13] = 10;
+	vm->tab_wait[14] = 50;
+	vm->tab_wait[15] = 1000;
+	vm->tab_wait[16] = 2;
 }
 
 void		ft_wait(t_vm *vm, unsigned char opcode)
 {
 	vm->proc->opcode = opcode;
-	if (opcode == 1)
-		vm->proc->wait = vm->cycle + 10;
-	else if (opcode == 2)
-		vm->proc->wait = vm->cycle + 5;
-	else if (opcode == 3)
-		vm->proc->wait = vm->cycle + 5;
-	else if (opcode == 4)
-		vm->proc->wait = vm->cycle + 10;
-	else if (opcode == 5)
-		vm->proc->wait = vm->cycle + 10;
-	else if (opcode == 6)
-		vm->proc->wait = vm->cycle + 6;
-	else if (opcode == 7)
-		vm->proc->wait = vm->cycle + 6;
-	else if (opcode == 8)
-		vm->proc->wait = vm->cycle + 6;
-	else if (opcode == 9)
-		vm->proc->wait = vm->cycle + 20;
+	if (opcode > 0 && opcode < 17)
+		vm->proc->wait = vm->cycle + vm->tab_wait[opcode];
 	else
-		ft_wait_suite(vm, opcode);
-	ft_visu_wait(vm);
+	{
+		vm->proc->pc = (vm->proc->pc + vm->tab_wait[0]) % MEM_SIZE;
+		vm->proc->wait = vm->cycle + vm->tab_wait[0];
+	}
 }
 
 void		ft_visu_wait(t_vm *vm)

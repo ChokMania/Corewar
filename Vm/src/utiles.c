@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/30 17:14:33 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 16:47:27 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void		ft_init_vm(t_vm *vm)
 	vm->proc = vm->beg;
 	vm->cycle = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
+	tab_wait_set(vm);
 }
 
 static void	ft_winner(t_vm *vm)

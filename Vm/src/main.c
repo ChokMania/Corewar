@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 15:57:47 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 16:46:53 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		free_chaine(t_proc *proc)
 	free(proc);
 }
 
-static void	ft_apply_proc(t_vm *vm)
+static void	ft_apply_proc(t_vm *vm, tab_opcode tab_opcode[17])
 {
 	while (vm->proc)
 	{
@@ -30,9 +30,8 @@ static void	ft_apply_proc(t_vm *vm)
 			ft_visu_wait(vm);
 			if (vm->proc->wait == vm->cycle + 1)
 			{
-				ft_choise_opcode(vm, &vm->proc->pc, vm->proc->opcode);
-				vm->proc->pc++;
-				vm->proc->pc %= MEM_SIZE;
+				(*tab_opcode[vm->proc->opcode])(vm, &vm->proc->pc);
+				vm->proc->pc = (vm->proc->pc + 1) % MEM_SIZE;
 			}
 		}
 		vm->proc = vm->proc->next;
@@ -41,8 +40,10 @@ static void	ft_apply_proc(t_vm *vm)
 
 void		ft_play(t_vm *vm)
 {
-	int		i;
+	int			i;
+	tab_opcode	tab_opcode[17];
 
+	tab_opcode_set(tab_opcode);
 	while (!(i = 0))
 	{
 		vm->option_dump > 0 && vm->option_dump == vm->cycle
@@ -58,11 +59,11 @@ void		ft_play(t_vm *vm)
 			visual_every_cycle(vm);
 		}
 		vm->proc = vm->beg;
-		ft_apply_proc(vm);
+		ft_apply_proc(vm, tab_opcode);
 		vm->proc = vm->beg;
 		vm->cycle++;
 		vm->option_verbose == 2 && !vm->option_visu && !vm->option_visu_d
-		? ft_printf("It is now cycle %d\n", vm->cycle) : 0;
+			? ft_printf("It is now cycle %d\n", vm->cycle) : 0;
 	}
 }
 
@@ -80,7 +81,7 @@ static void	ft_usage(void)
 	ft_printf("\t\t\t\t- 0 : Show only essentials.\n");
 	ft_printf("\t\t\t\t- 1 : Show lives.\n");
 	ft_printf("\t\t\t\t- 2 : Show cycles.\n");
-	ft_printf("\t\t\t\t- 2 : Show cycles to die.\n");
+	ft_printf("\t\t\t\t- 3 : Show cycles to die.\n");
 	ft_printf("\t-vi/-visual     : Give visual of the match.\n");
 	ft_printf("\t-vid/-visuald   : Add explication on the visual "
 		"(ONLY 1 PROCESS BY CHAMPION).\n");

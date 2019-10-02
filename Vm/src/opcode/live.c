@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:22:14 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:40:46 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:48:31 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	exec_live(t_vm *vm, unsigned int arg_value[3])
 			}
 			current = current->next;
 		}
+		ft_check_verbose(vm, j, save);
 	}
 }
 

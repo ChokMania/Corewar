@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 11:59:21 by judumay           #+#    #+#             */
-/*   Updated: 2019/09/26 19:40:05 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:47:10 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static void	ft_victory_visu_two(t_vm *vm, t_proc *winner)
 	endwin();
 	ft_printf("Contestant %d, \"%s\", has won !\n",
 		winner->n_champ, winner->head.prog_name, vm->cycle);
+	free(vm->visu.arena);
+	free(vm->visu.hud);
+	vm->option_visu_d ? free(vm->visu.desc) : 0;
+	free(vm->visu.winner);
 	free_chaine(vm->beg);
 	exit(0);
 }

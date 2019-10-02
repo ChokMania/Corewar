@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:15:48 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:47:29 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,14 @@ void		ft_error(int err, int nb_line, t_vm *vm)
 	char	*tab_err[20];
 
 	if (vm->option_visu == 1)
+	{
 		endwin();
+		free(vm->visu.arena);
+		free(vm->visu.hud);
+		vm->option_visu_d ? free(vm->visu.desc) : 0;
+		free(vm->visu.winner);
+		free_chaine(vm->beg);
+	}
 	if (vm->beg != NULL)
 		free_chaine(vm->beg);
 	ft_fill_tab_err(tab_err);

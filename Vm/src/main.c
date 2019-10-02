@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:43:54 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 15:57:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	ft_usage(void)
 		"[[-n N] <champion1.cor>] <...>\n\n");
 	ft_printf("\t-d/-dump      N : Dumps memory after N(int >= 0) "
 		"cycles then exit the program.\n");
-	ft_printf("\t-dc/-dumpc      N : Dumps memory after N(int >= 0) "
+	ft_printf("\t-dc/-dumpc    N : Dumps memory after N(int >= 0) "
 		"cycles then exit the program with color.\n");
 	ft_printf("\t-n/-number    N : Give to champion(s) N(int > 0) "
 		"player number\n");

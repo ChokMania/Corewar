@@ -6,7 +6,7 @@
 /*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:51 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 12:30:53 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 13:41:56 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		op_or(t_vm *vm, unsigned int *pc)
 	(*pc) = (*pc + 1) % MEM_SIZE;
 	jump = *pc;
 	jump += recup_opc(vm->arena[*pc][0], arg_size, 4, 3) % MEM_SIZE;
-	if (ft_opcode(vm, pc, arg_value, arg_size, 4)
+	if (ft_opcode(vm, arg_value, arg_size, 4)
 	&& (arg_size[0] == T_REG || arg_size[0] == T_DIR || arg_size[0] == T_IND)
 	&& (arg_size[1] == T_REG || arg_size[1] == T_DIR || arg_size[0] == T_IND)
 	&& arg_size[2] == T_REG)

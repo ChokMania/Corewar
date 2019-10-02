@@ -6,7 +6,7 @@
 /*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 12:40:14 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 13:40:36 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_error(int err, int nb_line, t_vm *vm)
 	exit(0);
 }
 
-int	recup_opc(unsigned char opc, unsigned int *arg_size, int size, int arg)
+int	recup_opc(unsigned char opc, unsigned int *arg_size, int size_dir, int arg)
 {
 	int				i;
 	unsigned char	tab[3];
@@ -77,14 +77,14 @@ int	recup_opc(unsigned char opc, unsigned int *arg_size, int size, int arg)
 		if (i < arg && tab[i] == REG_CODE && (arg_size[i] = T_REG))
 			jump += 1;
 		else if (i < arg && tab[i] == DIR_CODE && (arg_size[i] = T_DIR))
-			jump += size;
+			jump += size_dir;
 		else if (i < arg && tab[i] == IND_CODE && (arg_size[i] = T_IND))
 			jump += 2;
 	return (jump);
 }
 
-int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
-	unsigned int *arg_size, int size)
+int	ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
+	int size_dir)
 {
 	int		i;
 	int		ret;
@@ -94,27 +94,27 @@ int	ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
 	while (++i < 3)
 		if (arg_size[i] == T_REG)
 		{
-			(*pc) = (*pc + 1) % MEM_SIZE;
-			arg_value[i] = vm->arena[*pc][0] - 0x01;
+			(vm->proc->pc) = (vm->proc->pc + 1) % MEM_SIZE;
+			arg_value[i] = vm->arena[vm->proc->pc][0] - 0x01;
 			if (arg_value[i] > 15)
 				ret = 0;
 		}
 		else if (arg_size[i] == T_DIR)
 		{
-			(*pc) = (*pc + size) % MEM_SIZE;
-			if (size == 4)
-				arg_value[i] = vm->arena[(*pc - 3) % MEM_SIZE][0] << 24
-				| vm->arena[(*pc - 2) % MEM_SIZE][0] << 16
-				| vm->arena[(*pc - 1) % MEM_SIZE][0] << 8 | vm->arena[*pc][0];
+			(vm->proc->pc) = (vm->proc->pc + size_dir) % MEM_SIZE;
+			if (size_dir == 4)
+				arg_value[i] = vm->arena[(vm->proc->pc - 3) % MEM_SIZE][0] << 24
+				| vm->arena[(vm->proc->pc - 2) % MEM_SIZE][0] << 16
+				| vm->arena[(vm->proc->pc - 1) % MEM_SIZE][0] << 8 | vm->arena[vm->proc->pc][0];
 			else
-				arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
-				| vm->arena[*pc][0];
+				arg_value[i] = vm->arena[(vm->proc->pc - 1) % MEM_SIZE][0] << 8
+				| vm->arena[vm->proc->pc][0];
 		}
 		else if (arg_size[i] == T_IND)
 		{
-			(*pc) = (*pc + 2) % MEM_SIZE;
-			arg_value[i] = vm->arena[(*pc - 1) % MEM_SIZE][0] << 8
-				| vm->arena[*pc][0];
+			(vm->proc->pc) = (vm->proc->pc + 2) % MEM_SIZE;
+			arg_value[i] = vm->arena[(vm->proc->pc - 1) % MEM_SIZE][0] << 8
+				| vm->arena[vm->proc->pc][0];
 		}
 		else
 			arg_value[i] = 0;;

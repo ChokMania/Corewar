@@ -6,7 +6,7 @@
 /*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 12:33:37 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 13:41:01 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ void			ft_reverse_list(t_proc **beg);
 void			ft_parsing(t_vm *vm, char **av);
 
 int				recup_opc(unsigned char opc, unsigned int *arg_size,
-					int size, int arg);
-int				ft_opcode(t_vm *vm, unsigned int *pc, unsigned int *arg_value,
-					unsigned int *arg_size, int size);
+					int size_dir, int arg);
+int				ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
+					int size_dir);
 
 void			ft_args(int ac, char **av, t_vm *vm, char *tab[5]);
 

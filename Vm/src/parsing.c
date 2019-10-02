@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 18:29:17 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/09/28 18:28:14 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 13:59:30 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,10 @@ static void				ft_parsing_suite(t_vm *vm)
 	int				index;
 	int				nb_player;
 	unsigned int	j;
-	char			*buf;
+	char			buf;
 
 	nb_player = -1;
 	index = 0;
-	buf = NULL;
 	while (++nb_player < vm->nb_champ)
 	{
 		j = 0;
@@ -69,7 +68,7 @@ static void				ft_parsing_suite(t_vm *vm)
 			vm->arena[index++][0] = ft_read(vm->fd[nb_player]
 				, nb_player + 1, vm, j);
 		// PB VALGRIND ICI
-		if (read(vm->fd[nb_player], buf, sizeof(char)) != 0)
+		if (read(vm->fd[nb_player], &buf, sizeof(char)) != 0)
 			ft_error(ERROR_PROG_SIZE, -1, vm);
 		while (index < (nb_player + 1) * MEM_SIZE / vm->nb_champ
 			&& !(vm->arena[index][1] = 0))

@@ -58,6 +58,7 @@ SRC_NAME_VM			=	main.c							\
 						arg.c							\
 						list.c							\
 						opcode.c						\
+						idx_mod.c						\
 														\
 						opcode/live.c					\
 						opcode/ld.c						\
@@ -81,7 +82,7 @@ SRC_NAME_VM			=	main.c							\
 						visu/input.c					\
 						visu/refresh_hud.c				\
 						visu/refresh_live.c				\
-						visu/init_desc.c				\
+						visu/init_desc.c
 
 SRC_NAME_ASM		=	asm.c							\
 						error.c							\

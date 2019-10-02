@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 10:56:33 by judumay           #+#    #+#             */
-/*   Updated: 2019/10/01 12:14:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:31:03 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,6 @@ void		ft_introduce(t_vm *vm)
 	vm->proc = vm->beg;
 }
 
-void		free_chaine(t_proc *proc)
-{
-	if (proc->next)
-		free_chaine(proc->next);
-	free(proc);
-}
-
 static void	ft_color_tqt(unsigned char color)
 {
 	if (color == 1)
@@ -72,7 +65,6 @@ static void	ft_color_tqt(unsigned char color)
 		ft_printf("\033[33m");
 	else if (color == 4)
 		ft_printf("\033[36m");
-
 }
 
 void		ft_print_dump(t_vm *vm)
@@ -88,11 +80,12 @@ void		ft_print_dump(t_vm *vm)
 		{
 			if (i != 0 && i % 64 == 0)
 				ft_printf("\n%#.4x : ", i);
-			//ft_color_tqt(vm.arena[i][1]);
+			vm->option_color == 1 ? ft_color_tqt(vm->arena[i][1]) : 0;
 			ft_printf("%.2hhx ", vm->arena[i][0]);
-			//ft_printf("\033[0m");
+			vm->option_color == 1 ? ft_printf("\033[0m") : 0;
 		}
 		ft_printf("\n");
+		free_chaine(vm->beg);
 		exit(0);
 	}
 }

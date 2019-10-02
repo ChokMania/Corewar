@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 17:34:47 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 11:34:37 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:33:49 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,14 @@ static int		ft_option(int ac, char **av, t_vm *vm, char *tab[5])
 		if (ac < 2 || ft_strlen(av[1]) > 10
 			|| (vm->option_dump = ft_atol(av[1])) < 1)
 			ft_error(ERROR_OPTION, -1, vm);
+		return (1);
+	}
+	if ((!ft_strcmp(av[0], "-dumpc") || !ft_strcmp(av[0], "-dc")))
+	{
+		if ((ac < 2 || ft_strlen(av[1]) > 10
+			|| (vm->option_dump = ft_atol(av[1])) < 1))
+			ft_error(ERROR_OPTION, -1, vm);
+		vm->option_color = 1;
 		return (1);
 	}
 	else if (ft_strcmp(av[0], "-verbose") == 0 || ft_strcmp(av[0], "-v") == 0)

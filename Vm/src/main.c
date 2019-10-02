@@ -6,11 +6,18 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:05:48 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/01 12:08:35 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/02 14:31:21 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void		free_chaine(t_proc *proc)
+{
+	if (proc->next)
+		free_chaine(proc->next);
+	free(proc);
+}
 
 static void	ft_apply_proc(t_vm *vm)
 {

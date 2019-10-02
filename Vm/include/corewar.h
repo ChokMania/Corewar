@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 13:41:01 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/02 14:36:08 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct	s_vm
 	long			option_verbose;
 	long			option_visu;
 	long			option_visu_d;
+	long			option_color;
 	long			option_i;
 	t_proc			*proc;
 	t_proc			*beg;
@@ -125,8 +126,8 @@ void			ft_parsing(t_vm *vm, char **av);
 
 int				recup_opc(unsigned char opc, unsigned int *arg_size,
 					int size_dir, int arg);
-int				ft_opcode(t_vm *vm, unsigned int *arg_value, unsigned int *arg_size,
-					int size_dir);
+int				ft_opcode(t_vm *vm, unsigned int *arg_value,
+					unsigned int *arg_size, int size_dir);
 
 void			ft_args(int ac, char **av, t_vm *vm, char *tab[5]);
 

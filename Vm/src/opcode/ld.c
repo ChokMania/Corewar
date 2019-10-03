@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ld.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:08 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:57:56 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/03 17:01:28 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 static void	exec_ld(t_vm *vm, unsigned int arg_value[2],
 	unsigned int arg_size[2])
 {
-	int i;
+	int realpc;
 
-	i = -arg_value[0] + (arg_size[0] + arg_size[1]) - 1;
 	if (arg_size[0] == T_DIR)
 		vm->proc->r[arg_value[1]] = arg_value[0];
-	else if (arg_size[0] == T_IND)
+	else if (arg_size[0] == T_IND && (arg_size[0] = 2))
 	{
-		i = vm->proc->pc - i;
-		vm->proc->r[arg_value[1]] = vm->arena[i % MEM_SIZE][0] << 24
-			| vm->arena[(i + 1) % MEM_SIZE][0] << 16
-			| vm->arena[(i + 2) % MEM_SIZE][0] << 8
-			| vm->arena[(i + 3) % MEM_SIZE][0];
+		realpc = vm->proc->pc - arg_size[0] - arg_size[1] - 1;
+		vm->proc->r[arg_value[1]] =
+			vm->arena[idx_mod(realpc, arg_value[0])][0] << 24
+			| vm->arena[idx_mod(realpc, arg_value[0] + 1)][0] << 16
+			| vm->arena[idx_mod(realpc, arg_value[0] + 2)][0] << 8
+			| vm->arena[idx_mod(realpc, arg_value[0] + 3)][0];
 	}
 	vm->proc->carry = !vm->proc->r[arg_value[1]] ? 1 : 0;
 }

@@ -6,7 +6,7 @@
 /*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/03 16:07:12 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/03 16:28:01 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static unsigned int	exec_st(t_vm *vm, unsigned int arg_value[3],
 	else
 	{
 		arg_size[1] = T_DIR;
-		// ft_printf("pc: %u\treal pc: %u | %u | %u \n", vm->proc->pc, vm->proc->pc - arg_size[0] - arg_size[1] - 1, arg_size[0], arg_size[1]);
 		index = arg_size[1] == T_REG ? vm->proc->r[arg_value[1]] : arg_value[1];
 		index = idx_mod((vm->proc->pc - arg_size[0] - arg_size[1] - 1)
 			% MEM_SIZE, index);

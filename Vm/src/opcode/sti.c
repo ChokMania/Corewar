@@ -6,7 +6,7 @@
 /*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/03 16:25:02 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/04 01:11:57 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static unsigned int	exec_sti(t_vm *vm, unsigned int arg_value[3],
 		index += vm->proc->r[arg_value[2]];
 	else if (arg_size[2] == T_DIR)
 		index += arg_value[2];
-	//index = idx_mod((vm->proc->pc - arg_size[0] - arg_size[1] - arg_size[2] - 1)
+	//index = idx_mod_16((vm->proc->pc - arg_size[0] - arg_size[1] - arg_size[2] - 1)
 	//	% MEM_SIZE, index);
 	tmp = vm->proc->r[arg_value[0]];
 	i = 5;

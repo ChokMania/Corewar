@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 15:34:06 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/03 16:07:12 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,16 @@ static unsigned int	exec_st(t_vm *vm, unsigned int arg_value[3],
 {
 	unsigned int	i;
 	unsigned int	tmp;
-	unsigned int	realpc;
 
-	if (!(index = 0) && arg_size[1] == T_REG)
-		index += vm->proc->r[arg_value[1]] - T_REG;
-	else if (arg_size[1] == T_IND)
-		index += arg_value[1] - T_DIR;
-	index += vm->proc->pc - 2;
-	realpc = (vm->proc->pc - arg_size[0] - arg_size[1]) % MEM_SIZE;
-	index = idx_mod(realpc, index % MEM_SIZE);
 	if (arg_size[1] == T_REG)
 		vm->proc->r[arg_value[1]] = vm->proc->r[arg_value[0]];
 	else
 	{
+		arg_size[1] = T_DIR;
+		// ft_printf("pc: %u\treal pc: %u | %u | %u \n", vm->proc->pc, vm->proc->pc - arg_size[0] - arg_size[1] - 1, arg_size[0], arg_size[1]);
+		index = arg_size[1] == T_REG ? vm->proc->r[arg_value[1]] : arg_value[1];
+		index = idx_mod((vm->proc->pc - arg_size[0] - arg_size[1] - 1)
+			% MEM_SIZE, index);
 		tmp = vm->proc->r[arg_value[0]];
 		i = 5;
 		while (--i >= 1)
@@ -72,8 +69,8 @@ void				op_st(t_vm *vm, unsigned int *pc)
 	(*pc) = (*pc + 1) % MEM_SIZE;
 	jump = *pc;
 	index = 0;
-	jump += recup_opc(vm->arena[*pc][0], arg_size, 4, 2) % MEM_SIZE;
-	if (ft_opcode(vm, arg_value, arg_size, 4)
+	jump += recup_opc(vm->arena[*pc][0], arg_size, 2, 2) % MEM_SIZE;
+	if (ft_opcode(vm, arg_value, arg_size, 2)
 	&& arg_size[0] == T_REG
 	&& (arg_size[1] == T_REG || arg_size[1] == T_IND))
 	{

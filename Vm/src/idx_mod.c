@@ -3,25 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   idx_mod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 17:03:35 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/03 16:14:50 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-unsigned int	idx_mod(unsigned int realpc, unsigned int index)
+unsigned int	idx_mod(unsigned int realpc, unsigned int jump)
 {
-	if ((index < realpc && realpc - index <= IDX_MOD)
-		|| (index > realpc && index - realpc <= IDX_MOD)
-		|| (index > realpc && realpc + MEM_SIZE - index <= IDX_MOD)
-		|| (index < realpc && index + MEM_SIZE - realpc <= IDX_MOD))
-		;
-	else if (index < realpc)
-		index = realpc - (realpc - index) % IDX_MOD;
-	else if (index > realpc)
-		index = (realpc + (index % IDX_MOD) - 1) % MEM_SIZE;
-	return (index);
+	ft_printf("%u\n", jump > 32768 ? (realpc - (-jump % IDX_MOD)) % MEM_SIZE : (realpc + jump % IDX_MOD) % MEM_SIZE);
+	return (jump > 32768 ? (realpc - (-jump % IDX_MOD)) % MEM_SIZE
+		: (realpc + jump % IDX_MOD) % MEM_SIZE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 15:33:12 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/03 16:25:02 by anmauffr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,19 @@ static unsigned int	exec_sti(t_vm *vm, unsigned int arg_value[3],
 {
 	unsigned int	i;
 	unsigned int	tmp;
-	unsigned int	realpc;
 
 	if (!(index = 0) && arg_size[1] == T_REG)
-		index += vm->proc->r[arg_value[1]] - T_REG;
+		index += vm->proc->r[arg_value[1]];
 	else if (arg_size[1] == T_DIR || arg_size[1] == T_IND)
-		index += arg_value[1] - T_DIR;
+		index += arg_value[1];
+	if (arg_size[1] == T_IND)
+		arg_size[1] = 2;
 	if (arg_size[2] == T_REG)
-		index += vm->proc->r[arg_value[2]] - T_REG;
+		index += vm->proc->r[arg_value[2]];
 	else if (arg_size[2] == T_DIR)
-		index += arg_value[2] - T_DIR;
-	index += vm->proc->pc - 2;
-	realpc = (vm->proc->pc - arg_size[0]
-		- arg_size[1] - arg_size[2]) % MEM_SIZE;
-	index = idx_mod(realpc, index % MEM_SIZE);
+		index += arg_value[2];
+	//index = idx_mod((vm->proc->pc - arg_size[0] - arg_size[1] - arg_size[2] - 1)
+	//	% MEM_SIZE, index);
 	tmp = vm->proc->r[arg_value[0]];
 	i = 5;
 	while (--i >= 1)

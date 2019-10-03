@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 17:18:00 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/03 11:40:00 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ typedef struct	s_vm
 	unsigned char	arena[MEM_SIZE][2];
 }				t_vm;
 
-typedef void	(*tab_opcode)(t_vm *, unsigned int *);
+typedef void	(*t_opcode)(t_vm *, unsigned int *);
 
-void			tab_opcode_set(tab_opcode tab_opcode_array[17]);
+void			t_opcode_set(t_opcode t_opcode_array[17]);
 void			tab_wait_set(t_vm *vm);
 
 void			ft_error(int err, int nb_line, t_vm *vm);

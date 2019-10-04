@@ -3,8 +3,8 @@ while :
 do
 	read INPUT
 	clear
-	./corewar Vm/test/Bazou_test.cor -d $INPUT > test1
-	./vm_champs/corewar Vm/test/Bazou_test.cor -d $INPUT > test2
+	./corewar vm_champs/champs/examples/helltrain.cor -d $INPUT > test1
+	./vm_champs/corewar vm_champs/champs/examples/helltrain.cor -d $INPUT > test2
 	diff test1 test2 | cat -e
 	echo "\ncycle $INPUT"
 done

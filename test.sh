@@ -1,10 +1,14 @@
 rm -f test1 test2
+champ="Vm/test/testmalo.s"
+echo $champ
+./asm $champ
+champ="Vm/test/testmalo.cor"
 while :
 do
 	read INPUT
 	clear
-	./corewar vm_champs/champs/championships/2017/gnebie/ultima.cor -d $INPUT > test1
-	./vm_champs/corewar vm_champs/champs/championships/2017/gnebie/ultima.cor -d $INPUT > test2
+	./corewar $champ -d $INPUT > test1
+	./vm_champs/corewar $champ -d $INPUT > test2
 	diff test1 test2 | cat -e
 	echo "\ncycle $INPUT"
 done

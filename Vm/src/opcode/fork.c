@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:20 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:24:09 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/04 12:38:55 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ static void	exec_fork(t_vm *vm, unsigned int arg_value[3])
 	new->head = vm->proc->head;
 	new->n_champ = vm->proc->n_champ;
 	new->number = ++vm->nb_proc;
-	new->pc = arg_value[0] % MEM_SIZE < IDX_MOD
-		|| MEM_SIZE - arg_value[0] % MEM_SIZE < IDX_MOD
-		? vm->proc->pc - T_DIR + arg_value[0]
-		: vm->proc->pc - T_DIR - (arg_value[0] % IDX_MOD);
-	new->pc %= MEM_SIZE;
+	new->pc = idx_mod(vm->proc->pc - T_DIR, arg_value[0]);
 	i = -1;
 	while (++i < 16)
 		new->r[i] = vm->proc->r[i];

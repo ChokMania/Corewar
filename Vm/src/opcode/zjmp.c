@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:25 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:38:11 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 13:45:44 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	exec_zjmp(t_vm *vm, unsigned int arg_value[3])
 {
 	if (vm->proc->carry == 1)
-		vm->proc->pc += (arg_value[0]) - 3;
+		vm->proc->pc = idx_mod(vm->proc->pc - 3, arg_value[0]);
 	vm->proc->pc %= MEM_SIZE;
 }
 

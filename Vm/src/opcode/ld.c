@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:08 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 11:42:35 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 11:43:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void	exec_ld(t_vm *vm, unsigned int arg_value[2],
 	{
 		realpc = vm->proc->pc - arg_size[0] - arg_size[1] - 1;
 		vm->proc->r[arg_value[1]] =
-			vm->arena[idx_mod(realpc, arg_value[0])][0] << 24
-			| vm->arena[idx_mod(realpc, arg_value[0] + 1)][0] << 16
-			| vm->arena[idx_mod(realpc, arg_value[0] + 2)][0] << 8
-			| vm->arena[idx_mod(realpc, arg_value[0] + 3)][0];
+			vm->arena[idx_mod_16(realpc, arg_value[0])][0] << 24
+			| vm->arena[idx_mod_16(realpc, arg_value[0] + 1)][0] << 16
+			| vm->arena[idx_mod_16(realpc, arg_value[0] + 2)][0] << 8
+			| vm->arena[idx_mod_16(realpc, arg_value[0] + 3)][0];
 	}
 	vm->proc->carry = !vm->proc->r[arg_value[1]] ? 1 : 0;
 }

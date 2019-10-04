@@ -6,7 +6,11 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:13 by anmauffr          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/10/04 11:07:37 by judumay          ###   ########.fr       */
+=======
+/*   Updated: 2019/10/04 01:11:57 by anmauffr         ###   ########.fr       */
+>>>>>>> 166f24b7107f3614bf10e276c1958cefd8ac8f0a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +48,7 @@ static unsigned int	exec_st(t_vm *vm, unsigned int arg_value[3],
 	{
 		arg_size[1] = T_DIR;
 		index = arg_size[1] == T_REG ? vm->proc->r[arg_value[1]] : arg_value[1];
-		index = idx_mod((vm->proc->pc - arg_size[0] - arg_size[1] - 1)
+		index = idx_mod_16((vm->proc->pc - arg_size[0] - arg_size[1] - 1)
 			% MEM_SIZE, index);
 		tmp = vm->proc->r[arg_value[0]];
 		i = 5;

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:30 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 14:18:59 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 14:20:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	exec_ldi(t_vm *vm, unsigned int arg_value[3],
 		index += arg_value[1];
 	realpc = (vm->proc->pc - arg_size[0] - arg_size[1] - arg_size[2] - 1) % MEM_SIZE;
 	vm->proc->r[arg_value[2]] =
-		vm->arena[index % MEM_SIZE][0] << 24
+		vm->arena[idx_mod(realpc, index)][0] << 24
 		| vm->arena[idx_mod(realpc, index + 1)][0] << 16
 		| vm->arena[idx_mod(realpc, index + 2)][0] << 8
 		| vm->arena[idx_mod(realpc, index + 3)][0];

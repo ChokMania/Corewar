@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 01:11:57 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/04 11:49:11 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void			ft_wait(t_vm *vm, unsigned char opcode);
 
 void			ft_dead_proc(t_vm *vm, t_proc **current);
 void			ft_reverse_list(t_proc **beg);
-unsigned int	idx_mod_16(unsigned int realpc, unsigned int index);
+unsigned int	idx_mod(unsigned int realpc, unsigned int index);
 
 void			ft_parsing(t_vm *vm, char **av);
 

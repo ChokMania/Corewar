@@ -10,7 +10,7 @@ WEXTRA				=	yes
 WERROR				=	yes
 FSANITIZE			=	no
 DEBUG				=	no
-O2					=	yes
+O2					=	no
 
 CC					:=	gcc -g3
 GEN					:=	"Generation in mode"

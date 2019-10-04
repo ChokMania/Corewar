@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 16:47:27 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/04 12:08:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,5 @@ void		ft_cycle_to_die(t_vm *vm)
 		&& !vm->option_visu_d
 		? ft_printf("Cycle to die is now %d\n", vm->cycle_to_die) : 0;
 	vm->option_visu == 1 ? refresh_cycle_to_die(vm) : 0;
-	vm->option_visu == 1 ? refresh_live(vm, 1) : 0;
 	ft_cdt_suite(vm);
 }

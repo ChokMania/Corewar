@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:24:59 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:38:27 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 12:15:50 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ static void	exec_lld(t_vm *vm, unsigned int arg_value[3]
 {
 	int		i;
 
-	i = -arg_value[0] + (arg_size[0] + arg_size[1]) - 1;
 	if (arg_size[0] == T_DIR)
 		vm->proc->r[arg_value[1]] = arg_value[0];
-	else if (arg_size[0] == T_IND)
+	else if (arg_size[0] == T_IND && (arg_size[0] = 2))
 	{
-		i = vm->proc->pc - i;
+		i = vm->proc->pc - arg_size[0] - arg_size[1] - 1;
 		vm->proc->r[arg_value[1]] = vm->arena[i % MEM_SIZE][0] << 24
 			| vm->arena[(i + 1) % MEM_SIZE][0] << 16
 			| vm->arena[(i + 2) % MEM_SIZE][0] << 8

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lldi.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:07 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 13:41:56 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/04 14:24:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		op_lldi(t_vm *vm, unsigned int *pc)
 	&& arg_size[2] == T_REG)
 	{
 		exec_lldi(vm, arg_value, arg_size);
-		ft_visu_d_message(vm, "ldi");
+		ft_visu_d_message(vm, "lldi");
 	}
 	else
 		*pc = jump;

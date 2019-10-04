@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 11:49:53 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 14:07:34 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ static unsigned int	exec_sti(t_vm *vm, unsigned int arg_value[3],
 	else if (arg_size[1] == T_DIR)
 		index += arg_value[1];
 	else if (arg_size[1] == T_IND)
-	{
 		arg_size[1] = 2;
 		index += vm->arena[arg_value[1]][0] << 24
 			| vm->arena[arg_value[1] + 1][0] << 16
 			| vm->arena[arg_value[1] + 2][0] << 8
 			| vm->arena[arg_value[1] + 3][0];
-	}
 	if (arg_size[2] == T_REG)
 		index += vm->proc->r[arg_value[2]];
 	else if (arg_size[2] == T_DIR)

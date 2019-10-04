@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:34 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 13:36:36 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 14:00:39 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ static void	exec_and(t_vm *vm, unsigned int arg_value[3],
 	int		i;
 
 	realpc = vm->proc->pc - arg_size[0] - arg_size[1] - arg_size[2] - 1;
-	if (arg_size[0] == T_IND && (realpc -= 2) > -1 && arg_size[1] == T_IND)
+	if (arg_size[0] == T_IND)
+		realpc -= 2;
+	if (arg_size[1] == T_IND)
 		realpc -= 2;
 	i = -1;
 	while (++i < 2)

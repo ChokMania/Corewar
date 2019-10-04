@@ -2,10 +2,28 @@
 
 remove=1
 
+hexdump_file ()
+{
+	if [ ! -e $fichier ]
+	then
+		break;
+	else
+		echo "Test Numero : $j"
+		./asm $fichier > /dev/null
+		name=${fichier%.s*}
+		name+=.cor
+		./corewar $name -d $CYCLE > notre
+		./vm_champs/corewar $name -d $CYCLE > reel
+		diff notre reel
+		echo "$name\n";
+		if [ $remove -eq 1 ]; then rm -f notre reel; fi
+	fi
+}
+
 test_file_error () {
 	echo "Test Numero : $i"
 	echo "\033[33mNotre ASM\033[0m"
-	./asm $fichier
+	./asm $fichier > /dev/null
 	name=${fichier%.s*}
 	name+=.cor
 	if [ -e $name ]; then fail="KO"; else fail=""; fi
@@ -70,7 +88,8 @@ do
 	clear
 	echo " ---------------------------------"
 	echo "| 1.Test_Error 3.Test_Valide_2 |\n
-		| 2.Test_Valid 0.Exit |" | column -t
+		| 2.Test_Valid 4.Own_file |\n
+		| 5.Diretory 0.Exit |" | column -t
 	echo " ---------------------------------"
 	read INPUT
 	case $INPUT in
@@ -101,6 +120,27 @@ do
 					for fichier in ./vm_champs/valid2/*.s
 					do
 						test_file_valid
+						j=$((j+1))
+					done 
+					read -p "Appuez sur Return pour continuer...";;
+				4)
+					clear
+					make -sj
+					j=1
+					read -p "File que tu veux test : " -e fichier
+					read -p "Afficher le cycle : " CYCLE
+					hexdump_file
+					read -p "Appuez sur Return pour continuer...";;
+				5)
+					clear
+					make -sj
+					j=1
+					read -p "Dossier que tu veux test : " -e directory
+					directory+=*.s
+					read -p "Afficher le cycle : " CYCLE
+					for fichier in $directory
+					do
+						hexdump_file
 						j=$((j+1))
 					done 
 					read -p "Appuez sur Return pour continuer...";;

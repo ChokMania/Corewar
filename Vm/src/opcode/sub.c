@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:26:04 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/02 14:38:18 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 15:12:22 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void		op_sub(t_vm *vm, unsigned int *pc)
 
 	(*pc) = (*pc + 1) % MEM_SIZE;
 	jump = *pc;
-	jump += recup_opc(vm->arena[*pc][0], arg_size, 2, 3) % MEM_SIZE;
-	if (ft_opcode(vm, arg_value, arg_size, 2)
+	jump += recup_opc(vm->arena[*pc][0], arg_size, 4, 3) % MEM_SIZE;
+	if (ft_opcode(vm, arg_value, arg_size, 4)
 	&& arg_size[0] == T_REG && arg_size[1] == T_REG && arg_size[2] == T_REG)
 	{
 		exec_sub(vm, arg_value);

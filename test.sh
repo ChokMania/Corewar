@@ -30,7 +30,7 @@ do
 	clear
 
 	./corewar $champ1 -d $INPUT > test1
-	./vm_champs/corewar $cham1 -d $INPUT > test2
+	./vm_champs/corewar $champ1 -d $INPUT > test2
 	diff test1 test2 | cat -e
 	echo "\$$champ1 OK"
 

@@ -1,42 +1,8 @@
 .name "zjmp"
 .comment "JUMP JUMP JUMP"
 
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-st r1, 96
-loop:
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
-live %1
+
+ld %167772160, r1
+st r1, 11
+live %0
+add r1, r1, r1

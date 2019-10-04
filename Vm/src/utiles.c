@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:32:36 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 12:08:47 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 14:43:11 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void		ft_cycle_to_die(t_vm *vm)
 		current = current->next;
 	vm->total_to_die += vm->cycle_to_die;
 	vm->nb_check_cycle++;
-	if (i >= NBR_LIVE || vm->nb_check_cycle == MAX_CHECKS)
+	if (i > NBR_LIVE || vm->nb_check_cycle == MAX_CHECKS)
 	{
 		vm->cycle_to_die = CYCLE_DELTA > vm->cycle_to_die
 			? 0 : vm->cycle_to_die - CYCLE_DELTA;

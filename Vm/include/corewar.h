@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:17:11 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 11:49:11 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 15:59:10 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,18 @@
 # define BACK_MAG			"\033[45m"
 # define BACK_CYA			"\033[46m"
 
-# define EXIT_DUMP			20
-# define ERROR_LD			1
-# define ERROR_ST			2
-# define ERROR_AND			3
-# define ERROR_XOR			4
-# define ERROR_LLD			5
-# define ERROR_LDI			6
-# define ERROR_STI			7
-# define ERROR_ARG			8
-# define ERROR_LLDI			9
-# define ERROR_OPEN			10
-# define ERROR_READ			11
-# define ERROR_CLOSE		12
-# define ERROR_MAGIC		13
-# define ERROR_LABEL		14
-# define ERROR_MALLOC		21
-# define ERROR_OPTION		15
-# define ERROR_NB_LIVE		16
-# define ERROR_NAME_LEN		17
-# define ERROR_COMM_LEN		18
-# define ERROR_PROG_SIZE	19
+# define ERROR_OPEN			0
+# define ERROR_READ			1
+# define ERROR_CLOSE		2
+# define ERROR_MAGIC		3
+# define ERROR_LABEL		4
+# define ERROR_OPTION		5
+# define ERROR_NB_LIVE		6
+# define ERROR_NAME_LEN		7
+# define ERROR_COMM_LEN		8
+# define ERROR_PROG_SIZE	9
+# define EXIT_DUMP			10
+# define ERROR_MALLOC		11
 
 typedef struct	s_proc
 {

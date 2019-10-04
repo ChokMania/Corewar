@@ -3,39 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anmauffr <anmauffr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:57 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/03 16:06:48 by anmauffr         ###   ########.fr       */
+/*   Updated: 2019/10/04 15:57:43 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		ft_fill_tab_err(char *tab_err[20])
+static void	ft_fill_tab_err(char *tab_err[12])
 {
-	tab_err[0] = "0";
-	tab_err[1] = "ld";
-	tab_err[2] = "st";
-	tab_err[3] = "and";
-	tab_err[4] = "xor";
-	tab_err[5] = "lld";
-	tab_err[6] = "ldi";
-	tab_err[7] = "sti";
-	tab_err[8] = "arg";
-	tab_err[9] = "lldi";
-	tab_err[10] = "open";
-	tab_err[11] = "read";
-	tab_err[12] = "close";
-	tab_err[13] = "magic";
-	tab_err[14] = "label";
-	tab_err[15] = "Bad utilisation -> Options";
-	tab_err[16] = "nb live";
-	tab_err[17] = "name len";
-	tab_err[18] = "comm len";
-	tab_err[19] = "Size of the program";
-	tab_err[20] = "end dump option";
-	tab_err[21] = "malloc";
+	tab_err[0] = "open";
+	tab_err[1] = "read";
+	tab_err[2] = "close";
+	tab_err[3] = "magic";
+	tab_err[4] = "label";
+	tab_err[5] = "Bad utilisation -> Options";
+	tab_err[6] = "nb live";
+	tab_err[7] = "name len";
+	tab_err[8] = "comm len";
+	tab_err[9] = "Size of the program";
+	tab_err[10] = "end dump option";
+	tab_err[11] = "malloc";
 }
 
 void		ft_error(int err, int nb_line, t_vm *vm)

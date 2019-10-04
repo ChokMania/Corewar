@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:07 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 14:30:41 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 15:25:29 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	exec_lldi(t_vm *vm, unsigned int arg_value[3],
 	if (arg_size[0] == T_REG)
 		index += vm->proc->r[arg_value[0]];
 	else if (arg_size[0] == T_IND && (arg_size[0] = 2))
-			index += vm->arena[arg_value[0]][0] << 24
+		index += vm->arena[arg_value[0]][0] << 24
 			| vm->arena[arg_value[0] + 1][0] << 16
 			| vm->arena[arg_value[0] + 2][0] << 8
 			| vm->arena[arg_value[0] + 3][0];
@@ -32,7 +32,8 @@ static void	exec_lldi(t_vm *vm, unsigned int arg_value[3],
 		index += vm->proc->r[arg_value[1]];
 	else
 		index += arg_value[1];
-	realpc = (vm->proc->pc - arg_size[0] - arg_size[1] - arg_size[2] - 1) % MEM_SIZE;
+	realpc = (vm->proc->pc - arg_size[0] - arg_size[1] - arg_size[2] - 1)
+		% MEM_SIZE;
 	vm->proc->r[arg_value[2]] =
 		vm->arena[index][0] << 24
 		| vm->arena[index + 1][0] << 16

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:30 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 14:30:55 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 15:25:17 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	exec_ldi(t_vm *vm, unsigned int arg_value[3],
 	if (arg_size[0] == T_REG)
 		index += vm->proc->r[arg_value[0]];
 	else if (arg_size[0] == T_IND && (arg_size[0] = 2))
-			index += vm->arena[arg_value[0]][0] << 24
+		index += vm->arena[arg_value[0]][0] << 24
 			| vm->arena[arg_value[0] + 1][0] << 16
 			| vm->arena[arg_value[0] + 2][0] << 8
 			| vm->arena[arg_value[0] + 3][0];
@@ -41,7 +41,6 @@ static void	exec_ldi(t_vm *vm, unsigned int arg_value[3],
 		| vm->arena[idx_mod(realpc, index + 3)][0];
 	vm->proc->carry = vm->proc->r[arg_value[2]] == 0 ? 1 : 0;
 }
-
 
 void		op_ldi(t_vm *vm, unsigned int *pc)
 {

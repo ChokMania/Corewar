@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/28 10:25:16 by anmauffr          #+#    #+#             */
-/*   Updated: 2019/10/04 14:28:42 by judumay          ###   ########.fr       */
+/*   Updated: 2019/10/04 15:31:46 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,25 @@ static void			visual_sti(t_vm *vm, int index)
 	ft_visu_d_message(vm, "sti");
 }
 
+static void			exec_sti_suite(t_vm *vm, unsigned int index,
+	unsigned int arg_value[3])
+{
+	int				i;
+	unsigned int	tmp;
+
+	tmp = vm->proc->r[arg_value[0]];
+	i = 4;
+	while (--i >= 0)
+	{
+		vm->arena[(index + i) % MEM_SIZE][0] = tmp % 256;
+		vm->arena[(index + i) % MEM_SIZE][1] = vm->proc->n_champ;
+		tmp >>= 8;
+	}
+}
+
 static unsigned int	exec_sti(t_vm *vm, unsigned int arg_value[3],
 	unsigned int arg_size[3], unsigned int index)
 {
-	int	i;
-	unsigned int	tmp;
 	unsigned int	realpc;
 
 	index = 0;
@@ -56,14 +70,7 @@ static unsigned int	exec_sti(t_vm *vm, unsigned int arg_value[3],
 	realpc = (vm->proc->pc - (arg_size[0] + arg_size[1] + arg_size[2] + 1))
 		% MEM_SIZE;
 	index = idx_mod(realpc, index);
-	tmp = vm->proc->r[arg_value[0]];
-	i = 4;
-	while (--i >= 0)
-	{
-		vm->arena[(index + i) % MEM_SIZE][0] = tmp % 256;
-		vm->arena[(index + i) % MEM_SIZE][1] = vm->proc->n_champ;
-		tmp >>= 8;
-	}
+	exec_sti_suite(vm, index, arg_value);
 	return (index);
 }
 
